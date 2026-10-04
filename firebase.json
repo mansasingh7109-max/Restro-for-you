@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "restroforyou",
     "public": ".",
     "ignore": [
       "firebase.json",
