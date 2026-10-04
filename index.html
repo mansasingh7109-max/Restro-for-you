@@ -1,5 +1,6 @@
 <!doctype html>
-<html><head><style>
+<html><head>
+<style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -23,43 +24,44 @@
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RESTRO APKA</title>
 <style>
-body{margin:0;font-family:Poppins,Arial;background:#fff8e1} 
-.main-container{display:flex} 
-.left-sidebar{width:80px;background:linear-gradient(180deg,#ff9800,#e65100);position:fixed;height:100vh;left:0;top:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 4px} 
-.sidebar-btn{background:#ffcc80;padding:6px;width:68px;border-radius:12px;text-align:center;font-size:9px;font-weight:bold;text-decoration:none;color:#333;border:2px solid #ff9800} 
-.main-content{margin-left:80px;width:calc(100% - 80px);padding-bottom:70px} 
-.logo-wrap{text-align:center;padding:12px} 
-.logo-wrap h1{background:linear-gradient(90deg,#ff9800,#e91e63);color:#fff;padding:10px 20px;border-radius:10px;display:inline-block} 
-.banner{background:linear-gradient(90deg,#ff9800,#ff5722);color:#fff;text-align:center;padding:12px;margin:10px;border-radius:10px} 
-.search-bar{width:92%;margin:10px auto;background:#fff;display:flex;gap:5px;padding:8px;border-radius:10px} 
-.search-bar input{flex:1;padding:10px;border:1px solid #ddd;border-radius:8px} 
-.search-bar button{background:#e40046;color:#fff;border:none;border-radius:8px;padding:10px 14px;font-weight:bold} 
-.filter-section{background:#fff;width:92%;margin:10px auto;padding:10px;border-radius:10px} 
-.filter-section select{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px} 
-.categories{display:flex;gap:10px;overflow-x:auto;padding:10px;background:#fff;margin:10px;border-radius:10px} 
-.cat-item{min-width:75px;background:#fff8e1;border:1px solid #ffe0b2;padding:8px;border-radius:10px;text-align:center;cursor:pointer} 
-.cat-item img{width:45px;height:45px;border-radius:50%;object-fit:cover} 
-.cat-item p{font-size:11px;font-weight:600;margin-top:4px} 
-.section-title{display:flex;justify-content:space-between;padding:10px 15px;background:#fff;font-weight:bold;margin-top:10px} 
-.products{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px} 
-@media(min-width:768px){.products{grid-template-columns:1fr 1fr 1fr 1fr}} 
-.product-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1);border:1px solid #ffe0b2;position:relative} 
-.product-card img.main-img{width:100%;height:140px;object-fit:cover;display:block} 
-.product-info{padding:8px} 
-.product-info h3{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} 
-.price{color:#e91e63;font-weight:800} 
-.btns{display:flex;gap:5px;padding:6px} 
-.btns button{flex:1;border:none;padding:7px;border-radius:6px;color:#fff;font-weight:bold;font-size:11px;cursor:pointer} 
-.add{background:#e91e63} 
-.buy{background:#ff9800} 
-.bottom-nav{position:fixed;bottom:0;left:80px;right:0;display:flex;justify-content:space-around;padding:8px 0;background:linear-gradient(135deg,#ff9800,#f57c00)} 
-.nav-item{background:#ffcc80;color:#b71c1c;padding:6px 10px;border-radius:12px;font-weight:bold;font-size:11px;text-decoration:none;text-align:center;position:relative} 
+body{margin:0;font-family:Poppins,Arial;background:#fff8e1}
+.main-container{display:flex}
+.left-sidebar{width:80px;background:linear-gradient(180deg,#ff9800,#e65100);position:fixed;height:100vh;left:0;top:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 4px}
+.sidebar-btn{background:#ffcc80;padding:6px;width:68px;border-radius:12px;text-align:center;font-size:9px;font-weight:bold;text-decoration:none;color:#333;border:2px solid #ff9800}
+.main-content{margin-left:80px;width:calc(100% - 80px);padding-bottom:70px}
+.logo-wrap{text-align:center;padding:12px}
+.logo-wrap h1{background:linear-gradient(90deg,#ff9800,#e91e63);color:#fff;padding:10px 20px;border-radius:10px;display:inline-block}
+.banner{background:linear-gradient(90deg,#ff9800,#ff5722);color:#fff;text-align:center;padding:12px;margin:10px;border-radius:10px}
+.search-bar{width:92%;margin:10px auto;background:#fff;display:flex;gap:5px;padding:8px;border-radius:10px}
+.search-bar input{flex:1;padding:10px;border:1px solid #ddd;border-radius:8px}
+.search-bar button{background:#e40046;color:#fff;border:none;border-radius:8px;padding:10px 14px;font-weight:bold}
+.filter-section{background:#fff;width:92%;margin:10px auto;padding:10px;border-radius:10px}
+.filter-section select{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px}
+.categories{display:flex;gap:10px;overflow-x:auto;padding:10px;background:#fff;margin:10px;border-radius:10px}
+.cat-item{min-width:75px;background:#fff8e1;border:1px solid #ffe0b2;padding:8px;border-radius:10px;text-align:center;cursor:pointer}
+.cat-item img{width:45px;height:45px;border-radius:50%;object-fit:cover}
+.cat-item p{font-size:11px;font-weight:600;margin-top:4px}
+.section-title{display:flex;justify-content:space-between;padding:10px 15px;background:#fff;font-weight:bold;margin-top:10px}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+@media(min-width:768px){.products{grid-template-columns:1fr 1fr 1fr 1fr}}
+.product-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1);border:1px solid #ffe0b2;position:relative}
+.product-card img.main-img{width:100%;height:140px;object-fit:cover;display:block}
+.product-info{padding:8px}
+.product-info h3{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.price{color:#e91e63;font-weight:800}
+.btns{display:flex;gap:5px;padding:6px}
+.btns button{flex:1;border:none;padding:7px;border-radius:6px;color:#fff;font-weight:bold;font-size:11px;cursor:pointer}
+.add{background:#e91e63}
+.buy{background:#ff9800}
+.bottom-nav{position:fixed;bottom:0;left:80px;right:0;display:flex;justify-content:space-around;padding:8px 0;background:linear-gradient(135deg,#ff9800,#f57c00)}
+.nav-item{background:#ffcc80;color:#b71c1c;padding:6px 10px;border-radius:12px;font-weight:bold;font-size:11px;text-decoration:none;text-align:center;position:relative}
 .cart-count{position:absolute;top:-5px;right:2px;background:#d32f2f;color:#fff;border-radius:50%;width:16px;height:16px;font-size:9px;display:flex;align-items:center;justify-content:center}
 .heart-btn{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.9);font-size:18px;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,0.2)}
 .heart-btn.active{color:#e91e63;background:#fff}
+.live-badge{font-size:9px;background:#10b981;color:#fff;padding:2px 6px;border-radius:10px;margin-left:6px}
 </style></head><body>
 <div class="main-container"><div class="left-sidebar"><div style="background:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center">👤</div><div style="color:#fff;font-size:9px;font-weight:bold;text-align:center">Customer<br>Login</div><a href="help.html" class="sidebar-btn">📞<br>HELP</a></div>
-<div class="main-content"><div class="logo-wrap"><h1>RESTRO APKA</h1><p style="font-size:11px;color:#555;font-weight:600">Online Food Order - Fast Delivery</p></div><div class="banner"><h3>🍕 Welcome to RESTRO APKA 🍔</h3><p style="font-size:11px">Best Food, Best Prices!</p></div>
+<div class="main-content"><div class="logo-wrap"><h1>RESTRO APKA</h1><p style="font-size:11px;color:#555;font-weight:600">Online Food Order - Fast Delivery <span id="liveTag" class="live-badge" style="display:none">LIVE</span></p></div><div class="banner"><h3>🍕 Welcome to RESTRO APKA 🍔</h3><p style="font-size:11px">Best Food, Best Prices!</p></div>
 <div class="search-bar"><input id="searchInput" placeholder="Search Momos, Pasta, Pizza..." oninput="doSearch()"><button onclick="doSearch()">Search</button></div>
 <div class="filter-section"><select id="categorySelect" onchange="doFilter()"><option value="">All Categories</option></select><div style="display:flex;gap:8px;margin-top:8px"><button onclick="doFilter()" style="flex:1;padding:8px;background:#4caf50;color:#fff;border:none;border-radius:6px;font-weight:bold">Apply</button><button onclick="clearF()" style="flex:1;padding:8px;background:#9e9e9e;color:#fff;border:none;border-radius:6px;font-weight:bold">Clear</button></div></div>
 <div class="categories" id="categoryList"></div>
@@ -67,9 +69,15 @@ body{margin:0;font-family:Poppins,Arial;background:#fff8e1}
 <div class="products" id="productGrid"></div></div></div>
 <div class="bottom-nav"><a href="index.html" class="nav-item">🏠<br>Home</a><div class="nav-item" onclick="location.href='category.html'">📱<br>Menu</div><a href="mychoice.html" class="nav-item" style="position:relative">❤️<br>Fav<span class="cart-count" id="favCount" style="display:none">0</span></a><div class="nav-item" onclick="location.href='cart.html'">🛒<br>Cart<span class="cart-count" id="cartCount">0</span></div><a href="orders.html" class="nav-item">📦<br>Orders</a></div>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="secrets.js"></script>
+
 <script>
-// ✅ LINE 40 PE YE HAI - YAHI EDIT KARNA HAI - CATEGORY + IMAGE
-const MY_CATEGORIES = [
+// ✅ DEFAULT STATIC DATA
+let MY_CATEGORIES = [
   {name:"Momos", image:"https://images.unsplash.com/photo-1534422298391-e4f640380802?w=200"},
   {name:"Pasta", image:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=200"},
   {name:"Pizza", image:"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200"},
@@ -80,7 +88,7 @@ const MY_CATEGORIES = [
   {name:"Dessert", image:"https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200"}
 ];
 
-const MY_PRODUCTS = [
+let MY_PRODUCTS = [
   {id:"1", name:"Veg Momos 10pcs", price:149, category:"Momos", image:"https://images.unsplash.com/photo-1534422298391-e4f640380802?w=400"},
   {id:"2", name:"White Sauce Pasta", price:199, category:"Pasta", image:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400"},
   {id:"3", name:"Veg Cheese Pizza", price:299, category:"Pizza", image:"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400"},
@@ -98,7 +106,7 @@ const FAV_KEY = "restroMyChoice_v2";
 function renderCats(){
   let h="";
   MY_CATEGORIES.forEach(c=>{
-    h+=`<div class="cat-item" onclick="filterByCat('${c.name}')"><img src="${c.image}"><p>${c.name}</p></div>`;
+    h+=`<div class="cat-item" onclick="filterByCat('${c.name}')"><img src="${c.image}" onerror="this.src='https://via.placeholder.com/100?text=${c.name}'"><p>${c.name}</p></div>`;
   });
   document.getElementById('categoryList').innerHTML=h;
   let d='<option value="">All Categories</option>';
@@ -114,16 +122,16 @@ function isFav(id){
 function renderProds(list){
   let h="";
   list.forEach(p=>{
-    let heart = isFav(p.id) ? "❤️" : "🤍";
-    let activeClass = isFav(p.id) ? "active" : "";
+    let heart = isFav(p.id)? "❤️" : "🤍";
+    let activeClass = isFav(p.id)? "active" : "";
     h+=`<div class="product-card">
       <button id="heart-${p.id}" class="heart-btn ${activeClass}" onclick="toggleFav('${p.id}')">${heart}</button>
-      <img class="main-img" src="${p.image}" onclick="location.href='product.html?id=${p.id}'">
+      <img class="main-img" src="${p.image}" onclick="location.href='product.html?id=${p.id}'" onerror="this.src='https://via.placeholder.com/400?text=Food'">
       <div class="product-info"><h3>${p.name}</h3><div class="price">₹${p.price}</div></div>
       <div class="btns"><button class="add" onclick="addCart('${p.id}')">Add to Cart</button><button class="buy" onclick="addCart('${p.id}');location.href='cart.html'">Buy</button></div>
     </div>`;
   });
-  document.getElementById('productGrid').innerHTML=h||"No products";
+  document.getElementById('productGrid').innerHTML=h||"<p style='padding:20px;text-align:center'>No products - Admin se add karo</p>";
 }
 
 function filterByCat(c){ document.getElementById('categorySelect').value=c; renderProds(allProducts.filter(p=>p.category===c)); }
@@ -131,14 +139,13 @@ function doFilter(){ let c=document.getElementById('categorySelect').value; if(!
 function clearF(){ document.getElementById('categorySelect').value=""; document.getElementById('searchInput').value=""; renderProds(allProducts); }
 function doSearch(){ let q=document.getElementById('searchInput').value.toLowerCase(); renderProds(allProducts.filter(p=>p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q))); }
 
-function addCart(id){ 
-  let p=allProducts.find(x=>x.id===id); 
-  let cart=JSON.parse(localStorage.getItem(CART_KEY)||"[]"); 
-  let i=cart.findIndex(x=>x.id===id); 
-  if(i>-1) cart[i].qty++; else cart.push({...p,qty:1}); 
-  localStorage.setItem(CART_KEY,JSON.stringify(cart)); 
-  upd(); 
-  // toast
+function addCart(id){
+  let p=allProducts.find(x=>x.id===id);
+  let cart=JSON.parse(localStorage.getItem(CART_KEY)||"[]");
+  let i=cart.findIndex(x=>x.id===id);
+  if(i>-1) cart[i].qty++; else cart.push({...p,qty:1});
+  localStorage.setItem(CART_KEY,JSON.stringify(cart));
+  upd();
   let t=document.createElement('div'); t.innerText="✅ "+p.name+" Added to Cart"; t.style.cssText="position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:8px;z-index:9999;font-size:13px"; document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
 }
 
@@ -157,18 +164,49 @@ function toggleFav(id){
   localStorage.setItem(FAV_KEY, JSON.stringify(fav));
   upd();
 }
-
-function upd(){ 
-  let c=JSON.parse(localStorage.getItem(CART_KEY)||"[]"); 
+function upd(){
+  let c=JSON.parse(localStorage.getItem(CART_KEY)||"[]");
   document.getElementById('cartCount').innerText=c.reduce((s,i)=>s+(i.qty||1),0);
   let f=JSON.parse(localStorage.getItem(FAV_KEY)||"[]");
   let favEl=document.getElementById('favCount');
   favEl.innerText=f.length;
-  favEl.style.display = f.length>0 ? "flex" : "none";
+  favEl.style.display = f.length>0? "flex" : "none";
 }
 
 renderCats();
 renderProds(allProducts);
 upd();
+
+// ===== ✅ LIVE ADMIN CONNECTION =====
+(function connectAdmin(){
+  try{
+    if(typeof firebaseConfig === 'undefined'){ return; }
+    if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    db.collection("restro_categories").onSnapshot(snap=>{
+      if(!snap.empty){
+        let newCats=[];
+        snap.forEach(doc=>{ newCats.push(doc.data()); });
+        if(newCats.length>0){
+          MY_CATEGORIES = newCats;
+          document.getElementById('liveTag').style.display='inline-block';
+          renderCats();
+        }
+      }
+    });
+    db.collection("restro_products").onSnapshot(snap=>{
+      if(!snap.empty){
+        let newProds=[];
+        snap.forEach(doc=>{ newProds.push(doc.data()); });
+        if(newProds.length>0){
+          MY_PRODUCTS = newProds;
+          allProducts = [...newProds];
+          document.getElementById('liveTag').style.display='inline-block';
+          renderProds(allProducts);
+        }
+      }
+    });
+  }catch(e){ console.log("Live error", e.message); }
+})();
 </script>
-<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
+</body></html>
