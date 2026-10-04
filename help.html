@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="hi"><head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help Desk - RESTRO FOR YOU - V4 Single Option</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<style>*{box-sizing:border-box;font-family:Arial}body{background:#f1f3f6;margin:0}.card{background:white;padding:20px;border-radius:12px;max-width:850px;margin:15px auto;box-shadow:0 2px 10px rgba(0,0,0,.08)}</style>
+</head><body>
+<div class="card" style="background:linear-gradient(135deg,#ff6a00,#e40046);color:white;text-align:center">
+<h1 style="font-size:22px;margin:0">🍕 HELP DESK - RESTRO FOR YOU</h1>
+<p style="font-size:12px;opacity:.9;margin-top:6px">Online Food Order - Fast Delivery | 10 AM to 10 PM | 8769171078</p>
+<p style="font-size:11px;opacity:.8;margin-top:4px">V4 - Single Option - Only RESTRO FOR YOU</p>
+</div>
+
+<div class="card">
+<h2 style="color:#e40046;margin:0">📞 CUSTOMER CARE DETAIL - LIVE</h2>
+<p><b>CUSTOMER CARE NUMBER:</b> <span id="phone">8769171078</span></p>
+<p><b>Email:</b> <span id="email">santramarketshoppingmall@gmail.com</span></p>
+<p><b>WhatsApp:</b> <span id="whatsapp">8769171078</span></p>
+<p><b>Website:</b> restroforyou.web.app | mansasingh7109-max.github.io/Restro-for-you</p>
+
+<div style="text-align:left;margin:20px auto;padding:20px;background:#fffaf0;border-radius:12px;line-height:1.8;border:2px solid #ff9800">
+<h2 style="color:#ff6a00;text-align:center;margin-bottom:10px">🍕 RESTRO FOR YOU - Help & Support</h2>
+<p style="text-align:center;color:#666;font-size:13px;margin-bottom:15px">Barfi Special, Momos, Pasta, Pizza, Biryani, Thali, Burger, Drinks - Fast Delivery</p>
+
+<h3 style="color:#ff6a00;border-bottom:2px solid #ff9800;padding-bottom:6px">1. Quick Contact - RESTRO:</h3>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin:12px 0">
+<div style="flex:1;min-width:200px;padding:12px;background:#fff3e0;border-radius:8px"><b style="color:#ff6a00">🍔 Order Call</b><br>+91 8769171078<br><small>10 AM - 10 PM</small></div>
+<div style="flex:1;min-width:200px;padding:12px;background:#e8f5e8;border-radius:8px"><b style="color:#1e8449">💬 WhatsApp Order</b><br>+91 8769171078<br><small>24x7 Instant</small></div>
+<div style="flex:1;min-width:200px;padding:12px;background:#e3f2fd;border-radius:8px"><b style="color:#1976d2">📍 Live Menu</b><br>restroforyou.web.app<br><small>Barfi Special Live</small></div>
+</div>
+
+<h3 style="color:#ff6a00;border-bottom:2px solid #ff9800;padding-bottom:6px;margin-top:15px">2. FAQs - RESTRO FOR YOU:</h3>
+<div style="margin:10px 0;padding:10px;background:#fff8e1;border-left:4px solid #ff9800;border-radius:5px"><b>Q1. Order kaise kare?</b><br>Ans: restroforyou.web.app kholo → Category (Barfi Special, Momos) → Product Add to Cart → Buy pe WhatsApp → 30-45 min delivery!</div>
+<div style="margin:10px 0;padding:10px;background:#fff8e1;border-left:4px solid #ff9800;border-radius:5px"><b>Q2. Barfi Special kya hai?</b><br>Ans: Barfi special naryal barfi - Rs.300 - 10 pcs - Daily fresh - admin-restro-final.html se live add hota hai.</div>
+<div style="margin:10px 0;padding:10px;background:#fff8e1;border-left:4px solid #ff9800;border-radius:5px"><b>Q3. Delivery Charges?</b><br>Ans: 3KM tak FREE, uske baad Rs.20-30. Minimum order Rs.149.</div>
+<div style="margin:10px 0;padding:10px;background:#fff8e1;border-left:4px solid #ff9800;border-radius:5px"><b>Q4. Payment?</b><br>Ans: COD, UPI, PhonePe, Paytm - WhatsApp pe bill.</div>
+<div style="margin:10px 0;padding:10px;background:#fff8e1;border-left:4px solid #ff9800;border-radius:5px"><b>Q5. Menu live kaise add hota hai?</b><br>Ans: Admin panel admin-restro-final.html se - Choose File Base64 Instant - Firestore restro_products + restro_categories me - turant live website pe bina code change ke - No Storage upgrade needed.</div>
+
+<h3 style="color:#ff6a00;border-bottom:2px solid #ff9800;padding-bottom:6px;margin-top:15px">3. Service Areas:</h3>
+<p><b>Delivery:</b> 3KM radius + Local area<br><b>Time:</b> 10 AM - 10 PM Full Day<br><b>Cut-off:</b> 9:30 PM last order<br><b>Sunday:</b> Open Full Day</p>
+</div>
+
+<h3 style="color:#ff6b35;border-bottom:2px solid #1e8449;padding-bottom:6px;margin-top:15px">4. Complaint Process:</h3>
+<p style="font-size:13px;line-height:1.6">Step 1: WhatsApp 8769171078 pe Order ID bhejo<br>Step 2: 2 ghante me call<br>Step 3: 24 ghante me solution<br>Grievance Officer: Santraj | 8769171078 | santramarketshoppingmall@gmail.com</p>
+
+<p style="margin-top:15px;padding:12px;background:#e8f5e8;border-radius:8px;text-align:center"><b>Abhi bhi help chahiye?</b><br><a href="https://wa.me/918769171078?text=Help%20needed%20for%20RESTRO%20FOR%20YOU%20-%20Barfi%20Special" style="display:inline-block;margin-top:8px;padding:10px 25px;background:#25d366;color:white;text-decoration:none;border-radius:8px;font-weight:bold">💬 Chat on WhatsApp Now</a></p>
+
+<p style="text-align:center;margin-top:15px;font-size:11px;color:#999">Last Updated: 4 Oct 2026 | V4 Single Option RESTRO FOR YOU | Barfi Special Live<br>RESTRO FOR YOU Help Desk - Best Food Best Price ❤️</p>
+
+<div style="text-align:center;margin-top:12px"><a href="company-details.html" style="background:#e40046;color:white;padding:10px 22px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block">Company Details →</a> <a href="index.html" style="background:#10b981;color:white;padding:10px 22px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin-left:8px">🏠 Home</a></div>
+</div>
+
+<script>
+const firebaseConfig={apiKey:"AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",authDomain:"santramarketshoppingmall.firebaseapp.com",projectId:"santramarketshoppingmall",storageBucket:"santramarketshoppingmall.appspot.com",messagingSenderId:"398490252924",appId:"1:398490252924:web:d1b6348b549183b93b7bf9",measurementId:"G-ZW1ZR8HETY",databaseURL:"https://santramarketshoppingmall-default-rtdb.firebaseio.com/"};
+if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+var db=firebase.firestore();
+async function loadCompanyDetails(){
+  try{ const snap=await db.collection("settings").doc("company").get(); if(snap.exists){ const d=snap.data(); document.getElementById("phone").innerText=d.phone||"8769171078"; document.getElementById("email").innerText=d.email||"santramarketshoppingmall@gmail.com"; document.getElementById("whatsapp").innerText=d.whatsapp||d.phone||"8769171078"; } }catch(e){ console.log(e); }
+}
+loadCompanyDetails();
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
