@@ -22,97 +22,135 @@
 }
 </style>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Product - RESTRO FOR YOU - V45 Heart Visible + My Choice Connected</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<title>Product Details - RESTRO APKA - V51 Big Page - Orange Sidebar Clean</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <style>
-*{box-sizing:border-box;font-family:Poppins,Arial}body{background:#fffbeb;margin:0;padding-bottom:90px}
+*{box-sizing:border-box;font-family:Arial}body{background:#fffbeb;margin:0;padding-bottom:100px}
+.main-layout{display:flex;min-height:100vh}
+.left-sidebar{width:78px;min-width:78px;background:linear-gradient(180deg,#ff9800,#ff6a00);display:flex;flex-direction:column;align-items:center;padding:10px 6px;gap:14px;position:sticky;top:0;height:100vh;z-index:200}
+.sidebar-customer{background:white;border-radius:16px;width:62px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.sidebar-customer .icon{width:38px;height:38px;background:#fff3e0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.sidebar-customer span{font-size:9px;font-weight:bold;color:#ff6a00;margin-top:5px;text-align:center;line-height:1.1}
+.sidebar-help{background:#fff8e1;border-radius:16px;width:62px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;border:1.5px solid #ffe0b2}
+.sidebar-help span{font-size:9px;font-weight:bold;color:#333;margin-top:4px}
+.content-area{flex:1;min-width:0;background:#fffbeb}
 .header{background:linear-gradient(90deg,#ff9800,#e40046);color:white;padding:12px 15px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
-.back-btn{background:none;border:none;color:white;font-size:22px;cursor:pointer}
-.header h1{font-size:14px;font-weight:bold;flex:1}
-.card{background:white;margin:12px;border-radius:14px;padding:0;box-shadow:0 4px 12px rgba(0,0,0,.08);overflow:hidden;position:relative;border:1px solid #ffe0b2}
-/* ✅ HEART BUTTON - TOP RIGHT - VISIBLE FIX */
-.heart-btn-top{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);font-size:24px;cursor:pointer;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;transition:transform .15s}
-.heart-btn-top:active{transform:scale(1.2)}
-.heart-btn-top.active{background:#fff0f5;color:#e40046;border:1.5px solid #e40046}
-.product-img{width:100%;max-height:420px;object-fit:cover;cursor:zoom-in;display:block}
-.details{padding:14px}
-.price{color:#e40046;font-weight:800;font-size:26px;margin:8px 0}
-.old-price{text-decoration:line-through;color:#999;font-size:15px;margin-left:8px}
-.live-badge{font-size:10px;background:#10b981;color:#fff;padding:3px 8px;border-radius:20px;margin-left:8px}
-.btn-row{display:flex;gap:10px;margin-top:14px}
-.btn-cart{flex:1;background:white;border:2px solid #ff6a00;color:#ff6a00;padding:14px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer}
-.btn-buy{flex:1;background:linear-gradient(90deg,#ff6a00,#e40046);color:white;border:none;padding:14px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer}
-.action-btns{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;background:white;padding:10px;display:flex;gap:8px;border-top:1.5px solid #eee;box-shadow:0 -2px 12px rgba(0,0,0,0.08);z-index:999}
-.btn-wish{width:50px;min-width:50px;height:50px;background:#fff0f5;border:1.5px solid #ffe0b2;border-radius:12px;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.card{background:white;margin:12px;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.08);border:1px solid #ffe0b2;position:relative}
+.big-img{width:100%;max-height:58vh;object-fit:cover;cursor:zoom-in;display:block}
+.heart-top{position:absolute;top:16px;right:16px;width:52px;height:52px;border-radius:50%;border:none;background:rgba(255,255,255,.96);font-size:28px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:10;display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.heart-top:active{transform:scale(1.15)}
+.heart-top.active{background:#fff0f5;color:#e40046;border:2px solid #e40046}
+.details{padding:18px}
+.price{color:#e40046;font-weight:800;font-size:30px}
+.old-price{text-decoration:line-through;color:#999;font-size:17px;margin-left:10px}
+.badge-live{background:#10b981;color:white;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:bold;margin-left:10px}
+.btn-row{display:flex;gap:12px;margin-top:18px}
+.btn-cart{flex:1;background:white;border:2px solid #ff6a00;color:#ff6a00;padding:18px;border-radius:14px;font-weight:700;font-size:15px;cursor:pointer}
+.btn-buy{flex:1;background:linear-gradient(90deg,#ff6a00,#e40046);color:white;border:none;padding:18px;border-radius:14px;font-weight:700;font-size:15px;cursor:pointer}
+.action-btns{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;background:white;padding:14px;display:flex;gap:12px;border-top:1.5px solid #eee;box-shadow:0 -4px 18px rgba(0,0,0,.1);z-index:999;margin-left:39px}
+@media(max-width:768px){.action-btns{margin-left:0}}
+.btn-wish{width:56px;min-width:56px;height:56px;background:#fff0f5;border:1.5px solid #ffe0b2;border-radius:14px;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .btn-wish.active{background:#ffebee;border-color:#e40046;color:#e40046}
-.btn-cart-fixed{flex:1;padding:14px;background:white;border:2px solid #ff6a00;color:#ff6a00;border-radius:10px;font-weight:700;cursor:pointer}
-.btn-buy-fixed{flex:1;padding:14px;background:linear-gradient(90deg,#ff6a00,#e40046);color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer}
-#imageModal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:99999;align-items:center;justify-content:center}
+#imageModal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:99999;align-items:center;justify-content:center}
 #imageModal.show{display:flex}
-#imageModal img{max-width:95%;max-height:90vh;border-radius:12px}
-.modal-close{position:absolute;top:15px;right:15px;background:black;color:white;border:2px solid white;width:44px;height:44px;border-radius:50%;font-size:24px;cursor:pointer}
+@media(max-width:768px){.left-sidebar{width:0;min-width:0;overflow:hidden;padding:0}.main-layout{flex-direction:column}}
 </style>
 </head><body>
-<div class="header"><button class="back-btn" onclick="history.back()">←</button><h1>🍕 Product Details - V45 Heart Visible</h1><button onclick="location.href='index.html'" style="background:black;color:#0f0;padding:5px 10px;border-radius:6px;font-size:11px;border:none">Home</button></div>
-<div id="productDetail"></div>
-<div style="text-align:center;padding:20px"><button onclick="location.href='index.html'" style="background:#ff6a00;color:white;padding:12px 24px;border-radius:10px;border:none;font-weight:bold">🏠 Back to Menu - Restro For You</button></div>
+<div class="main-layout">
+<div class="left-sidebar">
+<div class="sidebar-customer" onclick="location.href='customer-login.html'"><div class="icon">👤</div><span>Customer<br>Login</span></div>
+<div class="sidebar-help" onclick="location.href='help.html'"><div style="font-size:20px">📞</div><span>HELP</span></div>
+<div style="margin-top:auto;padding:14px 0;display:flex;flex-direction:column;align-items:center;gap:8px">
+<div style="width:42px;height:42px;background:rgba(255,255,255,0.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px">🍕</div>
+</div>
+</div>
+<div class="content-area">
+<div class="header"><button onclick="history.back()" style="background:none;border:none;color:white;font-size:26px">←</button><h1 id="headerTitle" style="font-size:15px;font-weight:bold;flex:1">🍕 Product Details - Big Page</h1><button onclick="location.href='index.html'" style="background:black;color:#0f0;padding:7px 12px;border-radius:8px;font-size:11px;border:none;font-weight:bold">Home</button></div>
+<div id="productDetail"><div style="padding:70px 20px;text-align:center;color:#ff6a00;font-weight:bold;font-size:14px">⏳ Loading Big Product Page...<br>Barfi, Sandwich, Momos, Pizza - Big Page<br>Orange Sidebar Clean - No V Text</div></div>
+<div style="text-align:center;padding:24px"><button onclick="location.href='index.html'" style="background:linear-gradient(90deg,#ff6a00,#e40046);color:white;padding:14px 28px;border-radius:12px;border:none;font-weight:bold;font-size:14px">🏠 Back to Menu - Restro For You</button></div>
+<div style="height:90px"></div>
+</div>
+</div>
 
 <div class="action-btns" id="actionBtns" style="display:none">
 <button class="btn-wish" id="wishBtn">🤍</button>
-<button class="btn-cart-fixed" id="cartBtn">🛒 ADD TO CART</button>
-<button class="btn-buy-fixed" id="buyBtn">⚡ BUY NOW</button>
+<button class="btn-cart" id="cartBtn">🛒 ADD TO CART</button>
+<button class="btn-buy" id="buyBtn">⚡ BUY NOW</button>
 </div>
 
-<div id="imageModal" onclick="if(event.target.id==='imageModal') closeModal()"><button class="modal-close" onclick="closeModal()">×</button><img id="modalImg" src=""></div>
+<div id="imageModal" onclick="if(event.target.id==='imageModal') closeModal()"><button onclick="closeModal()" style="position:absolute;top:18px;right:18px;background:black;color:white;border:2px solid white;width:48px;height:48px;border-radius:50%;font-size:26px;cursor:pointer">×</button><img id="modalImg" src="" style="max-width:96%;max-height:92vh;border-radius:14px;object-fit:contain"></div>
 
 <script>
-// ✅ SAME KEYS - Connected to index V44 + cart V42
+const firebaseConfig={apiKey:"AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",authDomain:"santramarketshoppingmall.firebaseapp.com",projectId:"santramarketshoppingmall",storageBucket:"santramarketshoppingmall.appspot.com",messagingSenderId:"398490252924",appId:"1:398490252924:web:d1b6348b549183b93b7bf9",databaseURL:"https://santramarketshoppingmall-default-rtdb.firebaseio.com/"};
+if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
 const CART_KEY="restroCart_v2";
 const FAV_KEY="restroMyChoice_v2";
+const BLOCKED=['soap','frock','dress','saree','sari','kurti','lehenga','gown','jeans','shirt','fashion','footwear','shoe','bag','handbag','jewellery','jewelry'];
 
-const products=[
-{id:'momos_001',name:'Veg Momos 10pcs',price:149,category:'Momos',mrp:199,image:'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=600',desc:'Delicious Veg Momos - 10 pcs - Spicy chutney - 30 min delivery - Restro For You - Barfi Special Live'},
-{id:'pasta_001',name:'White Sauce Pasta',price:199,category:'Pasta',mrp:249,image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600',desc:'Creamy White Sauce Pasta - Fresh - Restro Special - 30 min delivery'},
-{id:'pizza_001',name:'Veg Cheese Pizza',price:299,category:'Pizza',mrp:399,image:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600',desc:'Veg Cheese Pizza - Extra cheese - 30 min delivery - Best seller - Restro For You - Barfi Special'},
-{id:'biryani_001',name:'Chicken Biryani Full',price:349,category:'Biryani',mrp:449,image:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=600',desc:'Chicken Biryani Full - Hyderabadi - Restro Special - Fast delivery'},
-{id:'thali_001',name:'Paneer Thali',price:249,category:'Thali',mrp:299,image:'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600',desc:'Paneer Thali - Full meal - Roti, Rice, Dal, Paneer - Restro For You'},
-{id:'burger_001',name:'Veg Burger Combo',price:149,category:'Burger',mrp:199,image:'https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=600',desc:'Veg Burger Combo - Burger + Fries + Coke - Restro For You'},
-{id:'coffee_001',name:'Cold Coffee',price:99,category:'Drinks',mrp:129,image:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600',desc:'Cold Coffee - Chilled - Fresh - Restro For You'},
-{id:'brownie_001',name:'Brownie',price:129,category:'Drinks',mrp:169,image:'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600',desc:'Chocolate Brownie - Sprinkles - Sweet - Barfi Special Live'}
+function getId(){let u=new URLSearchParams(location.search);return u.get('id')||u.get('productId')||'';}
+
+let allProducts=[
+{id:'barfi_001',name:'Kaju Barfi Special',price:300,mrp:350,category:'Barfi special',image:'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=800',desc:'Kaju Barfi Special - Barfi Special Live - 500gm - Fresh Mithai - Restro For You - Pilibanga - 30 Min Delivery'},
+{id:'sandwich_001',name:'Sandwich potato veg.',price:150,mrp:180,category:'Sandwich',image:'https://images.unsplash.com/photo-1521390188846-e2a3a97453a0?w=800',desc:'Sandwich potato veg. - Veg Grilled Sandwich - Cheese + Potato + Veggies - Grilled - Restro Special - 30 Min Delivery'},
+{id:'barfi_002',name:'Barfi naryal',price:250,mrp:300,category:'Barfi special',image:'https://images.unsplash.com/photo-1584847801423-852691e41bc7?w=800',desc:'Barfi naryal - Nariyal Barfi - Fresh - Coconut Sweet - Barfi Special - Restro For You'},
+{id:'momos_001',name:'Veg Momos 10pcs',price:149,mrp:199,category:'Momos',image:'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=800',desc:'Veg Momos 10pcs - Spicy chutney - 30 min delivery - Restro For You - Barfi Special Live'},
+{id:'pasta_001',name:'White Sauce Pasta',price:199,mrp:249,category:'Pasta',image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=800',desc:'White Sauce Pasta - Creamy - Restro Special'},
+{id:'pizza_001',name:'Veg Cheese Pizza',price:299,mrp:399,category:'Pizza',image:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800',desc:'Veg Cheese Pizza - Extra cheese - Best seller - 30 min delivery'},
+{id:'biryani_001',name:'Chicken Biryani Full',price:349,mrp:449,category:'Biryani',image:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=800',desc:'Chicken Biryani Full - Hyderabadi - Restro Special'},
+{id:'thali_001',name:'Paneer Thali',price:249,mrp:299,category:'Thali',image:'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=800',desc:'Paneer Thali - Full meal'},
+{id:'burger_001',name:'Veg Burger Combo',price:149,mrp:199,category:'Burger',image:'https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=800',desc:'Veg Burger Combo'},
+{id:'oil_001',name:'Mustard Desi oil - 1',price:600,mrp:650,category:'Food vegetarian tiffin service',image:'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=800',desc:'Mustard Desi oil - 1 - Pure - Food'},
+{id:'tiffin_001',name:'Indian vegetarian food tiffin service',price:100,mrp:120,category:'Food vegetarian tiffin service',image:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800',desc:'Indian vegetarian food tiffin service - Food'}
 ];
+
+let id=getId();
+let p=allProducts.find(x=>x.id===id) || allProducts.find(x=>id.toLowerCase().includes(x.name.split(' ')[0].toLowerCase())) || allProducts[0];
+
+async function loadFromFirebase(){
+  try{
+    let list=[];
+    let snap=await db.collection('products').limit(200).get();
+    snap.forEach(doc=>{let d=doc.data(); if(d.name) list.push({id:doc.id,...d});});
+    try{let snap2=await db.collection('restro_products').limit(200).get(); snap2.forEach(doc=>{let d=doc.data(); if(d.name) list.push({id:doc.id,...d});});}catch(e){}
+    let found=list.find(x=>x.id===id || (x.name&&id.toLowerCase().includes(x.name.split(' ')[0].toLowerCase())));
+    if(found){ p={...found,image:found.image||found.imageUrl}; }
+    render();
+  }catch(e){render();}
+}
 
 function getFav(){try{return JSON.parse(localStorage.getItem(FAV_KEY)||'[]');}catch(e){return [];}}
 function isFav(id){return getFav().some(f=>f.id===id);}
 function saveFav(arr){localStorage.setItem(FAV_KEY,JSON.stringify(arr));}
 
-function getId(){let u=new URLSearchParams(location.search);return u.get('id')||u.get('productId')||'';}
-let id=getId();
-let p=products.find(x=>x.id===id) || products.find(x=>id.toLowerCase().includes(x.name.split(' ')[0].toLowerCase())) || products[2];
-
 function render(){
   let heart=isFav(p.id)?'❤️':'🤍';
   let activeClass=isFav(p.id)?'active':'';
   let discount=p.mrp?Math.round(((p.mrp-p.price)/p.mrp)*100):0;
+  document.getElementById('headerTitle').innerText=p.name+' - Big Page';
   document.getElementById('productDetail').innerHTML=`
   <div class="card">
-    <!-- ✅ HEART BUTTON - VISIBLE ON IMAGE TOP RIGHT -->
-    <button id="heartTopBtn" class="heart-btn-top ${activeClass}" onclick="toggleFav()">${heart}</button>
-    <img class="product-img" src="${p.image}" alt="${p.name}" onclick="openModal('${p.image}')" onerror="this.src='https://via.placeholder.com/600?text=Restro+For+You'">
+    <button id="heartTop" class="heart-top ${activeClass}" onclick="toggleFav()">${heart}</button>
+    <img class="big-img" src="${p.image||p.imageUrl}" alt="${p.name}" onclick="openModal('${p.image||p.imageUrl}')" onerror="this.src='https://via.placeholder.com/800?text=Restro+For+You'">
     <div class="details">
-      <h2 style="font-size:20px;font-weight:bold">${p.name} <span class="live-badge">LIVE V45</span></h2>
-      <div style="font-size:12px;color:#666;margin:4px 0">Category: ${p.category} | 30 Min Delivery | Restro For You</div>
-      <div style="display:flex;align-items:center;margin:8px 0"><span class="price">₹${p.price}</span><span class="old-price">₹${p.mrp}</span>${discount>0?`<span style="background:#10b981;color:white;padding:3px 8px;border-radius:6px;font-size:11px;margin-left:8px">${discount}% OFF</span>`:''}</div>
-      <p style="font-size:13px;line-height:1.6;color:#444;margin-top:10px">${p.desc}</p>
+      <h2 style="font-size:24px;font-weight:bold;line-height:1.2">${p.name} <span style="background:#10b981;color:white;padding:5px 12px;border-radius:20px;font-size:11px;vertical-align:middle">BIG PAGE</span></h2>
+      <div style="font-size:12px;color:#666;margin:8px 0">Category: ${p.category} | 30 Min Delivery | Restro For You | Food Any - No Soap/Frock</div>
+      <div style="display:flex;align-items:center;margin:12px 0"><span class="price">₹${p.price}</span>${p.mrp?`<span class="old-price">₹${p.mrp}</span>`:''}${discount>0?`<span class="badge-live">${discount}% OFF</span>`:''}</div>
+      <p style="font-size:14px;line-height:1.7;color:#444;margin-top:14px;background:#fffbeb;padding:12px;border-radius:10px;border:1px dashed #ffe0b2">${p.desc||p.description||'Fresh - Restro For You - Best Food Best Prices - 30 Min Delivery'}</p>
+      <div style="margin-top:16px;padding:14px;background:#fff8e1;border-radius:12px;border:1px solid #ffe0b2;font-size:12px;line-height:1.9">
+        <div>✅ 30 Min Delivery - Restro For You - Pilibanga</div>
+        <div>✅ Fresh Food - Barfi, Sandwich, Momos, Pizza, Biryani, Thali, Burger</div>
+        <div>✅ Cash on Delivery Available - COD</div>
+        <div>✅ WhatsApp Order: 8769171078</div>
+        <div>✅ Heart ❤️ dabao → My Choice me save → Cart → Fav me dekho</div>
+        <div>✅ Big Page - Photo pe click → Fullscreen preview - No 404</div>
+        <div>✅ Orange Sidebar Clean - No V Text - Left me Customer Login + HELP</div>
+      </div>
       <div class="btn-row">
         <button class="btn-cart" onclick="addToCart()">🛒 Add to Cart - Restro</button>
         <button class="btn-buy" onclick="buyNow()">⚡ Buy Now - 30 Min</button>
-      </div>
-      <div style="margin-top:12px;padding:10px;background:#fff8e1;border-radius:8px;border:1px dashed #ff9800;font-size:12px">
-        <div>✅ 30 Min Delivery - Restro For You</div>
-        <div>✅ Cash on Delivery Available</div>
-        <div>✅ My Choice me add karo - Heart dabao ❤️</div>
       </div>
     </div>
   </div>
@@ -124,7 +162,7 @@ function render(){
 function toggleFav(){
   let fav=getFav();
   let idx=fav.findIndex(x=>x.id===p.id);
-  let topBtn=document.getElementById('heartTopBtn');
+  let topBtn=document.getElementById('heartTop');
   if(idx>-1){
     fav.splice(idx,1);
     if(topBtn){topBtn.innerText='🤍';topBtn.classList.remove('active');}
@@ -132,37 +170,32 @@ function toggleFav(){
   }else{
     fav.push({...p});
     if(topBtn){topBtn.innerText='❤️';topBtn.classList.add('active');}
-    showToast('❤️ Added to My Choice - Restro For You - Cart My Choice me dekho');
+    showToast('❤️ Added to My Choice - Cart Fav me dekho');
   }
   saveFav(fav);
   updateWishBottom();
 }
-
 function updateWishBottom(){
   let btn=document.getElementById('wishBtn');
   if(!btn) return;
-  if(isFav(p.id)){btn.innerText='❤️';btn.classList.add('active');}else{btn.innerText='🤍';btn.classList.remove('active');}
+  btn.innerText=isFav(p.id)?'❤️':'🤍';
+  if(isFav(p.id)) btn.classList.add('active'); else btn.classList.remove('active');
 }
-
 function addToCart(){
   let cart=JSON.parse(localStorage.getItem(CART_KEY)||'[]');
   let idx=cart.findIndex(x=>x.id===p.id);
   if(idx>-1){cart[idx].qty=(cart[idx].qty||1)+1;}else{cart.push({...p,qty:1});}
   localStorage.setItem(CART_KEY,JSON.stringify(cart));
   localStorage.setItem('restro_cart',JSON.stringify(cart));
-  localStorage.setItem('santra_cart',JSON.stringify(cart));
-  showToast('✅ Added to Cart - '+p.name+' - Restro For You');
+  showToast('✅ Added to Cart - '+p.name);
 }
 function buyNow(){addToCart();location.href='cart.html';}
-
 function openModal(src){document.getElementById('modalImg').src=src;document.getElementById('imageModal').classList.add('show');}
 function closeModal(){document.getElementById('imageModal').classList.remove('show');}
-function showToast(m){let t=document.createElement('div');t.innerText=m;t.style.cssText='position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#ff6a00,#e40046);color:white;padding:12px 20px;border-radius:25px;z-index:99999;font-size:13px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.2)';document.body.appendChild(t);setTimeout(()=>t.remove(),2500);}
-
+function showToast(m){let t=document.createElement('div');t.innerText=m;t.style.cssText='position:fixed;bottom:120px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#ff6a00,#e40046);color:white;padding:14px 22px;border-radius:28px;z-index:99999;font-size:13px;font-weight:bold;box-shadow:0 6px 16px rgba(0,0,0,0.25)';document.body.appendChild(t);setTimeout(()=>t.remove(),2800);}
 document.getElementById('wishBtn').onclick=toggleFav;
 document.getElementById('cartBtn').onclick=addToCart;
 document.getElementById('buyBtn').onclick=buyNow;
-
-render();
+loadFromFirebase();
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
