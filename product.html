@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="hi"><head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product - RESTRO FOR YOU - V45 Heart Visible + My Choice Connected</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<style>
+*{box-sizing:border-box;font-family:Poppins,Arial}body{background:#fffbeb;margin:0;padding-bottom:90px}
+.header{background:linear-gradient(90deg,#ff9800,#e40046);color:white;padding:12px 15px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.back-btn{background:none;border:none;color:white;font-size:22px;cursor:pointer}
+.header h1{font-size:14px;font-weight:bold;flex:1}
+.card{background:white;margin:12px;border-radius:14px;padding:0;box-shadow:0 4px 12px rgba(0,0,0,.08);overflow:hidden;position:relative;border:1px solid #ffe0b2}
+/* ✅ HEART BUTTON - TOP RIGHT - VISIBLE FIX */
+.heart-btn-top{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);font-size:24px;cursor:pointer;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.heart-btn-top:active{transform:scale(1.2)}
+.heart-btn-top.active{background:#fff0f5;color:#e40046;border:1.5px solid #e40046}
+.product-img{width:100%;max-height:420px;object-fit:cover;cursor:zoom-in;display:block}
+.details{padding:14px}
+.price{color:#e40046;font-weight:800;font-size:26px;margin:8px 0}
+.old-price{text-decoration:line-through;color:#999;font-size:15px;margin-left:8px}
+.live-badge{font-size:10px;background:#10b981;color:#fff;padding:3px 8px;border-radius:20px;margin-left:8px}
+.btn-row{display:flex;gap:10px;margin-top:14px}
+.btn-cart{flex:1;background:white;border:2px solid #ff6a00;color:#ff6a00;padding:14px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer}
+.btn-buy{flex:1;background:linear-gradient(90deg,#ff6a00,#e40046);color:white;border:none;padding:14px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer}
+.action-btns{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;background:white;padding:10px;display:flex;gap:8px;border-top:1.5px solid #eee;box-shadow:0 -2px 12px rgba(0,0,0,0.08);z-index:999}
+.btn-wish{width:50px;min-width:50px;height:50px;background:#fff0f5;border:1.5px solid #ffe0b2;border-radius:12px;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.btn-wish.active{background:#ffebee;border-color:#e40046;color:#e40046}
+.btn-cart-fixed{flex:1;padding:14px;background:white;border:2px solid #ff6a00;color:#ff6a00;border-radius:10px;font-weight:700;cursor:pointer}
+.btn-buy-fixed{flex:1;padding:14px;background:linear-gradient(90deg,#ff6a00,#e40046);color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer}
+#imageModal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:99999;align-items:center;justify-content:center}
+#imageModal.show{display:flex}
+#imageModal img{max-width:95%;max-height:90vh;border-radius:12px}
+.modal-close{position:absolute;top:15px;right:15px;background:black;color:white;border:2px solid white;width:44px;height:44px;border-radius:50%;font-size:24px;cursor:pointer}
+</style>
+</head><body>
+<div class="header"><button class="back-btn" onclick="history.back()">←</button><h1>🍕 Product Details - V45 Heart Visible</h1><button onclick="location.href='index.html'" style="background:black;color:#0f0;padding:5px 10px;border-radius:6px;font-size:11px;border:none">Home</button></div>
+<div id="productDetail"></div>
+<div style="text-align:center;padding:20px"><button onclick="location.href='index.html'" style="background:#ff6a00;color:white;padding:12px 24px;border-radius:10px;border:none;font-weight:bold">🏠 Back to Menu - Restro For You</button></div>
+
+<div class="action-btns" id="actionBtns" style="display:none">
+<button class="btn-wish" id="wishBtn">🤍</button>
+<button class="btn-cart-fixed" id="cartBtn">🛒 ADD TO CART</button>
+<button class="btn-buy-fixed" id="buyBtn">⚡ BUY NOW</button>
+</div>
+
+<div id="imageModal" onclick="if(event.target.id==='imageModal') closeModal()"><button class="modal-close" onclick="closeModal()">×</button><img id="modalImg" src=""></div>
+
+<script>
+// ✅ SAME KEYS - Connected to index V44 + cart V42
+const CART_KEY="restroCart_v2";
+const FAV_KEY="restroMyChoice_v2";
+
+const products=[
+{id:'momos_001',name:'Veg Momos 10pcs',price:149,category:'Momos',mrp:199,image:'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=600',desc:'Delicious Veg Momos - 10 pcs - Spicy chutney - 30 min delivery - Restro For You - Barfi Special Live'},
+{id:'pasta_001',name:'White Sauce Pasta',price:199,category:'Pasta',mrp:249,image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600',desc:'Creamy White Sauce Pasta - Fresh - Restro Special - 30 min delivery'},
+{id:'pizza_001',name:'Veg Cheese Pizza',price:299,category:'Pizza',mrp:399,image:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600',desc:'Veg Cheese Pizza - Extra cheese - 30 min delivery - Best seller - Restro For You - Barfi Special'},
+{id:'biryani_001',name:'Chicken Biryani Full',price:349,category:'Biryani',mrp:449,image:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=600',desc:'Chicken Biryani Full - Hyderabadi - Restro Special - Fast delivery'},
+{id:'thali_001',name:'Paneer Thali',price:249,category:'Thali',mrp:299,image:'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600',desc:'Paneer Thali - Full meal - Roti, Rice, Dal, Paneer - Restro For You'},
+{id:'burger_001',name:'Veg Burger Combo',price:149,category:'Burger',mrp:199,image:'https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=600',desc:'Veg Burger Combo - Burger + Fries + Coke - Restro For You'},
+{id:'coffee_001',name:'Cold Coffee',price:99,category:'Drinks',mrp:129,image:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600',desc:'Cold Coffee - Chilled - Fresh - Restro For You'},
+{id:'brownie_001',name:'Brownie',price:129,category:'Drinks',mrp:169,image:'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600',desc:'Chocolate Brownie - Sprinkles - Sweet - Barfi Special Live'}
+];
+
+function getFav(){try{return JSON.parse(localStorage.getItem(FAV_KEY)||'[]');}catch(e){return [];}}
+function isFav(id){return getFav().some(f=>f.id===id);}
+function saveFav(arr){localStorage.setItem(FAV_KEY,JSON.stringify(arr));}
+
+function getId(){let u=new URLSearchParams(location.search);return u.get('id')||u.get('productId')||'';}
+let id=getId();
+let p=products.find(x=>x.id===id) || products.find(x=>id.toLowerCase().includes(x.name.split(' ')[0].toLowerCase())) || products[2];
+
+function render(){
+  let heart=isFav(p.id)?'❤️':'🤍';
+  let activeClass=isFav(p.id)?'active':'';
+  let discount=p.mrp?Math.round(((p.mrp-p.price)/p.mrp)*100):0;
+  document.getElementById('productDetail').innerHTML=`
+  <div class="card">
+    <!-- ✅ HEART BUTTON - VISIBLE ON IMAGE TOP RIGHT -->
+    <button id="heartTopBtn" class="heart-btn-top ${activeClass}" onclick="toggleFav()">${heart}</button>
+    <img class="product-img" src="${p.image}" alt="${p.name}" onclick="openModal('${p.image}')" onerror="this.src='https://via.placeholder.com/600?text=Restro+For+You'">
+    <div class="details">
+      <h2 style="font-size:20px;font-weight:bold">${p.name} <span class="live-badge">LIVE V45</span></h2>
+      <div style="font-size:12px;color:#666;margin:4px 0">Category: ${p.category} | 30 Min Delivery | Restro For You</div>
+      <div style="display:flex;align-items:center;margin:8px 0"><span class="price">₹${p.price}</span><span class="old-price">₹${p.mrp}</span>${discount>0?`<span style="background:#10b981;color:white;padding:3px 8px;border-radius:6px;font-size:11px;margin-left:8px">${discount}% OFF</span>`:''}</div>
+      <p style="font-size:13px;line-height:1.6;color:#444;margin-top:10px">${p.desc}</p>
+      <div class="btn-row">
+        <button class="btn-cart" onclick="addToCart()">🛒 Add to Cart - Restro</button>
+        <button class="btn-buy" onclick="buyNow()">⚡ Buy Now - 30 Min</button>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:#fff8e1;border-radius:8px;border:1px dashed #ff9800;font-size:12px">
+        <div>✅ 30 Min Delivery - Restro For You</div>
+        <div>✅ Cash on Delivery Available</div>
+        <div>✅ My Choice me add karo - Heart dabao ❤️</div>
+      </div>
+    </div>
+  </div>
+  `;
+  document.getElementById('actionBtns').style.display='flex';
+  updateWishBottom();
+}
+
+function toggleFav(){
+  let fav=getFav();
+  let idx=fav.findIndex(x=>x.id===p.id);
+  let topBtn=document.getElementById('heartTopBtn');
+  if(idx>-1){
+    fav.splice(idx,1);
+    if(topBtn){topBtn.innerText='🤍';topBtn.classList.remove('active');}
+    showToast('💔 Removed from My Choice');
+  }else{
+    fav.push({...p});
+    if(topBtn){topBtn.innerText='❤️';topBtn.classList.add('active');}
+    showToast('❤️ Added to My Choice - Restro For You - Cart My Choice me dekho');
+  }
+  saveFav(fav);
+  updateWishBottom();
+}
+
+function updateWishBottom(){
+  let btn=document.getElementById('wishBtn');
+  if(!btn) return;
+  if(isFav(p.id)){btn.innerText='❤️';btn.classList.add('active');}else{btn.innerText='🤍';btn.classList.remove('active');}
+}
+
+function addToCart(){
+  let cart=JSON.parse(localStorage.getItem(CART_KEY)||'[]');
+  let idx=cart.findIndex(x=>x.id===p.id);
+  if(idx>-1){cart[idx].qty=(cart[idx].qty||1)+1;}else{cart.push({...p,qty:1});}
+  localStorage.setItem(CART_KEY,JSON.stringify(cart));
+  localStorage.setItem('restro_cart',JSON.stringify(cart));
+  localStorage.setItem('santra_cart',JSON.stringify(cart));
+  showToast('✅ Added to Cart - '+p.name+' - Restro For You');
+}
+function buyNow(){addToCart();location.href='cart.html';}
+
+function openModal(src){document.getElementById('modalImg').src=src;document.getElementById('imageModal').classList.add('show');}
+function closeModal(){document.getElementById('imageModal').classList.remove('show');}
+function showToast(m){let t=document.createElement('div');t.innerText=m;t.style.cssText='position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#ff6a00,#e40046);color:white;padding:12px 20px;border-radius:25px;z-index:99999;font-size:13px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.2)';document.body.appendChild(t);setTimeout(()=>t.remove(),2500);}
+
+document.getElementById('wishBtn').onclick=toggleFav;
+document.getElementById('cartBtn').onclick=addToCart;
+document.getElementById('buyBtn').onclick=buyNow;
+
+render();
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
