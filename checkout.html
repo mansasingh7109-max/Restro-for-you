@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Complete Your Order - RESTRO APKA</title>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="config.js"></script>
+<style>
+body{margin:0;font-family:Roboto,sans-serif;background:#fff8e1}
+.header{background:linear-gradient(90deg,#ff9800,#e91e63);color:#fff;padding:14px;text-align:center;font-weight:700;position:sticky;top:0;z-index:10}
+.container{max-width:600px;margin:0 auto;padding:12px}
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.1);border:1px solid #ffe0b2}
+.order-id{background:#fff3e0;padding:10px;border-radius:8px;font-size:13px;border:1px solid #ffcc80}
+.item{display:flex;gap:10px;padding:12px 0;border-bottom:1px dashed #ddd}
+.item img{width:85px;height:85px;border-radius:8px;object-fit:cover}
+.item-details{flex:1;font-size:13px;line-height:1.6;word-break:break-word}
+.grand-total{text-align:right;font-weight:800;font-size:18px;border-top:1px solid #eee;margin-top:10px;padding-top:10px;color:#e91e63}
+.grand-sub{font-weight:400;font-size:12px;color:#666}
+.form-group{margin-bottom:14px}.form-group label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+.form-group input,.form-group select{width:100%;padding:13px;border:1.5px solid #ddd;border-radius:10px;font-size:14px}
+.btn-send{width:100%;background:#4caf50;color:#fff;border:none;padding:14px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer}
+.link{color:#ff5722;font-size:12px;word-break:break-all}
+</style>
+</head>
+<body>
+<div class="header">🛒 Complete Your Order - RESTRO APKA</div>
+<div class="container">
+<div class="card">
+<h3 style="font-size:16px;margin-bottom:8px">Order Summary - Sold By: RESTRO APKA</h3>
+<div class="order-id">Order ID: <b id="orderId">RESTRO000000</b> | Sold By: <b>RESTRO APKA</b> | 30 Min Delivery</div>
+<div id="orderItems"></div>
+<div class="grand-total">Grand Total: ₹<span id="grandTotal">0</span><div class="grand-sub">Amount: ₹<span id="subTotal">0</span> + Delivery: <span id="deliveryCharge">FREE</span></div></div>
+</div>
+<div class="card">
+<div style="font-weight:700;margin-bottom:12px">📍 Delivery Address</div>
+<div class="form-group"><label>Full Name *</label><input id="name" placeholder="Full Name"></div>
+<div class="form-group"><label>Mobile number *</label><input id="mobile" type="tel" placeholder="10 digit mobile" maxlength="10"></div>
+<div class="form-group"><label>Extra mobile for Delivery</label><input id="deliveryMobile" type="tel" placeholder="Extra number" maxlength="10"></div>
+<div class="form-group"><label>Email</label><input id="email" placeholder="Email (optional)"></div>
+<div class="form-group"><label>House No / Building *</label><input id="house" placeholder="House No"></div>
+<div class="form-group"><label>Area / Street / Colony *</label><input id="area" placeholder="Area"></div>
+<div class="form-group"><label>Landmark</label><input id="landmark" placeholder="Near..."></div>
+<div class="form-group"><label>Pincode *</label><input id="pincode" maxlength="6" placeholder="302012"></div>
+<div class="form-group"><label>City *</label><input id="city" value="Jaipur"></div>
+<div class="form-group"><label>State *</label><input id="state" value="Rajasthan"></div>
+<div class="form-group"><label>Payment Mode *</label><select id="payment"><option>Cash on Delivery</option><option>Online Payment - UPI</option></select></div>
+<button class="btn-send" id="sendBtn" onclick="sendOrder()">📱 SEND ORDER - Place Order</button>
+</div>
+</div>
+<script>
+var orderId="RESTRO"+Date.now();
+var BASE_URL="https://restro-apka.web.app";
+var CART_KEY = "restroCart_v2";
+var CUSTOMER_KEY = "restro_customer";
+var WHATSAPP_NUMBER = "918769171078"; // apna number dalo
+
+function getCart(){ 
+  try{ 
+    let r=localStorage.getItem(CART_KEY)||localStorage.getItem("restroCart_v2")||"{}"; 
+    let d=JSON.parse(r); 
+    if(Array.isArray(d)){let t={};d.forEach((it,i)=>{t[it.id||i]=it;});return t;} 
+    if(d.cart) return d.cart; 
+    return d; 
+  }catch(e){return {};} 
+}
+
+function getCleanImage(it){ 
+  if(it.image && it.image.startsWith('http')) return it.image;
+  if(it.thumbnail && it.thumbnail.startsWith('http')) return it.thumbnail;
+  return 'https://via.placeholder.com/85?text=Food'; 
+}
+
+function getCleanProductId(it){ return (it.id||'').toString().trim(); }
+
+function load(){ 
+  document.getElementById("orderId").innerText=orderId; 
+  try{ 
+    let cust=JSON.parse(localStorage.getItem(CUSTOMER_KEY)||'{}'); 
+    if(cust.loginMobile) document.getElementById('mobile').value=cust.loginMobile; 
+    if(cust.name) document.getElementById('name').value=cust.name; 
+    if(cust.email) document.getElementById('email').value=cust.email; 
+  }catch(e){} 
+  render(); 
+}
+
+function render(){ 
+  let cart=getCart(); 
+  let cont=document.getElementById("orderItems"); 
+  let keys=Object.keys(cart); 
+  if(keys.length===0){ cont.innerHTML='<p style="text-align:center;color:#999">Cart empty - <a href=index.html>Go to Menu</a></p>'; return; } 
+  let sub=0; 
+  cont.innerHTML=keys.map((k,i)=>{ 
+    let it=cart[k]; if(!it) return ''; 
+    let qty=parseInt(it.qty)||1; let price=parseFloat(it.price)||0; let tot=qty*price; sub+=tot; 
+    let name=it.name||'Food'; let img=getCleanImage(it); 
+    return `<div class="item"><img src="${img}"><div class="item-details"><b>${i+1}. ${name}</b><br>Qty: ${qty} x ₹${price} = ₹${tot}<br>Category: ${it.category||'Food'} | 30 Min Delivery<br></div></div>`; 
+  }).join(""); 
+  let del=0; let grand=sub+del; 
+  document.getElementById("subTotal").innerText=sub; 
+  document.getElementById("grandTotal").innerText=grand; 
+  document.getElementById("deliveryCharge").innerText="FREE"; 
+  window._tot={sub,del,grand}; 
+}
+
+function clearCartCompletely(){ 
+  try{ 
+    let emptyArr = JSON.stringify([]); 
+    let allKeys = ["restroCart_v2","restroCart","cart","cartItems","restro_cart",CART_KEY]; 
+    allKeys.forEach(k=>{ try{ localStorage.setItem(k, emptyArr); localStorage.removeItem(k); localStorage.setItem(k, emptyArr); }catch(e){} }); 
+    localStorage.setItem(CART_KEY, emptyArr); 
+    localStorage.setItem("cart", emptyArr); 
+  }catch(e){} 
+}
+
+function sendOrder(){
+ let btn=document.getElementById('sendBtn');
+ let name=document.getElementById('name').value.trim();
+ let login=document.getElementById('mobile').value.replace(/\D/g,'').slice(-10);
+ let extra=document.getElementById('deliveryMobile').value.replace(/\D/g,'').slice(-10);
+ let email=document.getElementById('email').value.trim();
+ let house=document.getElementById('house').value.trim();
+ let area=document.getElementById('area').value.trim();
+ let landmark=document.getElementById('landmark').value.trim();
+ let pincode=document.getElementById('pincode').value.trim();
+ let city=document.getElementById('city').value.trim();
+ let state=document.getElementById('state').value.trim();
+ let payment=document.getElementById('payment').value||'Cash on Delivery';
+ if(!name) return alert('Full Name likho');
+ if(login.length!==10) return alert('Mobile 10 digit likho');
+ if(!house) return alert('House No likho');
+ if(!area) return alert('Area likho');
+ if(!pincode) return alert('Pincode likho');
+ btn.innerText="⏳ Sending..."; btn.disabled=true;
+ let fullAddress=`${house}, ${area}${landmark?', '+landmark:''}, ${city}, ${state} - ${pincode}`;
+ let dateStr=new Date().toLocaleString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true});
+ let cart=getCart();
+ let keys=Object.keys(cart);
+ let subtotal=0;
+ let productLines='';
+ keys.forEach((k,i)=>{
+   let it=cart[k]; if(!it) return;
+   let qty=parseInt(it.qty)||1; let price=parseFloat(it.price)||0; let tot=qty*price; subtotal+=tot;
+   let nameP=(it.name||'Food');
+   productLines+=`${i+1}. ${nameP}\nQty: ${qty} x ₹${price} = ₹${tot}\nCategory: ${it.category||'Food'}\n\n`;
+ });
+ let delivery=0; let grand=subtotal+delivery;
+ let text=`*New Order - RESTRO APKA*%0AOrder ID: ${orderId}%0ADate: ${dateStr}%0A%0A${encodeURIComponent(productLines)}━━━━━━━━━━━━━━━━━━%0ASubtotal: ₹${subtotal}%0ADelivery: FREE (30 Min)%0A*GRAND TOTAL: ₹${grand}*%0A━━━━━━━━━━━━━━━━━━%0A%0A*Customer Details:*%0AName: ${name}%0AMobile: ${login}%0A${extra?`Extra: ${extra}%0A`:''}Email: ${email||'-'}%0AAddress: ${encodeURIComponent(fullAddress)}%0APayment: ${payment}`;
+ try{
+   let cust={name:name, loginMobile:login, mobile:login, extraMobileNumberForDelivery:extra, deliveryMobile:extra, email:email, address:fullAddress, fullAddress:fullAddress, house:house, area:area, landmark:landmark, pincode:pincode, city:city, state:state};
+   localStorage.setItem(CUSTOMER_KEY, JSON.stringify(cust));
+   localStorage.setItem('restro_mobile', login);
+ }catch(e){}
+ let arr=[];
+ try{
+   arr=Object.values(cart).map(it=>{ return {...it, image:getCleanImage(it)}; });
+   localStorage.setItem('lastOrderCartBackup', JSON.stringify(arr));
+   localStorage.setItem('lastOrderId', orderId);
+ }catch(e){}
+ 
+ // WhatsApp open
+ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`,'_blank');
+
+ // Firebase save (optional)
+ try{
+   let db = window.db || (firebase.firestore ? firebase.firestore() : null);
+   let rdb = window.rtdb || (firebase.database ? firebase.database() : null);
+   let orderData = {
+     orderId:orderId, id:orderId,
+     mobile:login, customerMobile:login, loginMobile:login, deliveryMobile:extra,
+     name:name, customerName:name, email:email,
+     address:fullAddress, fullAddress:fullAddress,
+     cart:arr, items:arr,
+     paymentMethod:payment, total:grand, subtotal:subtotal, delivery:delivery, grandTotal:grand,
+     status:'Pending - '+payment, dateStr:dateStr, date:new Date().toISOString(),
+     createdAt: firebase.firestore.FieldValue.serverTimestamp ? firebase.firestore.FieldValue.serverTimestamp() : new Date(),
+     soldBy:'RESTRO APKA'
+   };
+   if(db){
+     db.collection('orders').doc(orderId).set(orderData,{merge:true});
+     db.collection('restro_orders').doc(orderId).set(orderData,{merge:true});
+   }
+   if(rdb){
+     rdb.ref('orders/'+orderId).set({...orderData, createdAt:Date.now()});
+     rdb.ref('restro_orders/'+orderId).set({...orderData, createdAt:Date.now()});
+   }
+ }catch(e){ console.log('save error',e); }
+
+ clearCartCompletely();
+ btn.innerText="✅ Sent - Cart Khali";
+ setTimeout(()=>{ location.href=`orders.html?orderId=${orderId}`; }, 800);
+}
+
+if(!firebase.apps.length){ 
+  try{
+    firebase.initializeApp({apiKey:"AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",authDomain:"santramarketshoppingmall.firebaseapp.com",databaseURL:"https://santramarketshoppingmall-default-rtdb.firebaseio.com/",projectId:"santramarketshoppingmall",storageBucket:"santramarketshoppingmall.appspot.com",messagingSenderId:"398490252924",appId:"1:398490252924:web:d1b6348b549183b93b7bf9"}); 
+  }catch(e){}
+}
+document.addEventListener("DOMContentLoaded", load);
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</html>

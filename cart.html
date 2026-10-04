@@ -165,7 +165,7 @@ function removeSelectedChoice(){let checks=[...document.querySelectorAll(".choic
 function saveCart(){localStorage.setItem(window.CART_KEY,JSON.stringify(Object.values(cart)));}
 function saveMyChoice(){localStorage.setItem(window.MYCHOICE_KEY,JSON.stringify(Object.values(myChoice)));}
 function updateCounts(){let c=Object.values(cart).reduce((a,i)=>a+(parseInt(i.qty)||1),0);document.getElementById("cartCount").innerText=c;document.getElementById("choiceCount").innerText=Object.keys(myChoice).length;}
-function sendOrderToAll(){ let arr=Object.values(cart); if(!arr.length) return alert("Cart empty"); let msg="Hello RESTRO APKA,%0A"; arr.forEach(i=>{msg+=`• ${i.name} x ${i.qty} = ₹${i.price*i.qty}%0A`;}); msg+=`%0ATotal: ₹${arr.reduce((a,i)=>a+(i.price*i.qty),0)}`; window.open(`https://wa.me/919999999999?text=${msg}`,"_blank"); }
+function sendOrderToAll(){ let arr=Object.values(cart); if(!arr.length) return alert("Cart empty"); let msg="Hello RESTRO APKA,%0A"; arr.forEach(i=>{msg+=`• ${i.name} x ${i.qty} = ₹${i.price*i.qty}%0A`;}); msg+=`%0ATotal: ₹${arr.reduce((a,i)=>a+(i.price*i.qty),0)}`; window.open(`https://wa.me/918769171078?text=${msg}`,"_blank"); }
 function generateAndSharePDF(){ if(!Object.keys(cart).length){alert("Cart empty");return;} try{ const {jsPDF}=window.jspdf; let doc=new jsPDF(); let now=new Date().toLocaleString('en-IN'); let sub=Object.values(cart).reduce((a,i)=>a+(i.price*i.qty),0); doc.text("RESTRO APKA INVOICE",10,15); doc.text("Date: "+now,10,25); let y=35; Object.values(cart).forEach(it=>{doc.text(it.name+" x "+it.qty+" = ₹"+(it.price*it.qty),10,y); y+=7;}); doc.text("Total: ₹"+sub,10,y+5); doc.save("RESTRO_Invoice.pdf"); }catch(e){alert(e.message);} }
 
 document.addEventListener("DOMContentLoaded", loadData);
