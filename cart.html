@@ -21,8 +21,9 @@
 :where(code, pre, kbd, samp) {
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
-</style><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>🛒 My Cart - RESTRO APKA</title>
+</style>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🛒 My Cart - RESTRO APKA - V42 Old Cart Updated Firebase + Clear</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -63,21 +64,26 @@ body{background:var(--bg);padding-bottom:160px}
 </style>
 </head>
 <body>
-<div class="header"><button class="back-btn" onclick="location.href='index.html'">←</button><h1>🛒 My Cart - RESTRO APKA</h1><span id="clock" style="margin-left:auto;background:black;color:#0f0;padding:4px 6px;border-radius:5px;font-size:9px">IST</span></div>
-<div class="today-strip" id="todayBar">RESTRO APKA - Online Food Order - 30 Min Delivery</div>
+<div class="header"><button class="back-btn" onclick="location.href='index.html'">←</button><h1>🛒 My Cart - RESTRO APKA - V42 Firebase + Clear Fix</h1><span id="clock" style="margin-left:auto;background:black;color:#0f0;padding:4px 6px;border-radius:5px;font-size:9px">IST</span></div>
+<div class="today-strip" id="todayBar">RESTRO APKA - Online Food Order - 30 Min Delivery - V42</div>
 <div class="tabs"><button class="tab active" id="cartTab" onclick="switchTab('cart')">🛒 Cart (<span id="cartCount">0</span>)</button><button class="tab" id="choiceTab" onclick="switchTab('choice')">❤️ My Choice (<span id="choiceCount">0</span>)</button></div>
 <div id="cartView">
 <div class="top-select-bar" id="cartTopBar" style="display:none"><label style="font-size:12px;display:flex;align-items:center;gap:5px"><input type="checkbox" id="selectAllCart" onchange="toggleAllCart(this.checked)"> Select All</label><button onclick="moveSelectedToChoice()" style="background:#f59e0b;color:white;margin-left:auto;border:none;padding:8px 10px;border-radius:6px;font-weight:600">❤️ Fav</button><button onclick="removeSelectedCart()" style="background:#fee2e2;color:#ef4444;border:none;padding:8px 10px;border-radius:6px;font-weight:600">Remove</button></div>
 <div id="cartList"></div>
-<div id="cartSummary" class="summary hide"><h3>Grand Total: ₹<span id="cartTotal">0</span></h3><div style="font-size:11px;color:#666">Date: <span id="todayDateBar"></span></div><button onclick="sendOrderToAll()" class="btn-send-all">📦 Send Order - WhatsApp</button><button onclick="generateAndSharePDF()" class="btn-pdf">📄 Download Invoice PDF</button><h3 style="margin-top:12px">Price Details</h3><div class="summary-row"><span>Price (<span id="itemCount">0</span> items)</span><span id="subTotal">₹0</span></div><div class="summary-row"><span>Delivery</span><span id="deliveryCharge">FREE</span></div><div class="summary-row total-row"><span>Total</span><span id="grandTotal">₹0</span></div></div>
-<a href="checkout.html" id="checkoutBtn" class="checkout-btn">➡ PROCEED TO CHECKOUT</a>
+<div id="cartSummary" class="summary hide"><h3>Grand Total: ₹<span id="cartTotal">0</span></h3><div style="font-size:11px;color:#666">Date: <span id="todayDateBar"></span></div><button onclick="sendOrderToAll()" class="btn-send-all">📦 Send Order - WhatsApp - Firebase Save - Restro For You</button><button onclick="generateAndSharePDF()" class="btn-pdf">📄 Download Invoice PDF - Restro</button><h3 style="margin-top:12px">Price Details</h3><div class="summary-row"><span>Price (<span id="itemCount">0</span> items)</span><span id="subTotal">₹0</span></div><div class="summary-row"><span>Delivery</span><span id="deliveryCharge">FREE</span></div><div class="summary-row total-row"><span>Total</span><span id="grandTotal">₹0</span></div></div>
+<a href="checkout.html" id="checkoutBtn" class="checkout-btn">➡ PROCEED TO CHECKOUT - Restro For You</a>
 </div>
 <div id="choiceView" class="hide"><div class="top-select-bar" id="choiceTopBar" style="display:none"><label style="font-size:12px;display:flex;align-items:center;gap:5px"><input type="checkbox" id="selectAllChoice" onchange="toggleAllChoice(this.checked)"> Select All</label><button onclick="moveSelectedToCart()" style="background:#10b981;color:white;margin-left:auto;border:none;padding:8px 10px;border-radius:6px;font-weight:600">→ Cart</button><button onclick="removeSelectedChoice()" style="background:#fee2e2;color:#ef4444;border:none;padding:8px 10px;border-radius:6px;font-weight:600">Remove</button></div><div id="myChoiceList"></div></div>
 <div class="bottom-nav"><a href="index.html" class="nav-item"><div>🏠</div><span>Home</span></a><a href="cart.html" class="nav-item active"><div>🛒</div><span>Cart</span></a><a href="orders.html" class="nav-item"><div>📦</div><span>Orders</span></a></div>
 
 <script>
+// Firebase init for Restro - V42
+const firebaseConfig={apiKey:"AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",authDomain:"santramarketshoppingmall.firebaseapp.com",projectId:"santramarketshoppingmall",storageBucket:"santramarketshoppingmall.appspot.com",messagingSenderId:"398490252924",appId:"1:398490252924:web:d1b6348b549183b93b7bf9",databaseURL:"https://santramarketshoppingmall-default-rtdb.firebaseio.com/"};
+if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
+
 let cart={};let myChoice={};
-function initTime(){ let d=new Date(); document.getElementById('todayBar').innerText=`Aaj: ${d.toLocaleDateString('en-IN')} ${d.toLocaleTimeString('en-IN')} - RESTRO APKA - 30 Min Delivery`; document.getElementById('todayDateBar').innerText=d.toLocaleDateString('en-IN'); }
+function initTime(){ let d=new Date(); document.getElementById('todayBar').innerText=`Aaj: ${d.toLocaleDateString('en-IN')} ${d.toLocaleTimeString('en-IN')} - RESTRO APKA - 30 Min Delivery - V42 Firebase`; document.getElementById('todayDateBar').innerText=d.toLocaleDateString('en-IN'); }
 initTime();
 
 window.switchTab=function(tab){
@@ -105,7 +111,7 @@ function loadData(){
 
 function renderCart(){
  let c=document.getElementById("cartList"),s=document.getElementById("cartSummary"),b=document.getElementById("checkoutBtn"),k=Object.keys(cart),topBar=document.getElementById("cartTopBar");
- if(k.length===0){c.innerHTML="<div style='text-align:center;padding:80px 20px;color:#999'>🛒 Cart empty<br><br><a href='index.html' style='background:#ff9800;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none'>Browse Menu</a></div>";s.classList.add("hide");b.style.display="none";if(topBar)topBar.style.display="none";updateCounts();return;}
+ if(k.length===0){c.innerHTML="<div style='text-align:center;padding:80px 20px;color:#999'>🛒 Cart empty - Restro For You<br><br><a href='index.html' style='background:#ff9800;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none'>Browse Menu - Barfi Special</a></div>";s.classList.add("hide");b.style.display="none";if(topBar)topBar.style.display="none";updateCounts();return;}
  b.style.display="block";if(topBar)topBar.style.display="flex";
  c.innerHTML=k.map(function(key){
   let i=cart[key],q=parseInt(i.qty)||1,p=parseFloat(i.price)||0;
@@ -117,23 +123,25 @@ function renderCart(){
     <div class="item-info">
       <h3>${i.name||"Food"}</h3>
       <div class="item-price">₹${p} x ${q} = ₹${p*q}</div>
-      <div class="item-code">Category: ${i.category||'Food'} | 30 min</div>
+      <div class="item-code">Category: ${i.category||'Food'} | 30 min - Restro For You</div>
       <div class="qty-controls"><button class="qty-btn" onclick="updateQty('${key}',-1)">-</button><span>${q}</span><button class="qty-btn" onclick="updateQty('${key}',1)">+</button></div>
       <div class="item-actions"><button class="btn-move-choice" onclick="moveToMyChoice('${key}')">❤️ Move to My Choice</button><button class="btn-remove" onclick="removeFromCart('${key}')">🗑 Remove</button></div>
     </div>
   </div>`;
  }).join("");
  let sub=Object.values(cart).reduce((a,i)=>a+(parseFloat(i.price)||0)*(parseInt(i.qty)||1),0);
+ let delivery=sub>=500?0:30;
  document.getElementById("subTotal").innerText="₹"+sub;
- document.getElementById("grandTotal").innerText="₹"+sub;
- document.getElementById("cartTotal").innerText=sub;
+ document.getElementById("grandTotal").innerText="₹"+(sub+delivery);
+ document.getElementById("cartTotal").innerText=sub+delivery;
+ document.getElementById("deliveryCharge").innerText=delivery===0?"FREE":"₹"+delivery;
  document.getElementById("itemCount").innerText=Object.values(cart).reduce((a,i)=>a+(parseInt(i.qty)||1),0);
  s.classList.remove("hide");updateCounts();
 }
 
 function renderMyChoice(){
   let c=document.getElementById("myChoiceList"),k=Object.keys(myChoice),topBar=document.getElementById("choiceTopBar");
-  if(k.length===0){c.innerHTML=`<div style='text-align:center;padding:80px 20px;color:#999'>❤️ My Choice is Empty<br>Add from Home with 🤍</div>`;if(topBar)topBar.style.display="none";updateCounts();return;}
+  if(k.length===0){c.innerHTML=`<div style='text-align:center;padding:80px 20px;color:#999'>❤️ My Choice is Empty<br>Add from Home with 🤍 - Restro For You</div>`;if(topBar)topBar.style.display="none";updateCounts();return;}
   if(topBar)topBar.style.display="flex";
   c.innerHTML=k.map(function(key){
     let i=myChoice[key];let p=parseFloat(i.price)||0;
@@ -148,7 +156,7 @@ function toggleHeartFromCart(id){
   let idx = fav.findIndex(f=>f.id===id);
   if(idx>-1){ fav.splice(idx,1); } else { fav.push({...item}); }
   localStorage.setItem(window.MYCHOICE_KEY, JSON.stringify(fav));
-  loadData(); // re-render to update heart icons
+  loadData();
 }
 
 function updateQty(id,ch){if(!cart[id])return;cart[id].qty=(parseInt(cart[id].qty)||1)+ch;if(cart[id].qty<1)delete cart[id];saveCart();renderCart();}
@@ -158,15 +166,87 @@ function moveToCart(id){let i=myChoice[id];if(!i)return;delete myChoice[id];save
 function removeFromChoice(id){delete myChoice[id];saveMyChoice();renderMyChoice();}
 function toggleAllCart(checked){document.querySelectorAll(".cart-check").forEach(c=>c.checked=checked);}
 function toggleAllChoice(checked){document.querySelectorAll(".choice-check").forEach(c=>c.checked=checked);}
-function moveSelectedToChoice(){let checks=[...document.querySelectorAll(".cart-check:checked")];if(!checks.length)return alert("Select item first");checks.forEach(ch=>{let key=ch.dataset.key;if(cart[key]){myChoice[key]={...cart[key]};delete cart[key];}});saveCart();saveMyChoice();renderCart();renderMyChoice();}
-function removeSelectedCart(){let checks=[...document.querySelectorAll(".cart-check:checked")];if(!checks.length)return alert("Select item first");checks.forEach(ch=>{let key=ch.dataset.key;delete cart[key];});saveCart();renderCart();}
-function moveSelectedToCart(){let checks=[...document.querySelectorAll(".choice-check:checked")];if(!checks.length)return alert("Select item first");checks.forEach(ch=>{let key=ch.dataset.key;if(myChoice[key]){cart[key]={...myChoice[key],qty:1};delete myChoice[key];}});saveCart();saveMyChoice();renderCart();renderMyChoice();}
-function removeSelectedChoice(){let checks=[...document.querySelectorAll(".choice-check:checked")];if(!checks.length)return alert("Select item first");checks.forEach(ch=>{let key=ch.dataset.key;delete myChoice[key];});saveMyChoice();renderMyChoice();}
-function saveCart(){localStorage.setItem(window.CART_KEY,JSON.stringify(Object.values(cart)));}
+function moveSelectedToChoice(){let checks=[...document.querySelectorAll(".cart-check:checked")];if(!checks.length)return alert("Select item first - Restro");checks.forEach(ch=>{let key=ch.dataset.key;if(cart[key]){myChoice[key]={...cart[key]};delete cart[key];}});saveCart();saveMyChoice();renderCart();renderMyChoice();}
+function removeSelectedCart(){let checks=[...document.querySelectorAll(".cart-check:checked")];if(!checks.length)return alert("Select item first - Restro");checks.forEach(ch=>{let key=ch.dataset.key;delete cart[key];});saveCart();renderCart();}
+function moveSelectedToCart(){let checks=[...document.querySelectorAll(".choice-check:checked")];if(!checks.length)return alert("Select item first - Restro");checks.forEach(ch=>{let key=ch.dataset.key;if(myChoice[key]){cart[key]={...myChoice[key],qty:1};delete myChoice[key];}});saveCart();saveMyChoice();renderCart();renderMyChoice();}
+function removeSelectedChoice(){let checks=[...document.querySelectorAll(".choice-check:checked")];if(!checks.length)return alert("Select item first - Restro");checks.forEach(ch=>{let key=ch.dataset.key;delete myChoice[key];});saveMyChoice();renderMyChoice();}
+function saveCart(){localStorage.setItem(window.CART_KEY,JSON.stringify(Object.values(cart)));localStorage.setItem("restro_cart",JSON.stringify(Object.values(cart)));localStorage.setItem("santra_cart",JSON.stringify(Object.values(cart)));}
 function saveMyChoice(){localStorage.setItem(window.MYCHOICE_KEY,JSON.stringify(Object.values(myChoice)));}
 function updateCounts(){let c=Object.values(cart).reduce((a,i)=>a+(parseInt(i.qty)||1),0);document.getElementById("cartCount").innerText=c;document.getElementById("choiceCount").innerText=Object.keys(myChoice).length;}
-function sendOrderToAll(){ let arr=Object.values(cart); if(!arr.length) return alert("Cart empty"); let msg="Hello RESTRO APKA,%0A"; arr.forEach(i=>{msg+=`• ${i.name} x ${i.qty} = ₹${i.price*i.qty}%0A`;}); msg+=`%0ATotal: ₹${arr.reduce((a,i)=>a+(i.price*i.qty),0)}`; window.open(`https://wa.me/918769171078?text=${msg}`,"_blank"); }
-function generateAndSharePDF(){ if(!Object.keys(cart).length){alert("Cart empty");return;} try{ const {jsPDF}=window.jspdf; let doc=new jsPDF(); let now=new Date().toLocaleString('en-IN'); let sub=Object.values(cart).reduce((a,i)=>a+(i.price*i.qty),0); doc.text("RESTRO APKA INVOICE",10,15); doc.text("Date: "+now,10,25); let y=35; Object.values(cart).forEach(it=>{doc.text(it.name+" x "+it.qty+" = ₹"+(it.price*it.qty),10,y); y+=7;}); doc.text("Total: ₹"+sub,10,y+5); doc.save("RESTRO_Invoice.pdf"); }catch(e){alert(e.message);} }
+
+async function sendOrderToAll(){
+  let arr=Object.values(cart);
+  if(!arr.length) return alert("Cart empty - Restro For You");
+  
+  // Customer info
+  let customer=JSON.parse(localStorage.getItem('santra_customer')||'{}');
+  let mobile=customer.loginMobile||customer.mobile||localStorage.getItem('santra_mobile')||'9660834888';
+  let name=customer.name||'Customer';
+  let address=customer.address||customer.fullAddress||'Pilibanga, Rajasthan - 345678';
+  let now=new Date();
+  let ist=new Date(now.toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+  let dateStr=ist.toLocaleDateString('en-IN');
+  let timeStr=ist.toLocaleTimeString('en-IN');
+  let orderId='RESTRO'+Date.now();
+  let total=arr.reduce((a,i)=>a+(parseFloat(i.price)||0)*(parseInt(i.qty)||1),0);
+  let delivery=total>=500?0:30;
+  let grand=total+delivery;
+  
+  let orderData={
+    id:orderId,orderId:orderId,
+    customerName:name,name:name,
+    customerMobile:mobile,mobile:mobile,loginMobile:mobile,
+    address:address,customerAddress:address,fullAddress:address,
+    items:arr,cart:arr,
+    subtotal:total,deliveryCharge:delivery,total:grand,totalAmount:grand,grandTotal:grand,
+    paymentMethod:'Cash on Delivery',status:'Pending',type:'RESTRO',source:'RESTRO FOR YOU - Cart V42',
+    presentTag:true,date:new Date().toISOString(),dateTimeHamesha:`${dateStr}, ${timeStr}`,
+    createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+    trackingLocation:'Restro For You Kitchen',courierName:'Restro Delivery Boy'
+  };
+  
+  try{
+    // Firebase me save - admin list me dikhega
+    await db.collection('orders').doc(orderId).set(orderData);
+    localStorage.setItem('lastOrderId',orderId);
+    
+    // WhatsApp
+    let msg=`*RESTRO FOR YOU - NEW ORDER - V42*%0A%0AOrder ID: ${orderId}%0ADate: ${dateStr} ${timeStr}%0ACustomer: ${name}%0AMobile: ${mobile}%0AAddress: ${address}%0A%0A`;
+    arr.forEach(i=>{msg+=`• ${i.name} x ${i.qty} = ₹${i.price*i.qty}%0A`;});
+    msg+=`%0ASubtotal: ₹${total}%0ADelivery: ${delivery===0?'FREE':'₹'+delivery}%0A*Grand Total: ₹${grand}*%0APayment: COD%0A%0A30 Min Delivery - Restro For You`;
+    window.open(`https://wa.me/918769171078?text=${msg}`,"_blank");
+    
+    // ✅ CART KHALI KARO - SIRF ORDER KE BAAD - YE FIX HAI
+    setTimeout(()=>{
+      localStorage.setItem(window.CART_KEY,"[]");
+      localStorage.setItem("restro_cart","[]");
+      localStorage.setItem("santra_cart","[]");
+      cart={};
+      saveCart();
+      renderCart();
+      alert('✅ Order Sent - Cart Khali Ho Gaya - Restro For You - V42\nOrder ID: '+orderId+'\nOrders page pe ja rahe ho');
+      location.href='orders.html?orderId='+orderId+'&mobile='+mobile;
+    },1200);
+  }catch(e){
+    alert('Error: '+e.message+' - Restro For You');
+  }
+}
+
+function generateAndSharePDF(){
+  if(!Object.keys(cart).length){alert("Cart empty - Restro");return;}
+  try{
+    const {jsPDF}=window.jspdf;
+    let doc=new jsPDF();
+    let now=new Date().toLocaleString('en-IN');
+    let sub=Object.values(cart).reduce((a,i)=>a+(i.price*i.qty),0);
+    doc.text("RESTRO APKA INVOICE - V42",10,15);
+    doc.text("Date: "+now,10,25);
+    let y=35;
+    Object.values(cart).forEach(it=>{doc.text(it.name+" x "+it.qty+" = ₹"+(it.price*it.qty),10,y); y+=7;});
+    doc.text("Total: ₹"+sub,10,y+5);
+    doc.save("RESTRO_Invoice_V42.pdf");
+  }catch(e){alert(e.message);}
+}
 
 document.addEventListener("DOMContentLoaded", loadData);
 </script>
