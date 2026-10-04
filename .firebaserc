@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "santramarketshoppingmall"
+  },
+  "targets": {
+    "santramarketshoppingmall": {
+      "hosting": {
+        "restroforyou": [
+          "restroforyou"
+        ]
+      }
+    }
+  }
+}
