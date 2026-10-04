@@ -1,0 +1,70 @@
+# Secret files - Github pe upload nahi hongi
+secrets.js
+oldsecrets.js
+config.php
+
+# Env files
+.env
+.env.local
+.env.*.local
+*.save
+*.log
+
+# Backup & Old files
+*-backup-*.html
+*-backup-*.js
+script-backup-*.js
+old*.html
+old*.js
+order-success-old.php
+index-old-backup.html
+index-backup-14-may-2026.html
+cart-backup-14-may-2026.html
+admin-login-backup-13-may-2026.html
+admin-password-reset-backup.html
+oldadmin-password-reset-backup.html
+
+# PHP sensitive files jisme token ho sakta hai
+admin-verify.php
+send-otp.php
+send-whatsapp-otp.php
+verify-otp.php
+verify-whatsapp-otp.php
+
+# Firebase
+firebase-debug.log
+.firebase/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Git credentials - KABHI PUSH NAHI KARNA
+.git-credentials
+.bash_history
+.gitconfig
+config.js
+# Firebase Config Files - Ye bhi risky hain
+firebase.json
+.firebaserc
+
+# Database files
+db.js
+database.js
+
+# Node modules
+node_modules/
+package-lock.json
+
+# Ye bhi add kar de
+*.pem
+*.key
+*credentials*
+*password*
+*secret*
+*.zip
+*.tar.gz
+.npm/
+node_modules/
+SANTRA_BACKUPS/
+santra-backups/
