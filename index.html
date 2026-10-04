@@ -21,7 +21,7 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RESTRO APKA - Online Food Order - V50 Clean - No Version Text</title>
+<title>RESTRO APKA - V52 Big Page - No Small Preview - Food Only</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -32,7 +32,7 @@
 .sidebar-customer{background:white;border-radius:16px;width:62px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.18)}
 .sidebar-customer .icon{width:38px;height:38px;background:#fff3e0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
 .sidebar-customer span{font-size:9px;font-weight:bold;color:#ff6a00;margin-top:5px;text-align:center;line-height:1.1}
-.sidebar-help{background:#fff8e1;border-radius:16px;width:62px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;border:1.5px solid #ffe0b2;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.sidebar-help{background:#fff8e1;border-radius:16px;width:62px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;border:1.5px solid #ffe0b2}
 .sidebar-help span{font-size:9px;font-weight:bold;color:#333;margin-top:4px}
 .content-area{flex:1;min-width:0;background:#fffbeb}
 .header-top{background:#fffbe6;padding:10px;text-align:center;font-size:12px;color:#666;border-bottom:1px solid #ffe0b2}
@@ -44,12 +44,12 @@
 .category-row{display:flex;gap:12px;overflow-x:auto;padding:12px 10px 8px;scrollbar-width:none}
 .category-card{min-width:88px;background:#fff8e1;padding:12px 8px;border-radius:14px;text-align:center;border:1.5px solid #ffe0b2;flex-shrink:0;cursor:pointer;transition:all .15s}
 .category-card.active{background:linear-gradient(90deg,#ff9800,#e40046);color:white;border-color:#e40046;transform:scale(1.05)}
-.category-card div:last-child{font-size:11px;font-weight:bold;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.category-card div:last-child{font-size:11px;font-weight:bold;margin-top:5px}
 .today-header{display:flex;justify-content:space-between;padding:12px 14px;font-weight:bold;align-items:center;background:white;margin:8px 0;box-shadow:0 1px 4px rgba(0,0,0,.05)}
 .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 10px}
-.product-card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.06);border:1px solid #fff3e0;position:relative;transition:transform .15s}
+.product-card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.06);border:1px solid #fff3e0;position:relative;transition:transform .15s;cursor:pointer}
 .product-card:active{transform:scale(.97)}
-.product-card img{width:100%;height:140px;object-fit:cover;cursor:pointer}
+.product-card img{width:100%;height:150px;object-fit:cover;cursor:pointer}
 .product-info{padding:10px}
 .product-info h3{font-size:13px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .product-info .cat{font-size:10px;color:#666;margin:2px 0}
@@ -62,8 +62,6 @@
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:10px 0;border-top:1.5px solid #eee;z-index:300;margin-left:78px;box-shadow:0 -2px 10px rgba(0,0,0,.06)}
 @media(max-width:600px){.bottom-nav{margin-left:0}}
 .nav-item{text-align:center;text-decoration:none;color:#666;flex:1;padding:5px;font-size:12px;position:relative}
-#imageModal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;padding:15px}
-#imageModal.show{display:flex}
 @media(max-width:768px){.left-sidebar{width:0;min-width:0;overflow:hidden;padding:0}.main-layout{flex-direction:column}}
 </style>
 </head><body>
@@ -71,39 +69,30 @@
 <div class="left-sidebar">
 <div class="sidebar-customer" onclick="location.href='customer-login.html'"><div class="icon">👤</div><span>Customer<br>Login</span></div>
 <div class="sidebar-help" onclick="location.href='help.html'"><div style="font-size:20px">📞</div><span>HELP</span></div>
-<!-- ✅ NO VERSION TEXT HERE - Clean - V19 Soap Off hat gaya - Sirf icon -->
-<div style="margin-top:auto;padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:6px">
-<div style="width:40px;height:40px;background:rgba(255,255,255,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px">🍕</div>
+<div style="margin-top:auto;padding:14px 0;display:flex;flex-direction:column;align-items:center;gap:8px">
+<div style="width:42px;height:42px;background:rgba(255,255,255,0.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px">🍕</div>
 </div>
 </div>
 <div class="content-area">
-<div class="header-top">Online Food Order - Fast Delivery - Best Food, Best Prices!</div>
-<div class="welcome-banner"><div style="font-size:20px;font-weight:bold">🍕 Welcome to RESTRO APKA 🍔</div><div style="font-size:12px;margin-top:5px;opacity:0.95">Best Food, Best Prices!</div></div>
+<div class="header-top">Online Food Order - Fast Delivery - V52 Big Page - No Small Preview</div>
+<div class="welcome-banner"><div style="font-size:20px;font-weight:bold">🍕 Welcome to RESTRO APKA 🍔</div><div style="font-size:12px;margin-top:5px">Best Food, Best Prices! - Click Photo → Big Page</div></div>
 <div class="search-bar"><input id="searchInput" placeholder="Search Barfi, Sandwich, Momos, Pizza..."><button onclick="doSearch()">Search</button></div>
 <div class="filter-box">
-<select id="categoryFilter" style="width:100%;padding:13px;border-radius:10px;border:1.5px solid #ddd;margin-bottom:10px;font-size:13px"><option value="">All Food Categories</option></select>
+<select id="categoryFilter" style="width:100%;padding:13px;border-radius:10px;border:1.5px solid #ddd;margin-bottom:10px;font-size:13px"><option value="">All Food Categories - V52 Big Page</option></select>
 <div style="display:flex;gap:10px"><button style="flex:1;padding:13px;border-radius:10px;background:#10b981;color:white;border:none;font-weight:bold" onclick="applyFilter()">Apply</button><button style="flex:1;padding:13px;border-radius:10px;background:#9ca3af;color:white;border:none;font-weight:bold" onclick="clearFilter()">Clear</button></div>
 </div>
-<div class="category-row" id="categoryRow"><div style="padding:12px;color:#999;font-size:12px">⏳ Loading categories...</div></div>
-<div class="today-header"><span>🔥 Today's Special</span><span style="color:#e40046;cursor:pointer;font-size:12px" onclick="clearFilter()">View All →</span></div>
-<div class="product-grid" id="productGrid"><div style="grid-column:1/-1;text-align:center;padding:50px;color:#999">⏳ Loading...</div></div>
+<div class="category-row" id="categoryRow"><div style="padding:12px;color:#999;font-size:12px">⏳ Loading Food categories - No Home item/Dress/Soap...</div></div>
+<div class="today-header"><span>🔥 Today's Special - Click Photo → Big Page</span><span style="color:#e40046;cursor:pointer;font-size:12px" onclick="clearFilter()">View All →</span></div>
+<div class="product-grid" id="productGrid"><div style="grid-column:1/-1;text-align:center;padding:50px;color:#999">⏳ Loading Food Only - Big Page Mode<br>Photo Click → product.html Big Page<br>No Small Preview - No Soap/Home/Dress</div></div>
 <div style="height:80px"></div>
 </div>
 </div>
 <div class="bottom-nav">
 <a href="index.html" class="nav-item" style="color:#ff6a00">🏠<br>Home</a>
 <a href="index.html" class="nav-item">📋<br>Menu</a>
-<a href="cart.html" class="nav-item">❤️<br>Fav <span class="badge" id="favCount">0</span></a>
-<a href="cart.html" class="nav-item">🛒<br>Cart <span class="badge" id="cartCountNav">0</span></a>
+<a href="cart.html" class="nav-item">❤️<br>Fav <span class="badge" id="favCount" style="display:none">0</span></a>
+<a href="cart.html" class="nav-item">🛒<br>Cart <span class="badge" id="cartCountNav" style="display:none">0</span></a>
 <a href="orders.html" class="nav-item">📦<br>Orders</a>
-</div>
-<div id="imageModal" onclick="if(event.target.id==='imageModal') closeModal()">
-<div style="background:white;border-radius:18px;max-width:420px;width:100%;overflow:hidden;position:relative">
-<button onclick="closeModal()" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.8);color:white;border:none;width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer;z-index:10">×</button>
-<img id="modalImage" src="" style="width:100%;max-height:62vh;object-fit:cover">
-<div style="position:absolute;top:12px;left:12px"><button id="modalHeart" style="width:46px;height:46px;border-radius:50%;border:none;background:white;font-size:24px;box-shadow:0 3px 10px rgba(0,0,0,.3)">🤍</button></div>
-<div style="padding:14px"><h3 id="modalName" style="font-weight:bold;font-size:16px"></h3><div id="modalPrice" style="color:#e40046;font-weight:bold;font-size:20px;margin:6px 0"></div><div id="modalCategory" style="font-size:12px;color:#666"></div><div style="display:flex;gap:10px;margin-top:12px"><button id="modalAddCart" style="flex:1;background:#e40046;color:white;padding:14px;border:none;border-radius:10px;font-weight:bold">🛒 Add to Cart</button><button id="modalBuy" style="flex:1;background:#ff9800;color:white;padding:14px;border:none;border-radius:10px;font-weight:bold">⚡ Buy Now</button></div></div>
-</div>
 </div>
 <script>
 const firebaseConfig={apiKey:"AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",authDomain:"santramarketshoppingmall.firebaseapp.com",projectId:"santramarketshoppingmall",storageBucket:"santramarketshoppingmall.appspot.com",messagingSenderId:"398490252924",appId:"1:398490252924:web:d1b6348b549183b93b7bf9",databaseURL:"https://santramarketshoppingmall-default-rtdb.firebaseio.com/"};
@@ -111,54 +100,80 @@ if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db=firebase.firestore();
 const CART_KEY="restroCart_v2";
 const MYCHOICE_KEY="restroMyChoice_v2";
-const BLOCKED_SOAP_FASHION=['soap','frock','dress','saree','sari','kurti','kurta','lehenga','gown','jeans','shirt','t-shirt','fashion','footwear','shoe','bag','handbag','jewellery','jewelry','salwar','suit','anarkali','jacket','hoodie','leggings','palazzo','dupatta','blouse','skirt'];
+
+// ✅ V52 - FOOD ONLY STRICT - Home item, Dress western, Soap, Oil, Tiffin sab block - Sirf Barfi Sandwich Momos etc
+const FOOD_ALLOWED=['barfi special','barfi','sandwich','momos','momo','pasta','pizza','biryani','thali','burger','drinks','drink','brownie','cake','veg momos','white sauce pasta','veg cheese pizza','chicken biryani full','paneer thali','veg burger combo','cold coffee','kaju barfi','veg grilled sandwich','barfi naryal','sandwich potato veg'];
+const BLOCKED_ALL_NON_FOOD=['soap','home item','dress western','dress','western','home','colgate','paste','gallery','mustard','desi oil','oil','food vegetarian tiffin service','tiffin service','vegetarian tiffin','tiffin','frock','saree','sari','kurti','kurta','lehenga','gown','jeans','shirt','fashion','footwear','shoe','bag','handbag','jewellery','jewelry','salwar','suit','anarkali','jacket','hoodie','leggings','palazzo','dupatta','blouse','skirt'];
+
 function isFoodProduct(p){
   if(p.hideFromRestro===true || p.visibleOnRestro===false || p.restroDeleted===true) return false;
   let cat=(p.category||'').toLowerCase().trim();
   let name=(p.name||'').toLowerCase();
   let combined=cat+' '+name;
-  for(let bad of BLOCKED_SOAP_FASHION){ if(name.includes(bad) || cat===bad) return false; }
-  return true;
+  
+  // 1. Blocked check - Home item, Dress western, Soap, Colgate, Mustard Oil, Tiffin, Frock sab block
+  for(let bad of BLOCKED_ALL_NON_FOOD){
+    if(combined.includes(bad)){
+      return false;
+    }
+  }
+  
+  // 2. Food allowed check - Sirf Barfi, Sandwich, Momos, Pasta, Pizza, Biryani, Thali, Burger, Drinks
+  for(let good of FOOD_ALLOWED){
+    if(cat===good || cat.includes(good) || name===good || name.includes(good)){
+      return true;
+    }
+  }
+  
+  // Default - Agar allowed list me nahi aur blocked bhi nahi, to hide (Food Only Strict)
+  return false;
 }
+
 let allProducts=[
+{id:'barfi_002',name:'Barfi naryal',price:250,category:'Barfi special',image:'https://images.unsplash.com/photo-1584847801423-852691e41bc7?w=400'},
+{id:'sandwich_001',name:'Sandwich potato veg.',price:150,category:'Sandwich',image:'https://images.unsplash.com/photo-1521390188846-e2a3a97453a0?w=400'},
 {id:'momos_001',name:'Veg Momos 10pcs',price:149,category:'Momos',image:'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400'},
 {id:'pasta_001',name:'White Sauce Pasta',price:199,category:'Pasta',image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400'},
 {id:'pizza_001',name:'Veg Cheese Pizza',price:299,category:'Pizza',image:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400'},
 {id:'biryani_001',name:'Chicken Biryani Full',price:349,category:'Biryani',image:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400'},
 {id:'thali_001',name:'Paneer Thali',price:249,category:'Thali',image:'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400'},
 {id:'burger_001',name:'Veg Burger Combo',price:149,category:'Burger',image:'https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=400'},
-{id:'barfi_001',name:'Kaju Barfi Special',price:300,category:'Barfi special',image:'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400'},
-{id:'sandwich_001',name:'Sandwich potato veg.',price:150,category:'Sandwich',image:'https://images.unsplash.com/photo-1521390188846-e2a3a97453a0?w=400'},
-{id:'barfi_002',name:'Barfi naryal',price:250,category:'Barfi special',image:'https://images.unsplash.com/photo-1584847801423-852691e41bc7?w=400'},
-{id:'oil_001',name:'Mustard Desi oil - 1',price:600,category:'Food vegetarian tiffin service',image:'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400'},
-{id:'tiffin_001',name:'Indian vegetarian food tiffin service',price:100,category:'Food vegetarian tiffin service',image:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'}
+{id:'barfi_001',name:'Kaju Barfi Special',price:300,category:'Barfi special',image:'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400'}
 ];
+
 function getCart(){try{return JSON.parse(localStorage.getItem(CART_KEY)||'[]');}catch(e){return [];}}
 function getMyChoice(){try{return JSON.parse(localStorage.getItem(MYCHOICE_KEY)||'[]');}catch(e){return [];}}
 function isFav(id){return getMyChoice().some(f=>f.id===id);}
 function saveMyChoice(arr){localStorage.setItem(MYCHOICE_KEY,JSON.stringify(arr));updateCounts();}
-function toggleHeart(id){
+function toggleHeart(event,id){
+  if(event) event.stopPropagation();
   let fav=getMyChoice();let idx=fav.findIndex(f=>f.id===id);let p=allProducts.find(x=>x.id===id);
   if(idx>-1){fav.splice(idx,1);}else{if(p) fav.push({...p});}
-  saveMyChoice(fav);render(currentList);if(currentPreviewId===id) updateModalHeart(id);
+  saveMyChoice(fav);render(currentList);
 }
 function updateCounts(){
   let cart=getCart();let fav=getMyChoice();
   let c=cart.reduce((a,i)=>a+(i.qty||1),0);
-  document.getElementById('cartCountNav').innerText=c;
-  document.getElementById('favCount').innerText=fav.length;
-  document.getElementById('cartCountNav').style.display=c?'block':'none';
-  document.getElementById('favCount').style.display=fav.length?'block':'none';
+  let favC=fav.length;
+  let cartEl=document.getElementById('cartCountNav');
+  let favEl=document.getElementById('favCount');
+  cartEl.innerText=c; favEl.innerText=favC;
+  cartEl.style.display=c?'block':'none';
+  favEl.style.display=favC?'block':'none';
 }
 let currentList=allProducts;
 function render(list){
   let filtered=list.filter(isFoodProduct);
   currentList=filtered;
   let grid=document.getElementById('productGrid');
-  if(!filtered.length){grid.innerHTML="<div style='grid-column:1/-1;text-align:center;padding:50px;color:#999'>🍕 No products - Admin se add karo</div>";renderCategories([]);return;}
+  if(!filtered.length){grid.innerHTML="<div style='grid-column:1/-1;text-align:center;padding:50px;color:#999'>🍕 No Food products - Admin se Barfi Sandwich Momos add karo<br>Home item/Dress/Soap/Oil/Tiffin hidden - V52</div>";renderCategories([]);return;}
   grid.innerHTML=filtered.map(p=>{
     let heart=isFav(p.id)?'❤️':'🤍';
-    return `<div class="product-card"><button class="heart-btn" onclick="toggleHeart('${p.id}')">${heart}</button><img src="${p.image}" alt="${p.name}" onclick="openImagePreview('${p.id}')" onerror="this.src='https://via.placeholder.com/200?text='+encodeURIComponent(p.name)"><div class="product-info"><h3>${p.name}</h3><div class="cat">${p.category}</div><div class="price">₹${p.price}</div><div class="btn-row"><button class="btn-cart" onclick="addToCart('${p.id}')">Add to Cart</button><button class="btn-buy" onclick="buyNow('${p.id}')">Buy</button></div></div></div>`;
+    return `<div class="product-card" onclick="location.href='product.html?id=${p.id}'">
+      <button class="heart-btn" onclick="toggleHeart(event,'${p.id}')">${heart}</button>
+      <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/200?text='+encodeURIComponent(p.name)">
+      <div class="product-info"><h3>${p.name}</h3><div class="cat">${p.category}</div><div class="price">₹${p.price}</div><div class="btn-row"><button class="btn-cart" onclick="event.stopPropagation();addToCart('${p.id}')">Add to Cart</button><button class="btn-buy" onclick="event.stopPropagation();buyNow('${p.id}')">Buy</button></div></div>
+    </div>`;
   }).join('');
   updateCounts();renderCategories(filtered);
 }
@@ -166,13 +181,13 @@ function renderCategories(list){
   let cats=[...new Set(list.map(p=>p.category||'Food'))].filter(Boolean);
   let row=document.getElementById('categoryRow');
   row.innerHTML=cats.map(cat=>{
-    let icon=cat.toLowerCase().includes('barfi')?'🍬':cat.toLowerCase().includes('sandwich')?'🥪':cat.toLowerCase().includes('momos')?'🥟':cat.toLowerCase().includes('pasta')?'🍝':cat.toLowerCase().includes('pizza')?'🍕':cat.toLowerCase().includes('biryani')?'🍛':cat.toLowerCase().includes('thali')?'🍱':cat.toLowerCase().includes('burger')?'🍔':cat.toLowerCase().includes('oil')?'🛢️':cat.toLowerCase().includes('tiffin')?'🍱':'🥤';
+    let icon=cat.toLowerCase().includes('barfi')?'🍬':cat.toLowerCase().includes('sandwich')?'🥪':cat.toLowerCase().includes('momos')?'🥟':cat.toLowerCase().includes('pasta')?'🍝':cat.toLowerCase().includes('pizza')?'🍕':cat.toLowerCase().includes('biryani')?'🍛':cat.toLowerCase().includes('thali')?'🍱':cat.toLowerCase().includes('burger')?'🍔':'🥤';
     let active=document.getElementById('categoryFilter').value===cat;
     return `<div class="category-card ${active?'active':''}" onclick="filterBy('${cat}')"><div style="font-size:30px">${icon}</div><div>${cat}</div></div>`;
-  }).join('') || '<div style="padding:12px;color:#999">No categories</div>';
+  }).join('') || '<div style="padding:12px;color:#999">No Food categories - Home/Dress/Soap/Oil hidden - V52</div>';
   let select=document.getElementById('categoryFilter');
   let cur=select.value;
-  select.innerHTML='<option value="">All Food Categories - '+cats.length+' categories</option>'+cats.map(c=>`<option value="${c}" ${cur===c?'selected':''}>${c}</option>`).join('');
+  select.innerHTML='<option value="">All Food Categories - V52 Big Page - Food Only - '+cats.length+'</option>'+cats.map(c=>`<option value="${c}" ${cur===c?'selected':''}>${c}</option>`).join('');
 }
 function filterBy(cat){document.getElementById('categoryFilter').value=cat;applyFilter();}
 function applyFilter(){
@@ -190,27 +205,12 @@ function clearFilter(){document.getElementById('categoryFilter').value='';docume
 function doSearch(){applyFilter();}
 function addToCart(id){let p=allProducts.find(x=>x.id===id);if(!p) return;let cart=getCart();let idx=cart.findIndex(x=>x.id===id);if(idx>-1){cart[idx].qty=(cart[idx].qty||1)+1;}else{cart.push({...p,qty:1});}localStorage.setItem(CART_KEY,JSON.stringify(cart));localStorage.setItem('restro_cart',JSON.stringify(cart));updateCounts();}
 function buyNow(id){addToCart(id);location.href='cart.html';}
-let currentPreviewId=null;
-function openImagePreview(id){
-  let p=allProducts.find(x=>x.id===id);if(!p) return;
-  currentPreviewId=id;
-  document.getElementById('modalImage').src=p.image;
-  document.getElementById('modalName').innerText=p.name;
-  document.getElementById('modalPrice').innerText='₹'+p.price+' - '+p.category;
-  document.getElementById('modalCategory').innerText='Category: '+p.category+' | 30 Min Delivery | Restro For You';
-  updateModalHeart(id);
-  document.getElementById('imageModal').classList.add('show');
-  document.getElementById('modalAddCart').onclick=()=>{addToCart(id);closeModal();};
-  document.getElementById('modalBuy').onclick=()=>{addToCart(id);location.href='cart.html';};
-  document.getElementById('modalHeart').onclick=()=>{toggleHeart(id);};
-}
-function updateModalHeart(id){let btn=document.getElementById('modalHeart');if(btn) btn.innerText=isFav(id)?'❤️':'🤍';}
-function closeModal(){document.getElementById('imageModal').classList.remove('show');}
+
 async function loadFromFirebase(){
   try{
     let firebaseProducts=[];
     try{
-      let snap=await db.collection('products').limit(200).get();
+      let snap=await db.collection('products').limit(250).get();
       snap.forEach(doc=>{
         let d=doc.data();
         if(d.name && (d.image||d.imageUrl)){
@@ -219,13 +219,16 @@ async function loadFromFirebase(){
       });
     }catch(e){}
     try{
-      let snap2=await db.collection('restro_products').limit(200).get();
+      let snap2=await db.collection('restro_products').limit(250).get();
       snap2.forEach(doc=>{
         let d=doc.data();
         if(d.name) firebaseProducts.push({id:doc.id,name:d.name,price:parseFloat(d.price||0)||100,category:d.category||'Food',image:d.image||d.imageUrl,imageUrl:d.image||d.imageUrl,hideFromRestro:d.hideFromRestro,visibleOnRestro:d.visibleOnRestro});
       });
     }catch(e){}
+    
     let foodFromFirebase=firebaseProducts.filter(isFoodProduct);
+    console.log('V52 Firebase total:',firebaseProducts.length,'Food Only (Big Page - No Home/Dress/Soap/Oil/Tiffin):',foodFromFirebase.length,'Blocked:',firebaseProducts.length-foodFromFirebase.length);
+    
     if(foodFromFirebase.length>0){
       let merged=[...foodFromFirebase];
       allProducts.forEach(p=>{
