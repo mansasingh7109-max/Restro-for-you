@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categories - Restro Apka</title>
+<style>
+:root{--accent:#ff5722;--bg:#e8f5e9;--card:#fff}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:var(--bg);padding-bottom:70px;}
+.header{background:var(--card);padding:12px 15px;box-shadow:0 2px 5px rgba(0,0,0,0.1);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.header h1{color:var(--accent);font-size:18px;}
+.back-btn{color:var(--accent);text-decoration:none;font-size:22px;font-weight:bold;}
+.main-container{max-width:1200px;margin:auto;padding:15px}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:15px}
+.cat-card{background:var(--card);border-radius:12px;padding:15px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.08);cursor:pointer;border:1px solid #ffe0b2}
+.cat-card img{width:70px;height:70px;object-fit:cover;border-radius:50%;margin-bottom:8px;border:2px solid #ffe0b2}
+.cat-card h4{font-size:13px;color:#333}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:15px}
+.product-card{background:var(--card);border-radius:10px;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,0.08);border:1px solid #ffe0b2}
+.product-card img{width:100%;height:120px;object-fit:cover;border-radius:8px}
+.product-card h4{font-size:12px;margin:6px 0 3px;min-height:32px}
+.price{color:var(--accent);font-weight:bold}
+.product-card button{width:100%;padding:7px;background:var(--accent);color:white;border:none;border-radius:6px;margin-top:6px;font-size:12px;font-weight:bold}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);display:flex;justify-content:space-around;padding:8px 0;box-shadow:0 -2px 10px rgba(0,0,0,0.1);z-index:100}
+.nav-item{text-align:center;text-decoration:none;color:#666;flex:1;padding:5px}
+.nav-item.active{color:var(--accent)}
+.cart-badge{background:red;color:white;border-radius:50%;padding:2px 5px;font-size:10px;position:absolute;top:0;right:20%}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="header"><a href="index.html" class="back-btn">←</a><h1>🍽️ Menu</h1><div style="width:22px"></div></div>
+
+<div class="main-container">
+<div id="catView">
+<h3 style="margin:10px 0">Shop by Category</h3>
+<div id="catList" class="cat-grid"></div>
+</div>
+
+<div id="productView" class="hide">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 id="catTitle"></h3><button onclick="backToCategories()" style="padding:6px 12px;background:#ff5722;color:white;border:none;border-radius:6px">← Back</button></div>
+<div id="productList" class="product-grid" style="margin-top:15px"></div>
+</div>
+</div>
+
+<div class="bottom-nav">
+<a href="index.html" class="nav-item"><div>🏠</div><span>Home</span></a>
+<a href="category.html" class="nav-item active"><div>🍽️</div><span>Menu</span></a>
+<a href="cart.html" class="nav-item" style="position:relative"><div>🛒</div><span>Cart</span><span class="cart-badge" id="cartCount">0</span></a>
+<a href="customer-account.html" class="nav-item"><div>👤</div><span>Account</span></a>
+</div>
+
+<script>
+// ============================================
+// Line 40 pe ye hai - yahi change karna hai
+const MY_CATEGORIES = [
+  {name:"Momos", image:"https://images.unsplash.com/photo-1534422298391-e4f640380802?w=200"},
+  {name:"Pasta", image:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=200"},
+  {name:"Pizza", image:"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200"},
+  {name:"Biryani", image:"https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=200"},
+  {name:"Thali", image:"https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=200"},
+  {name:"Burger", image:"https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=200"},
+  {name:"Drinks", image:"https://images.unsplash.com/photo-1544148103-0772bf10d330?w=200"},
+  {name:"Dessert", image:"https://images.unsplash.com/photo-1551024601-bec78aea704b?w=200"}
+];
+
+const MY_PRODUCTS = [
+  {id:"1", name:"Veg Momos 10pcs", price:149, category:"Momos", image:"https://images.unsplash.com/photo-1534422298391-e4f640380802?w=400"},
+  {id:"2", name:"White Sauce Pasta", price:199, category:"Pasta", image:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400"},
+  {id:"3", name:"Veg Cheese Pizza", price:299, category:"Pizza", image:"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400"},
+  {id:"4", name:"Chicken Biryani", price:349, category:"Biryani", image:"https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400"},
+  {id:"5", name:"Paneer Thali", price:249, category:"Thali", image:"https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400"},
+  {id:"6", name:"Veg Burger", price:149, category:"Burger", image:"https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=400"},
+  {id:"7", name:"Cold Coffee", price:99, category:"Drinks", image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400"},
+  {id:"8", name:"Chocolate Brownie", price:129, category:"Dessert", image:"https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400"}
+];
+// ============================================
+
+let currentCategory = '';
+const CART_KEY = "restroCart_v2";
+
+function renderCategories(){
+  let html="";
+  MY_CATEGORIES.forEach(cat=>{
+    let count = MY_PRODUCTS.filter(p=>p.category===cat.name).length;
+    html+=`<div class="cat-card" onclick="showCategory('${cat.name}')"><img src="${cat.image}" onerror="this.src='https://via.placeholder.com/80?text=${cat.name}'"><h4>${cat.name}</h4><p style="font-size:11px;color:#999">${count} Items</p></div>`;
+  });
+  document.getElementById('catList').innerHTML = html;
+}
+
+function showCategory(catName){
+  currentCategory = catName;
+  document.getElementById('catView').classList.add('hide');
+  document.getElementById('productView').classList.remove('hide');
+  document.getElementById('catTitle').innerText = catName;
+  let filtered = MY_PRODUCTS.filter(p=>p.category===catName);
+  let html="";
+  if(filtered.length===0) html='<p style="grid-column:1/-1;text-align:center;padding:20px;color:#999">No items in '+catName+'</p>';
+  filtered.forEach(p=>{
+    html+=`<div class="product-card"><img src="${p.image}"><h4>${p.name}</h4><div class="price">₹${p.price}</div><button onclick="addToCart('${p.id}')">Add to Cart</button></div>`;
+  });
+  document.getElementById('productList').innerHTML = html;
+  history.pushState(null,'','category.html?name='+encodeURIComponent(catName));
+}
+
+function backToCategories(){
+  document.getElementById('productView').classList.add('hide');
+  document.getElementById('catView').classList.remove('hide');
+  history.pushState(null,'','category.html');
+}
+
+function addToCart(id){
+  let p = MY_PRODUCTS.find(x=>x.id===id);
+  let cart = JSON.parse(localStorage.getItem(CART_KEY)||"[]");
+  let idx = cart.findIndex(x=>x.id===id);
+  if(idx>-1) cart[idx].qty++;
+  else cart.push({...p, qty:1});
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  updateCount();
+  alert("✅ Added: "+p.name);
+}
+
+function updateCount(){
+  let cart = JSON.parse(localStorage.getItem(CART_KEY)||"[]");
+  let total = cart.reduce((s,i)=>s+(i.qty||1),0);
+  document.getElementById('cartCount').innerText = total;
+}
+
+// Start
+renderCategories();
+updateCount();
+
+// If opened with ?name=Pizza then show directly
+let params = new URLSearchParams(window.location.search);
+let name = params.get('name');
+if(name){
+  setTimeout(()=>{ showCategory(decodeURIComponent(name)); },300);
+}
+
+console.log("✅ category.html READY - Edit MY_CATEGORIES at Line 40 to change name/image");
+</script>
+
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</html>

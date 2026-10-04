@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🛒 My Cart - RESTRO APKA</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script>window.getISTNow=window.getISTNow||function(){let now=new Date();let ist=new Date(now.toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));let pad=n=>String(n).padStart(2,'0');return{presentDate:`${pad(ist.getDate())}/${pad(ist.getMonth()+1)}/${ist.getFullYear()}`,presentTime:ist.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),tomorrowDate:`${pad(ist.getDate()+1)}/${pad(ist.getMonth()+1)}/${ist.getFullYear()}`};};</script>
+<script>
+(function(){
+  window.CART_KEY = "restroCart_v2";
+  window.MYCHOICE_KEY = "restroMyChoice_v2";
+  window.CONSTANTS_LOADED = true;
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--bg:#fff8e1;--card:#fff;--accent:#ff5722;--green:#10b981;--orange:#ff9800;--blue:#3b82f6}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial}
+body{background:var(--bg);padding-bottom:160px}
+.header{background:linear-gradient(90deg,#ff9800,#e91e63);color:white;padding:15px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.header h1{font-size:14px;flex:1}.back-btn{background:none;border:none;color:white;font-size:22px;cursor:pointer}
+.today-strip{background:#e8f5e9;border:1px solid var(--green);padding:6px 10px;border-radius:8px;margin:8px 15px;font-size:11px;font-weight:bold;text-align:center;color:#065f46}
+.tabs{display:flex;background:var(--card);margin:10px 15px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.tab{flex:1;padding:12px 6px;text-align:center;font-weight:600;cursor:pointer;border:none;background:transparent;font-size:13px;display:flex;align-items:center;justify-content:center;gap:4px}
+.tab.active{background:var(--accent);color:white}
+.cart-card{background:white!important;border-radius:12px;padding:15px;display:flex;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:15px;border:1px solid #ffe0b2;position:relative}
+.cart-card img{width:90px;height:90px;object-fit:cover;border-radius:8px;border:1px solid #eee;flex-shrink:0}
+.item-info{flex:1;min-width:0}.item-info h3{font-size:14px}.item-price{color:var(--accent);font-weight:700;margin:5px 0}.item-code{font-size:11px;color:#666}
+.qty-controls{display:flex;gap:8px;align-items:center;margin-top:10px}.qty-btn{background:#eee;border:none;width:32px;height:32px;border-radius:8px;cursor:pointer;font-weight:bold}
+.item-actions{display:flex;flex-direction:column;gap:8px;margin-top:8px}.btn-move-choice,.btn-remove,.btn-share{color:white;border:none;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;width:100%}.btn-move-choice{background:var(--orange)}.btn-remove{background:#ef4444}.btn-share{background:var(--blue)}
+.summary{background:var(--card);margin:15px;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}.summary-row{display:flex;justify-content:space-between;margin:10px 0}.total-row{font-weight:700;font-size:18px;border-top:2px solid #e0e0e0;padding-top:12px;margin-top:12px}
+.btn-send-all{background:linear-gradient(135deg,#25d366,#ff5722);padding:16px;color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer;width:100%}.btn-pdf{background:#7c3aed;padding:14px;color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;width:100%;margin-top:10px}
+.checkout-btn{position:fixed;bottom:70px;left:15px;right:15px;background:var(--accent);color:white;border:none;padding:16px;border-radius:12px;font-weight:700;cursor:pointer;z-index:50;text-align:center;display:block;text-decoration:none}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:8px 0 12px;box-shadow:0 -2px 10px rgba(0,0,0,0.1);z-index:999}
+.nav-item{text-align:center;text-decoration:none;color:#666;flex:1;padding:5px;font-size:12px}
+#myChoiceList,#cartList{display:flex!important;flex-direction:column!important;gap:15px!important;padding:15px!important}
+.hide{display:none!important}.top-select-bar{background:white;margin:0 15px 10px;padding:10px 12px;border-radius:10px;display:flex;align-items:center;gap:10px}
+.heart-btn-cart{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);font-size:16px;cursor:pointer;z-index:5;box-shadow:0 1px 4px rgba(0,0,0,0.2)}
+</style>
+</head>
+<body>
+<div class="header"><button class="back-btn" onclick="location.href='index.html'">←</button><h1>🛒 My Cart - RESTRO APKA</h1><span id="clock" style="margin-left:auto;background:black;color:#0f0;padding:4px 6px;border-radius:5px;font-size:9px">IST</span></div>
+<div class="today-strip" id="todayBar">RESTRO APKA - Online Food Order - 30 Min Delivery</div>
+<div class="tabs"><button class="tab active" id="cartTab" onclick="switchTab('cart')">🛒 Cart (<span id="cartCount">0</span>)</button><button class="tab" id="choiceTab" onclick="switchTab('choice')">❤️ My Choice (<span id="choiceCount">0</span>)</button></div>
+<div id="cartView">
+<div class="top-select-bar" id="cartTopBar" style="display:none"><label style="font-size:12px;display:flex;align-items:center;gap:5px"><input type="checkbox" id="selectAllCart" onchange="toggleAllCart(this.checked)"> Select All</label><button onclick="moveSelectedToChoice()" style="background:#f59e0b;color:white;margin-left:auto;border:none;padding:8px 10px;border-radius:6px;font-weight:600">❤️ Fav</button><button onclick="removeSelectedCart()" style="background:#fee2e2;color:#ef4444;border:none;padding:8px 10px;border-radius:6px;font-weight:600">Remove</button></div>
+<div id="cartList"></div>
+<div id="cartSummary" class="summary hide"><h3>Grand Total: ₹<span id="cartTotal">0</span></h3><div style="font-size:11px;color:#666">Date: <span id="todayDateBar"></span></div><button onclick="sendOrderToAll()" class="btn-send-all">📦 Send Order - WhatsApp</button><button onclick="generateAndSharePDF()" class="btn-pdf">📄 Download Invoice PDF</button><h3 style="margin-top:12px">Price Details</h3><div class="summary-row"><span>Price (<span id="itemCount">0</span> items)</span><span id="subTotal">₹0</span></div><div class="summary-row"><span>Delivery</span><span id="deliveryCharge">FREE</span></div><div class="summary-row total-row"><span>Total</span><span id="grandTotal">₹0</span></div></div>
+<a href="checkout.html" id="checkoutBtn" class="checkout-btn">➡ PROCEED TO CHECKOUT</a>
+</div>
+<div id="choiceView" class="hide"><div class="top-select-bar" id="choiceTopBar" style="display:none"><label style="font-size:12px;display:flex;align-items:center;gap:5px"><input type="checkbox" id="selectAllChoice" onchange="toggleAllChoice(this.checked)"> Select All</label><button onclick="moveSelectedToCart()" style="background:#10b981;color:white;margin-left:auto;border:none;padding:8px 10px;border-radius:6px;font-weight:600">→ Cart</button><button onclick="removeSelectedChoice()" style="background:#fee2e2;color:#ef4444;border:none;padding:8px 10px;border-radius:6px;font-weight:600">Remove</button></div><div id="myChoiceList"></div></div>
+<div class="bottom-nav"><a href="index.html" class="nav-item"><div>🏠</div><span>Home</span></a><a href="cart.html" class="nav-item active"><div>🛒</div><span>Cart</span></a><a href="orders.html" class="nav-item"><div>📦</div><span>Orders</span></a></div>
+
+<script>
+let cart={};let myChoice={};
+function initTime(){ let d=new Date(); document.getElementById('todayBar').innerText=`Aaj: ${d.toLocaleDateString('en-IN')} ${d.toLocaleTimeString('en-IN')} - RESTRO APKA - 30 Min Delivery`; document.getElementById('todayDateBar').innerText=d.toLocaleDateString('en-IN'); }
+initTime();
+
+window.switchTab=function(tab){
+  document.getElementById("cartTab").classList.toggle("active",tab==="cart");
+  document.getElementById("choiceTab").classList.toggle("active",tab==="choice");
+  document.getElementById("cartView").classList.toggle("hide",tab!=="cart");
+  document.getElementById("choiceView").classList.toggle("hide",tab!=="choice");
+  if(tab==="choice")renderMyChoice();else renderCart();
+};
+
+function isFav(id){
+  let fav = JSON.parse(localStorage.getItem(window.MYCHOICE_KEY)||"[]");
+  return fav.some(f=> (f.id||f.productId)===id);
+}
+
+function loadData(){
+  try{
+    let cartArray=JSON.parse(localStorage.getItem(window.CART_KEY)||"[]");
+    cart={}; cartArray.forEach(item=>{ if(!item.id) return; cart[item.id]=item; if(!cart[item.id].qty) cart[item.id].qty=1; });
+    let favArray=JSON.parse(localStorage.getItem(window.MYCHOICE_KEY)||"[]");
+    myChoice={}; favArray.forEach(item=>{ if(!item.id) return; myChoice[item.id]=item; });
+  }catch(e){cart={};myChoice={};}
+  renderCart();renderMyChoice();updateCounts();
+}
+
+function renderCart(){
+ let c=document.getElementById("cartList"),s=document.getElementById("cartSummary"),b=document.getElementById("checkoutBtn"),k=Object.keys(cart),topBar=document.getElementById("cartTopBar");
+ if(k.length===0){c.innerHTML="<div style='text-align:center;padding:80px 20px;color:#999'>🛒 Cart empty<br><br><a href='index.html' style='background:#ff9800;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none'>Browse Menu</a></div>";s.classList.add("hide");b.style.display="none";if(topBar)topBar.style.display="none";updateCounts();return;}
+ b.style.display="block";if(topBar)topBar.style.display="flex";
+ c.innerHTML=k.map(function(key){
+  let i=cart[key],q=parseInt(i.qty)||1,p=parseFloat(i.price)||0;
+  let heartIcon = isFav(key) ? "❤️" : "🤍";
+  return `<div class="cart-card">
+    <button class="heart-btn-cart" onclick="toggleHeartFromCart('${key}')">${heartIcon}</button>
+    <input type="checkbox" class="cart-check" data-key="${key}" style="width:18px;height:18px">
+    <img src="${i.image||'https://via.placeholder.com/90?text=Food'}" alt="${i.name}">
+    <div class="item-info">
+      <h3>${i.name||"Food"}</h3>
+      <div class="item-price">₹${p} x ${q} = ₹${p*q}</div>
+      <div class="item-code">Category: ${i.category||'Food'} | 30 min</div>
+      <div class="qty-controls"><button class="qty-btn" onclick="updateQty('${key}',-1)">-</button><span>${q}</span><button class="qty-btn" onclick="updateQty('${key}',1)">+</button></div>
+      <div class="item-actions"><button class="btn-move-choice" onclick="moveToMyChoice('${key}')">❤️ Move to My Choice</button><button class="btn-remove" onclick="removeFromCart('${key}')">🗑 Remove</button></div>
+    </div>
+  </div>`;
+ }).join("");
+ let sub=Object.values(cart).reduce((a,i)=>a+(parseFloat(i.price)||0)*(parseInt(i.qty)||1),0);
+ document.getElementById("subTotal").innerText="₹"+sub;
+ document.getElementById("grandTotal").innerText="₹"+sub;
+ document.getElementById("cartTotal").innerText=sub;
+ document.getElementById("itemCount").innerText=Object.values(cart).reduce((a,i)=>a+(parseInt(i.qty)||1),0);
+ s.classList.remove("hide");updateCounts();
+}
+
+function renderMyChoice(){
+  let c=document.getElementById("myChoiceList"),k=Object.keys(myChoice),topBar=document.getElementById("choiceTopBar");
+  if(k.length===0){c.innerHTML=`<div style='text-align:center;padding:80px 20px;color:#999'>❤️ My Choice is Empty<br>Add from Home with 🤍</div>`;if(topBar)topBar.style.display="none";updateCounts();return;}
+  if(topBar)topBar.style.display="flex";
+  c.innerHTML=k.map(function(key){
+    let i=myChoice[key];let p=parseFloat(i.price)||0;
+    return`<div class="cart-card"><input type="checkbox" class="choice-check" data-key="${key}" style="width:18px;height:18px"><img src="${i.image||'https://via.placeholder.com/90?text=Food'}"><div class="item-info"><h3>${i.name||"Food"}</h3><div style="color:#e40046;font-weight:700;">₹${p}</div><div style="font-size:11px;color:#666">${i.category||'Food'}</div><div style="display:flex;gap:8px;margin-top:10px;"><button onclick="moveToCart('${key}')" style="background:#10b981;color:white;border:none;padding:12px;border-radius:8px;font-weight:600;flex:1">🛒 Move to Cart</button><button onclick="removeFromChoice('${key}')" style="background:#ef4444;color:white;border:none;padding:12px;border-radius:8px;font-weight:600;flex:1">🗑 Remove</button></div></div></div>`;
+  }).join("");updateCounts();
+}
+
+function toggleHeartFromCart(id){
+  let item = cart[id] || myChoice[id];
+  if(!item) return;
+  let fav = JSON.parse(localStorage.getItem(window.MYCHOICE_KEY)||"[]");
+  let idx = fav.findIndex(f=>f.id===id);
+  if(idx>-1){ fav.splice(idx,1); } else { fav.push({...item}); }
+  localStorage.setItem(window.MYCHOICE_KEY, JSON.stringify(fav));
+  loadData(); // re-render to update heart icons
+}
+
+function updateQty(id,ch){if(!cart[id])return;cart[id].qty=(parseInt(cart[id].qty)||1)+ch;if(cart[id].qty<1)delete cart[id];saveCart();renderCart();}
+function removeFromCart(id){delete cart[id];saveCart();renderCart();}
+function moveToMyChoice(id){let i=cart[id];if(!i)return;delete cart[id];saveCart();myChoice[id]={...i};delete myChoice[id].qty;saveMyChoice();renderCart();renderMyChoice();}
+function moveToCart(id){let i=myChoice[id];if(!i)return;delete myChoice[id];saveMyChoice();cart[id]={...i,qty:i.qty||1};saveCart();renderCart();renderMyChoice();}
+function removeFromChoice(id){delete myChoice[id];saveMyChoice();renderMyChoice();}
+function toggleAllCart(checked){document.querySelectorAll(".cart-check").forEach(c=>c.checked=checked);}
+function toggleAllChoice(checked){document.querySelectorAll(".choice-check").forEach(c=>c.checked=checked);}
+function moveSelectedToChoice(){let checks=[...document.querySelectorAll(".cart-check:checked")];if(!checks.length)return alert("Select item first");checks.forEach(ch=>{let key=ch.dataset.key;if(cart[key]){myChoice[key]={...cart[key]};delete cart[key];}});saveCart();saveMyChoice();renderCart();renderMyChoice();}
+function removeSelectedCart(){let checks=[...document.querySelectorAll(".cart-check:checked")];if(!checks.length)return alert("Select item first");checks.forEach(ch=>{let key=ch.dataset.key;delete cart[key];});saveCart();renderCart();}
+function moveSelectedToCart(){let checks=[...document.querySelectorAll(".choice-check:checked")];if(!checks.length)return alert("Select item first");checks.forEach(ch=>{let key=ch.dataset.key;if(myChoice[key]){cart[key]={...myChoice[key],qty:1};delete myChoice[key];}});saveCart();saveMyChoice();renderCart();renderMyChoice();}
+function removeSelectedChoice(){let checks=[...document.querySelectorAll(".choice-check:checked")];if(!checks.length)return alert("Select item first");checks.forEach(ch=>{let key=ch.dataset.key;delete myChoice[key];});saveMyChoice();renderMyChoice();}
+function saveCart(){localStorage.setItem(window.CART_KEY,JSON.stringify(Object.values(cart)));}
+function saveMyChoice(){localStorage.setItem(window.MYCHOICE_KEY,JSON.stringify(Object.values(myChoice)));}
+function updateCounts(){let c=Object.values(cart).reduce((a,i)=>a+(parseInt(i.qty)||1),0);document.getElementById("cartCount").innerText=c;document.getElementById("choiceCount").innerText=Object.keys(myChoice).length;}
+function sendOrderToAll(){ let arr=Object.values(cart); if(!arr.length) return alert("Cart empty"); let msg="Hello RESTRO APKA,%0A"; arr.forEach(i=>{msg+=`• ${i.name} x ${i.qty} = ₹${i.price*i.qty}%0A`;}); msg+=`%0ATotal: ₹${arr.reduce((a,i)=>a+(i.price*i.qty),0)}`; window.open(`https://wa.me/919999999999?text=${msg}`,"_blank"); }
+function generateAndSharePDF(){ if(!Object.keys(cart).length){alert("Cart empty");return;} try{ const {jsPDF}=window.jspdf; let doc=new jsPDF(); let now=new Date().toLocaleString('en-IN'); let sub=Object.values(cart).reduce((a,i)=>a+(i.price*i.qty),0); doc.text("RESTRO APKA INVOICE",10,15); doc.text("Date: "+now,10,25); let y=35; Object.values(cart).forEach(it=>{doc.text(it.name+" x "+it.qty+" = ₹"+(it.price*it.qty),10,y); y+=7;}); doc.text("Total: ₹"+sub,10,y+5); doc.save("RESTRO_Invoice.pdf"); }catch(e){alert(e.message);} }
+
+document.addEventListener("DOMContentLoaded", loadData);
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</html>

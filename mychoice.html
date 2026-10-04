@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>😍 My Choice - RESTRO APKA</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="constants.js"></script>
+<script src="config.js"></script>
+<script src="secrets.js"></script>
+<style>
+:root{--bg:#fff8e1;--card:#fff;--accent:#ff5722;--green:#10b981}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:var(--bg);padding-bottom:85px}
+.header{background:linear-gradient(90deg,#ff9800,#e91e63);color:#fff;padding:15px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.back-btn{background:none;border:none;color:#fff;font-size:22px;cursor:pointer}
+.header h1{font-size:16px;flex:1}
+.choice-card{background:var(--card);margin:12px 15px;border-radius:12px;padding:12px;display:flex;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);align-items:center;border:1px solid #ffe0b2}
+.choice-card img{width:90px;height:90px;object-fit:cover;background:#fff;border-radius:8px;border:1px solid #eee}
+.item-info{flex:1}.item-info h3{font-size:14px;margin-bottom:4px}.item-price{color:var(--accent);font-weight:700;font-size:15px}
+.btn-move-cart,.btn-remove{color:#fff;border:none;padding:10px 10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;flex:1}
+.btn-move-cart{background:var(--green)}.btn-remove{background:#ef4444}
+.empty{text-align:center;padding:80px 20px;color:#999}
+.top-bar{background:#fff;margin:15px 15px 0 15px;padding:10px 12px;border-radius:10px;display:none;align-items:center;gap:10px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:8px 0 12px;box-shadow:0 -2px 10px rgba(0,0,0,0.1)}
+.nav-item{text-align:center;text-decoration:none;color:#666;flex:1;padding:5px;font-size:12px}
+.nav-item.active{color:#ff5722}
+</style>
+</head>
+<body>
+<div class="header"><button class="back-btn" onclick="location.href='index.html'">←</button><h1>😍 My Choice - RESTRO APKA (<span id="myChoiceCount">0</span>)</h1><a href="cart.html" style="color:#fff;text-decoration:none">🛒 Cart</a></div>
+<div class="top-bar" id="topBar"><label style="font-size:13px"><input type="checkbox" id="selectAll" onchange="toggleSelectAll(this.checked)"> Select All</label><button onclick="moveSelectedToCart()" style="background:#10b981;color:#fff;margin-left:auto;border:none;padding:8px 10px;border-radius:6px;font-weight:600">Move to Cart →</button><button onclick="removeSelected()" style="background:#fee2e2;color:#e40046;border:none;padding:8px 10px;border-radius:6px;font-weight:600">Remove</button></div>
+<div id="myChoiceList"><div style="text-align:center;padding:50px">Loading favourites...</div></div>
+
+<div class="bottom-nav">
+<a href="index.html" class="nav-item"><div>🏠</div><span>Home</span></a>
+<a href="category.html" class="nav-item"><div>🍽️</div><span>Menu</span></a>
+<a href="mychoice.html" class="nav-item active"><div>❤️</div><span>Fav</span></a>
+<a href="cart.html" class="nav-item"><div>🛒</div><span>Cart</span></a>
+</div>
+
+<script>
+// ✅ RESTRO KEYS - Santra se alag - Old flow same
+var MYCHOICE_KEY = window.MYCHOICE_KEY || "restroMyChoice_v2";
+var CART_KEY = window.CART_KEY || "restroCart_v2";
+
+function norm(id){ return String(id||"").replace(/^home_/i,'').trim(); }
+function normLow(id){ return norm(id).toLowerCase(); }
+
+function getThumb(p){
+  if(!p) return "https://via.placeholder.com/90?text=Food";
+  if(p.image && p.image.startsWith('http') && !String(p.image).includes("placeholder")) return p.image;
+  if(p.thumbnail && p.thumbnail.startsWith('http')) return p.thumbnail;
+  if(p.images && p.images[0] && typeof p.images[0]==='string' && p.images[0].startsWith('http')) return p.images[0];
+  return "https://via.placeholder.com/90?text=Food";
+}
+
+function cleanDuplicateWishlist(){
+  let r=localStorage.getItem(MYCHOICE_KEY)||"[]"; let a=[];
+  try{ a=JSON.parse(r); if(!Array.isArray(a)) a=Object.values(a||{});}catch(e){ a=[]; }
+  let s={}; let c=[];
+  a.forEach(function(it){
+    if(!it||!it.id) return;
+    if(it.name==="Product" && (!it.price||it.price===0)) return;
+    let b = normLow(it.id);
+    if(!b || b.length<1) return;
+    if(s[b]) return; s[b]=1;
+    it.id = b; it.code = it.code||b;
+    if(!it.image || String(it.image).includes('placeholder')) it.image = getThumb(it);
+    c.push(it);
+  });
+  localStorage.setItem(MYCHOICE_KEY,JSON.stringify(c));
+  // also sync to new key if old key exists
+  localStorage.setItem("restroMyChoice_v2", JSON.stringify(c));
+  return c;
+}
+
+let myChoice=[];
+function loadMyChoice(){ myChoice = cleanDuplicateWishlist(); renderMyChoice(); }
+
+function renderMyChoice(){
+  let cont=document.getElementById("myChoiceList");
+  let topBar=document.getElementById("topBar");
+  if(!cont) return;
+  document.getElementById("myChoiceCount").innerText=myChoice.length;
+  if(myChoice.length===0){
+    cont.innerHTML=`<div class="empty"><h3>😍 My Choice is Empty</h3><p>Your favourite foods will appear here</p><button onclick="location.href='index.html'" style="margin-top:15px;padding:12px 24px;background:#ff5722;color:white;border:none;border-radius:8px;font-weight:bold">Browse Menu</button></div>`;
+    if(topBar) topBar.style.display="none"; return;
+  }
+  if(topBar) topBar.style.display="flex";
+  cont.innerHTML=myChoice.map(function(item,idx){
+    let price=item.price||0; let img=getThumb(item); let cat=item.category||'Food';
+    return `<div class="choice-card"><input type="checkbox" class="choice-check" data-idx="${idx}" style="width:18px;height:18px"><img src="${img}" onclick="location.href='product.html?id=${item.id}'" onerror="this.src='https://via.placeholder.com/90?text=Food'"><div class="item-info"><h3>${item.name||"Food"}</h3><div class="item-price">₹${price}</div><div style="font-size:11px;color:#666">Category: ${cat} | 30 min</div><div style="display:flex;gap:8px;margin-top:8px"><button class="btn-move-cart" onclick="moveToCart(${idx})">🛒 Move to Cart</button><button class="btn-remove" onclick="removeFromChoice(${idx})">🗑️ Remove</button></div></div></div>`;
+  }).join("");
+}
+
+function moveToCart(idx){
+  let item=myChoice[idx]; if(!item) return;
+  let cart=[]; try{ cart=JSON.parse(localStorage.getItem(CART_KEY)||"[]"); }catch(e){ cart=[]; }
+  // check if already in cart
+  let existing = cart.find(c=>c.id===item.id);
+  if(existing){ existing.qty = (existing.qty||1)+1; } else { cart.push({...item, qty:1, image:getThumb(item)}); }
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  localStorage.setItem("restroCart_v2", JSON.stringify(cart));
+  removeFromChoice(idx);
+  alert("✅ Moved to Cart: "+item.name);
+}
+
+function removeFromChoice(idx){
+  myChoice.splice(idx,1);
+  localStorage.setItem(MYCHOICE_KEY, JSON.stringify(myChoice));
+  localStorage.setItem("restroMyChoice_v2", JSON.stringify(myChoice));
+  try{ window.dispatchEvent(new CustomEvent('mychoice:updated',{detail:myChoice})); }catch(e){}
+  renderMyChoice();
+}
+
+function toggleSelectAll(checked){ document.querySelectorAll(".choice-check").forEach(function(ch){ ch.checked = checked; }); }
+
+function moveSelectedToCart(){
+  let checks=[...document.querySelectorAll(".choice-check:checked")]; if(!checks.length) return alert("Pehle item select karo");
+  let idxs=checks.map(c=>parseInt(c.dataset.idx)).sort((a,b)=>b-a); 
+  let cart=[]; try{cart=JSON.parse(localStorage.getItem(CART_KEY)||"[]");}catch(e){cart=[];}
+  idxs.forEach(i=>{ let item=myChoice[i]; if(item){ let ex=cart.find(c=>c.id===item.id); if(ex) ex.qty=(ex.qty||1)+1; else cart.push({...item,qty:1,image:getThumb(item)}); }});
+  localStorage.setItem(CART_KEY, JSON.stringify(cart)); 
+  localStorage.setItem("restroCart_v2", JSON.stringify(cart));
+  myChoice=myChoice.filter((_,i)=>!idxs.includes(i)); 
+  localStorage.setItem(MYCHOICE_KEY, JSON.stringify(myChoice));
+  localStorage.setItem("restroMyChoice_v2", JSON.stringify(myChoice));
+  renderMyChoice();
+}
+
+function removeSelected(){
+  let checks=[...document.querySelectorAll(".choice-check:checked")]; if(!checks.length) return alert("Pehle item select karo");
+  let idxs=checks.map(c=>parseInt(c.dataset.idx)).sort((a,b)=>b-a); idxs.forEach(i=>myChoice.splice(i,1));
+  localStorage.setItem(MYCHOICE_KEY, JSON.stringify(myChoice));
+  localStorage.setItem("restroMyChoice_v2", JSON.stringify(myChoice));
+  renderMyChoice();
+}
+
+document.addEventListener('DOMContentLoaded', loadMyChoice);
+setTimeout(loadMyChoice, 800);
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</html>
