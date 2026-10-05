@@ -41,15 +41,15 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <style>
-*{box-sizing:border-box;font-family:Arial}body{background:#fffbeb;margin:0;padding-bottom:90px}
+*{box-sizing:border-box;font-family:Arial}body{background:#FFF176;margin:0;padding-bottom:90px}
 .main-layout{display:flex;min-height:100vh}
-.left-sidebar{width:78px;min-width:78px;background:linear-gradient(180deg,#ff9800,#ff6a00);display:flex;flex-direction:column;align-items:center;padding:10px 6px;gap:14px;position:sticky;top:0;height:100vh;z-index:200}
+.left-sidebar{width:78px;min-width:78px;background:linear-gradient(180deg,#4DB6AC,#BA68C8);display:flex;flex-direction:column;align-items:center;padding:10px 6px;gap:14px;position:sticky;top:0;height:20vh;z-index:200}
 .sidebar-customer{background:white;border-radius:16px;width:62px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.18)}
 .sidebar-customer .icon{width:38px;height:38px;background:#fff3e0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
 .sidebar-customer span{font-size:9px;font-weight:bold;color:#ff6a00;margin-top:5px;text-align:center;line-height:1.1}
 .sidebar-help{background:#fff8e1;border-radius:16px;width:62px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;border:1.5px solid #ffe0b2}
 .sidebar-help span{font-size:9px;font-weight:bold;color:#333;margin-top:4px}
-.content-area{flex:1;min-width:0;background:#fffbeb}
+.content-area{flex:1;min-width:0;background:#FFF176}
 .header-top{background:#fffbe6;padding:10px;text-align:center;font-size:12px;color:#666;border-bottom:1px solid #ffe0b2}
 .welcome-banner{background:linear-gradient(90deg,#ff9800,#ff6a00);color:white;padding:16px 12px;border-radius:14px;margin:10px;text-align:center;box-shadow:0 4px 12px rgba(255,106,0,.25)}
 .search-bar{display:flex;gap:8px;padding:0 10px;margin:10px 0}
@@ -78,14 +78,33 @@
 @media(max-width:600px){.bottom-nav{margin-left:0}}
 .nav-item{text-align:center;text-decoration:none;color:#666;flex:1;padding:5px;font-size:12px;position:relative}
 @media(max-width:768px){.left-sidebar{width:0;min-width:0;overflow:hidden;padding:0}.main-layout{flex-direction:column}}
+
+/* Restro upar ki patti - Font color change - White dark bold */
+div[style*="#81C784"] h1{
+  color:#81C784 !important;
+  font-weight:900 !important;
+  text-shadow:none !important;
+  -webkit-text-stroke:0 !important;
+}
+div[style*="F48"] p{
+  color:#81C784 !important;
+  font-weight:700 !important;
+}
+
+/* Fast Delivery - Grey se Black/Red */
+body > div:nth-of-type(2){
+  color:#81C784 !important;
+  font-weight:900 !important;
+}
 </style>
 </head><body>
   
 <!-- Google ke liye static content - Screenshot me dikhega -->
 <!-- VISIBLE - Customer ko dikhega - Background ke sath - Rs line nahi -->
-<div style="background:#fffbeb; padding:18px 15px; text-align:center; border-bottom:2px solid #ffe0b2">
-<h1 style="margin:0; font-size:22px; color:#1a1a1a; font-weight:800; line-height:1.3">RESTRO APKA - Best Restaurant in India  </h1>
-<p style="margin:6px 0 0 0; font-size:11px; color:#666">In India - restroforyou.web.app</p>
+<div style="background:#4A; padding:18px 15px; text-align:center; border-bottom:2px solid #0">
+<h1 style="margin:0; font-size:22px; color:#F48F; font-weight:800; line-height:1.3">RESTRO APKA - Best Restaurant in India  </h1>
+<div style="color:#FF0000 !important; font-weight:900 !important; text-align:center;"> Restaurant Service </div>
+<p style="margin:6px 0 0 0; font-size:11px; color:#B71C1C">In India - https://restroforyou.web.app, Your order on Restro For You 《RESTRO APKA》 ON WHATSAPP~ 8769171078</p>
 </div>
 
 <!-- HIDDEN - Customer ko nahi dikhega - Google ke liye - Rs 149 etc SEO ke liye -->
@@ -106,15 +125,16 @@
 </div>
 </div>
 <div class="content-area">
-<div class="header-top">Online Food Order - Fast Delivery </div>
-<div class="welcome-banner"><div style="font-size:20px;font-weight:bold">🍕 Welcome to RESTRO APKA 🍔</div><div style="font-size:12px;margin-top:5px">Best Food, Best Prices!</div></div>
+
+<div class="header-top" style="color:#1B5E20 !important; background:#FFF176 !important; text-align:center !important; padding:10px !important; font-weight:800 !important;">Online Food Order -On Whatsapp~ <span style="color:#1B5E20 !important; font-weight:900 !important;">8769171078</span></div>
+<div class="welcome-banner"><div style="background:#FFF176 !important;color:#F48F !important;font-size:20px;font-weight:bold">🍕 Welcome to RESTRO APKA 🍔</div><div style="background:#FFF176 !important;color:#F48F !important;font-size:12px;margin-top:5px">Best Food, Best Prices!</div></div>
 <div class="search-bar"><input id="searchInput" placeholder="Search Barfi, Sandwich, Momos, Pizza..."><button onclick="doSearch()">Search</button></div>
 <div class="filter-box">
-<select id="categoryFilter" style="width:100%;padding:13px;border-radius:10px;border:1.5px solid #ddd;margin-bottom:10px;font-size:13px"><option value="">All Food Categories - V Big Page</option></select>
+<select id="categoryFilter" style="width:100%;padding:13px;border-radius:10px;border:1.5px solid #ddd;margin-bottom:10px;font-size:13px"><option value="">All Food Categories -  Big Page</option></select>
 <div style="display:flex;gap:10px"><button style="flex:1;padding:13px;border-radius:10px;background:#10b981;color:white;border:none;font-weight:bold" onclick="applyFilter()">Apply</button><button style="flex:1;padding:13px;border-radius:10px;background:#9ca3af;color:white;border:none;font-weight:bold" onclick="clearFilter()">Clear</button></div>
 </div>
 <div class="category-row" id="categoryRow"><div style="padding:12px;color:#999;font-size:12px">⏳ Loading Food categories - No Home item/Dress/Soap...</div></div>
-<div class="today-header"><span>🔥 Today's Special - Click Photo → Big Page</span><span style="color:#e40046;cursor:pointer;font-size:12px" onclick="clearFilter()">View All →</span></div>
+<div class="today-header"><span>🔥 Today's Special - Click Photo →  Page Open</span><span style="color:#e40046;cursor:pointer;font-size:12px" onclick="clearFilter()">View All →</span></div>
 <div class="product-grid" id="productGrid"><div style="grid-column:1/-1;text-align:center;padding:50px;color:#999">⏳ Loading Food Only - Big Page Mode<br>Photo Click → product.html Big Page<br>No Small Preview - No Soap/Home/Dress</div></div>
 <div style="height:80px"></div>
 </div>
@@ -219,7 +239,7 @@ function renderCategories(list){
   }).join('') || '<div style="padding:12px;color:#999">No Food categories - Home/Dress/Soap/Oil hidden - V52</div>';
   let select=document.getElementById('categoryFilter');
   let cur=select.value;
-  select.innerHTML='<option value="">All Food Categories - V52 Big Page - Food Only - '+cats.length+'</option>'+cats.map(c=>`<option value="${c}" ${cur===c?'selected':''}>${c}</option>`).join('');
+  select.innerHTML='<option value="">All Food Categories Your Choice - Food Only - '+cats.length+'</option>'+cats.map(c=>`<option value="${c}" ${cur===c?'selected':''}>${c}</option>`).join('');
 }
 function filterBy(cat){document.getElementById('categoryFilter').value=cat;applyFilter();}
 function applyFilter(){
@@ -277,4 +297,28 @@ render(allProducts);
 loadFromFirebase();
 updateCounts();
 </script>
-<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script>
+
+
+<script>
+// Niche wali Fast Delivery - Background + Font - 100% working
+function changeFastDelivery(){
+  document.querySelectorAll('div').forEach(function(e){
+    if(e.innerText && e.innerText.trim() == 'Online Food Order - Fast Delivery'){
+      e.style.setProperty('color','#81C784','important'); // Font kala
+      e.style.setProperty('background','#81C784','important'); // Background pila
+      e.style.setProperty('padding','10px','important');
+      e.style.setProperty('font-weight','900','important');
+      e.style.setProperty('text-align','center','important');
+      e.style.setProperty('display','block','important');
+      e.style.setProperty('width','100%','important');
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', changeFastDelivery);
+setTimeout(changeFastDelivery, 1000); // 1 sec baad fir se
+setTimeout(changeFastDelivery, 3000); // 3 sec baad fir se
+setInterval(changeFastDelivery, 2000); // Har 2 sec me check
+</script>
+
+</body></html>
