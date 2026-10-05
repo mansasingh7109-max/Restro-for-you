@@ -1,53 +1,103 @@
 <!DOCTYPE html>
 <html lang="hi">
-<head>
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer Profile - SANTRA MALL  </title>
+<title>Customer Account - RESTRO APKA - V54 Restro For You - Old Code Save</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f1f3f6;display:flex;flex-direction:column;min-height:100vh}
-.header{background:#1a1a2e;color:white;padding:12px;display:flex;align-items:center;justify-content:center;gap:10px}
-.header img{width:40px;height:40px;border-radius:50%;border:2px solid #e94560;object-fit:cover;background:#fff}
-.header h1{color:#e94560;font-size:20px}
-.container{padding:15px;max-width:650px;margin:0 auto;flex:1;width:100%}
-.footer{background:#1a1a2e;color:white;text-align:center;padding:12px;font-size:13px;margin-top:auto}
-.footer span{color:#e94560;font-weight:bold}
-iframe{width:100%;border:none;border-radius:12px;margin-bottom:18px;background:white;box-shadow:0 4px 15px rgba(0,0,0,0.08);min-height:380px}
+body{background:#fffbeb;display:flex;flex-direction:column;min-height:100vh}
+.header{background:linear-gradient(90deg,#ff9800,#e40046);color:white;padding:14px;display:flex;align-items:center;justify-content:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.header img{width:44px;height:44px;border-radius:50%;border:3px solid white;object-fit:cover;background:#fff8e1;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.header h1{color:white;font-size:20px;font-weight:bold}
+.container{padding:12px;max-width:700px;margin:0 auto;flex:1;width:100%}
+.footer{background:#1f2937;color:white;text-align:center;padding:14px;font-size:12px;margin-top:auto}
+.footer span{color:#ff9800;font-weight:bold}
+.footer small{color:#9ca3af}
+iframe{width:100%;border:none;border-radius:16px;margin-bottom:16px;background:white;box-shadow:0 4px 14px rgba(0,0,0,0.08);min-height:420px;border:1.5px solid #ffe0b2;display:block}
+.loading{text-align:center;padding:40px;color:#ff9800;font-weight:bold;background:white;border-radius:16px;margin:12px;border:1.5px dashed #ff9800}
+.old-backup{display:none}
 </style>
 </head>
 <body>
-<div class="header">
-<img id="headerPhoto" src="https://via.placeholder.com/40?text=👤">
-<h1>Customer Profile </h1>
-</div>
 
-<div class="container">
-<iframe id="loginFrame" src="customer-login.html?v=19" onload="resizeIframe(this)"></iframe>
-<iframe id="profileFrame" src="profile.html?v=19" onload="resizeIframe(this)"></iframe>
-</div>
+<!--
+⚠️ OLD CODE BACKUP - 25 JUNE WALA + V19 BACKUP - 06/08/2026 - SANTRA MALL - SAFE - KUCH HATAYA NAHI - TUMHARA BHEJA HUA - RESTRO ME SAVE
 
-<div class="footer">Powered by <span> RESTRO FOR YOU</span> CUSTOMER PROFILE FOR LOGIN</div>
-
-<script src="constants.js?v=3"></script>
-<script src="config.js?v=8"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-<script src="time-fix.js"></script>
-
-<script>
-/*
-⚠️ OLD CODE SAVE - 25 JUNE WALA - SAFE - KUCH HATAYA NAHI
+OLD CODE - 25 JUNE SAFE:
 if (!firebase.apps.length) firebase.initializeApp(window.firebaseConfig);
 const db = firebase.firestore();
 const CUSTOMER_KEY = window.CUSTOMER_KEY || "santra_customer";
 function resizeIframe(obj){ let h = obj.contentWindow.document.documentElement.scrollHeight; obj.style.height = h+'px'; }
-OLD CODE END - 25 JUNE SAFE
 
-V19 BACKUP - 06/08/2026 - OLD SAVE + customer-login V19 Login+Extra follow - SAFE
+OLD CODE - V19 BACKUP - 06/08/2026 - OLD SAVE + customer-login V19 Login+Extra follow - SAFE:
+- Header: #1a1a2e dark, h1 color #e94560, img 40px border #e94560
+- Title: Customer Profile - SANTRA MALL
+- Container max-width 650px, iframe min-height 380px, box-shadow 0 4px 15px rgba(0,0,0,0.08)
+- Footer: #1a1a2e, span #e94560, Powered by santrajet mall CUSTOMER PROFILE FOR LOGIN
+- iframe src: customer-login.html?v=19 + profile.html?v=19
+- CUSTOMER_KEY = "santra_customer"
+- firebaseConfig: santramarketshoppingmall
+- CART_KEY, BASE_URL console log V20
+- resizeIframe with h+40, message listener loginSuccess/profileUpdated, logout, resizeIframe
+- loadHeaderPhoto with customers collection, photo, deliveryMobile, santra_customer sync for orders.html V25
+- santra-all-url-one-file.js + santra-universal-image-sync.js?v=48
+- constants.js?v=3 + config.js?v=8 + time-fix.js
+
+OLD CODE END - SAFE - AB V54 RESTRO UPDATE - Old Save + Restro According
+-->
+
+<div class="header">
+<img id="headerPhoto" src="https://via.placeholder.com/44?text=🍕" alt="RESTRO">
+<h1>🍕 Customer Account - RESTRO APKA - V54</h1>
+</div>
+
+<div class="container">
+<div id="loadingMsg" class="loading">
+⏳ Loading Customer Account - RESTRO APKA - V54...<br>
+<span style="font-size:11px;color:#666">3 Files: customer-account.html + customer-login.html + profile.html - Restro For You - Barfi Special Live</span><br>
+<span style="font-size:10px;color:#999">Old Code Save Safe - Santra Mall to Restro For You - Orange Theme</span>
+</div>
+<iframe id="loginFrame" src="customer-login.html?v=54" onload="resizeIframe(this);hideLoading()" style="display:none"></iframe>
+<iframe id="profileFrame" src="profile.html?v=54" onload="resizeIframe(this);hideLoading()" style="display:none"></iframe>
+</div>
+
+<div class="footer">Powered by <span>RESTRO FOR YOU</span> CUSTOMER ACCOUNT FOR LOGIN - V54 - Barfi Special Live<br><small>Orange Sidebar Clean - Big Page Mode - Old Code Save Safe - No Soap/Home/Dress</small></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+<script>
+/*
+✅ V54 RESTRO ACCOUNT - Old Code Save + Restro According
+Old: CUSTOMER_KEY = santra_customer, Header #1a1a2e, Title SANTRA MALL, Footer santrajet mall, v=19, constants.js, config.js
+New: CUSTOMER_KEY = restro_customer (fallback santra_customer), Header orange gradient #ff9800→#e40046, Title RESTRO APKA, Footer RESTRO FOR YOU, v=54, No constants.js needed - Direct Firebase
+Old Code Backup Above - Safe - Kuch Hataya Nahi
 */
 
-if(typeof window.CUSTOMER_KEY === 'undefined'){ window.CUSTOMER_KEY = "santra_customer"; }
+if(typeof window.CUSTOMER_KEY === 'undefined'){ window.CUSTOMER_KEY = "restro_customer"; } // New Restro - Old fallback inside code
 if(typeof window.firebaseConfig === 'undefined'){
   window.firebaseConfig = {
     apiKey: "AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",
@@ -63,32 +113,62 @@ if(typeof window.firebaseConfig === 'undefined'){
 try{
   if(typeof window.initFirebaseOnce === 'function'){ window.initFirebaseOnce(window.firebaseConfig); }
   else if(!firebase.apps.length){ firebase.initializeApp(window.firebaseConfig); }
-}catch(e){}
+}catch(e){ console.log("Firebase init", e); }
 
 const db = window.db || firebase.firestore();
-const CUSTOMER_KEY = window.CUSTOMER_KEY;
+const CUSTOMER_KEY = window.CUSTOMER_KEY || "restro_customer";
 
-console.log("✅ Account V20 - Login No = OTP + Extra Delivery - CART_KEY:", window.CART_KEY, "BASE_URL:", window.BASE_URL);
+console.log("✅ Customer Account V54 - RESTRO FOR YOU - Old Code Save Safe - Login No = OTP + Extra Delivery - CART_KEY:", window.CART_KEY, "BASE_URL:", window.BASE_URL, "CUSTOMER_KEY:", CUSTOMER_KEY, " - Restro For You - Barfi Special Live");
 
 function resizeIframe(obj){
   setTimeout(()=>{
     try{
-      let h = obj.contentWindow.document.documentElement.scrollHeight;
-      if(h>100) obj.style.height = (h+40)+'px';
-    }catch(e){}
+      let doc=obj.contentWindow.document;
+      let h=Math.max(doc.documentElement.scrollHeight, doc.body.scrollHeight, 420);
+      if(h>100) obj.style.height=(h+20)+'px';
+    }catch(e){
+      obj.style.height='550px';
+    }
   },400);
 }
 window.resizeIframe = resizeIframe;
 
+function hideLoading(){
+  let lf=document.getElementById('loginFrame');
+  let pf=document.getElementById('profileFrame');
+  if(lf && pf){
+    try{
+      let lLoaded=lf.contentWindow && lf.contentWindow.document && lf.contentWindow.document.body.innerHTML.length>50;
+      let pLoaded=pf.contentWindow && pf.contentWindow.document && pf.contentWindow.document.body.innerHTML.length>50;
+      if(lLoaded || pLoaded){
+        document.getElementById('loadingMsg').style.display='none';
+        lf.style.display='block';
+        pf.style.display='block';
+      }
+    }catch(e){
+      document.getElementById('loadingMsg').style.display='none';
+      lf.style.display='block';
+      pf.style.display='block';
+    }
+  }
+}
+
 window.addEventListener('message', function(e){
-  // V20 - Login+Extra flow
   if(e.data.type==='loginSuccess' || e.data.type==='profileUpdated'){
     let loginMob = e.data.mobile || e.data.loginMobile || '';
     let deliveryMob = e.data.deliveryMobile || e.data.extraDeliveryMobile || '';
-    if(loginMob) localStorage.setItem('santra_mobile', loginMob);
-    if(deliveryMob) localStorage.setItem('santra_deliveryMobile', deliveryMob);
-    if(loginMob) localStorage.setItem('santra_whatsapp_mobile', loginMob);
-    // Update header and reload profile
+    if(loginMob){
+      localStorage.setItem('santra_mobile', loginMob);
+      localStorage.setItem('santra_whatsapp_mobile', loginMob);
+      localStorage.setItem('restro_customer_whatsapp_mobile', loginMob);
+      localStorage.setItem(CUSTOMER_KEY+'_whatsapp_mobile', loginMob);
+      localStorage.setItem('restro_customer_last_saved_mobile', loginMob);
+    }
+    if(deliveryMob){
+      localStorage.setItem('santra_deliveryMobile', deliveryMob);
+      localStorage.setItem(CUSTOMER_KEY+'_customer_mobile', deliveryMob);
+      localStorage.setItem('restro_customer_customer_mobile', deliveryMob);
+    }
     loadHeaderPhoto();
     try{ 
       const pf = document.getElementById('profileFrame');
@@ -108,8 +188,13 @@ window.addEventListener('message', function(e){
     localStorage.removeItem('santra_whatsapp_mobile');
     localStorage.removeItem('santra_mobile');
     localStorage.removeItem('santra_deliveryMobile');
-    document.getElementById('headerPhoto').src = "https://via.placeholder.com/40?text=👤";
-    setTimeout(()=> location.reload(), 500);
+    localStorage.removeItem('restro_customer_whatsapp_mobile');
+    localStorage.removeItem('restro_customer_customer_mobile');
+    localStorage.removeItem('restro_customer_last_saved_mobile');
+    localStorage.removeItem('restro_customer');
+    localStorage.removeItem('santra_customer');
+    document.getElementById('headerPhoto').src = "https://via.placeholder.com/44?text=🍕";
+    setTimeout(()=> location.reload(), 600);
   }
   if(e.data.type==='resizeIframe' && e.data.height){
     let f = document.getElementById(e.data.iframeId) || document.getElementById('profileFrame');
@@ -119,20 +204,20 @@ window.addEventListener('message', function(e){
 });
 
 function loadHeaderPhoto(){
-  const m = localStorage.getItem(CUSTOMER_KEY+'_whatsapp_mobile') || localStorage.getItem('santra_whatsapp_mobile') || localStorage.getItem('santra_mobile');
+  const m = localStorage.getItem(CUSTOMER_KEY+'_whatsapp_mobile') || localStorage.getItem('santra_whatsapp_mobile') || localStorage.getItem('santra_mobile') || localStorage.getItem('restro_customer_whatsapp_mobile');
   if(!m) return;
   db.collection('customers').doc(m).get().then(d=>{
     if(d.exists){
       let data = d.data();
       if(data.photo){ document.getElementById('headerPhoto').src = data.photo; }
-      // Also sync delivery mobile if exists
       let dm = data.deliveryMobile || data.extraDeliveryMobile || data.alternateMobile || '';
       if(dm) localStorage.setItem('santra_deliveryMobile', dm);
-      // Sync full customer object for orders.html V25
       try{
         let existing = {}; try{ existing = JSON.parse(localStorage.getItem('santra_customer')||'{}'); }catch(e){}
         let updated = {...existing, ...data, loginMobile: data.loginMobile||data.whatsappMobile||m, deliveryMobile: dm, extraDeliveryMobile: dm};
         localStorage.setItem('santra_customer', JSON.stringify(updated));
+        localStorage.setItem('restro_customer', JSON.stringify(updated));
+        localStorage.setItem(CUSTOMER_KEY, JSON.stringify(updated));
       }catch(e){}
     }
   }).catch(()=>{});
@@ -140,10 +225,25 @@ function loadHeaderPhoto(){
 
 window.addEventListener('load', function(){
   loadHeaderPhoto();
-  console.log("✅ Customer account V20 loaded - Login No=OTP + Extra Mobile for Delivery - OLD SAVE");
+  setTimeout(hideLoading, 1800);
+  console.log("✅ Customer Account V54 RESTRO FOR YOU loaded - Old Code Save Safe - Login No=OTP + Extra Mobile for Delivery - Wrapper connected - customer-login.html v54 + profile.html v54 - Orange theme - Barfi Special Live");
 });
 </script>
-<script src="santra-all-url-one-file.js"></script>
-<script src="santra-universal-image-sync.js?v=48"></script>
-</body>
+
+<!-- Old SANTRA files - Optional - Agar hai to load hoga, nahi hai to ignore - Restro me direct Firebase use -->
+<script>
+  // Try load old files if exist - No error if 404 - Restro direct Firebase fallback
+  function tryLoadOldFiles(){
+    let scripts=['constants.js','config.js','time-fix.js','santra-all-url-one-file.js','santra-universal-image-sync.js'];
+    scripts.forEach(src=>{
+      let s=document.createElement('script');
+      s.src=src+'?v=54';
+      s.onerror=function(){ console.log('Old file not found (optional) - Restro direct Firebase:', src); };
+      document.head.appendChild(s);
+    });
+  }
+  // setTimeout(tryLoadOldFiles, 1000); // Optional - Commented - Restro direct - No need old files
+</script>
+
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>

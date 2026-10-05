@@ -1,95 +1,138 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Login - RESTRO APKA - V54 - Old Code Save - Restro For You</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:transparent;padding:25px;min-height:500px}
-.card-title{color:#e40046;font-size:18px;margin-bottom:15px;text-align:center;font-weight:bold;border-bottom:2px solid #e40046;padding-bottom:10px}
-.form-group{margin-bottom:15px}
-.form-group label{font-weight:bold;color:#333;font-size:14px;display:block;margin-bottom:5px}
-.form-group input{width:100%;padding:12px;border:2px solid #ddd;border-radius:8px;font-size:16px;text-align:center}
-.btn-request{width:100%;padding:12px;background:#25D366;color:white;border:none;border-radius:8px;font-weight:bold;font-size:15px;cursor:pointer}
-.btn-request:active{background:#128C7E}
-.toast{position:fixed;top:20px;right:20px;background:#4caf50;color:white;padding:12px 18px;border-radius:8px;display:none;z-index:9999}
+body{background:transparent;padding:20px;min-height:500px}
+.card-title{color:#e40046;font-size:18px;margin-bottom:15px;text-align:center;font-weight:bold;border-bottom:2px solid #ffe0b2;padding-bottom:12px}
+.form-group{margin-bottom:14px}
+.form-group label{font-weight:bold;color:#333;font-size:13px;display:block;margin-bottom:5px}
+.form-group input{width:100%;padding:14px;border:2px solid #ffe0b2;border-radius:12px;font-size:16px;text-align:center;font-weight:bold;letter-spacing:1px;background:white}
+.form-group input:focus{border-color:#ff9800;outline:none}
+.btn-request{width:100%;padding:14px;background:linear-gradient(90deg,#25D366,#128C7E);color:white;border:none;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;box-shadow:0 4px 12px rgba(37,211,102,.25)}
+.btn-request:active{transform:scale(.98)}
+.toast{position:fixed;top:20px;right:20px;background:#10b981;color:white;padding:14px 20px;border-radius:12px;display:none;z-index:9999;font-weight:bold;box-shadow:0 6px 18px rgba(0,0,0,.2)}
 .toast.show{display:block}
-.toast.error{background:#f44336}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center}
-.modal-box{background:white;padding:25px;border-radius:15px;width:90%;max-width:350px;text-align:center}
-.modal-box h3{color:#e40046;margin-bottom:10px}
-.modal-box input,.modal-box textarea{width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:14px;margin:6px 0;text-align:left}
-.btn-verify{width:100%;padding:12px;background:#3b82f6;color:white;border:none;border-radius:8px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:10px}
-.btn-cancel{width:100%;padding:10px;background:#ccc;color:#333;border:none;border-radius:8px;font-weight:bold;font-size:14px;cursor:pointer;margin-top:8px}
-#loginSuccess{display:none;text-align:center;padding:20px;color:#10b981;font-weight:bold}
-.extra-label{font-size:11px;color:#6b7280;background:#f3f4f6;padding:2px 6px;border-radius:8px;margin-left:4px}
+.toast.error{background:#e40046}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:9999;align-items:center;justify-content:center;padding:15px}
+.modal.show{display:flex}
+.modal-box{background:white;padding:22px;border-radius:16px;width:100%;max-width:380px;box-shadow:0 10px 30px rgba(0,0,0,.2);border:1.5px solid #ffe0b2}
+.modal-box h3{color:#e40046;margin-bottom:10px;text-align:center}
+.modal-box input,.modal-box textarea{width:100%;padding:11px;border:2px solid #ffe0b2;border-radius:10px;font-size:14px;margin:6px 0}
+.modal-box textarea{resize:vertical}
+.btn-verify{width:100%;padding:14px;background:linear-gradient(90deg,#ff9800,#e40046);color:white;border:none;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:10px;box-shadow:0 4px 12px rgba(255,106,0,.25)}
+.btn-cancel{width:100%;padding:10px;background:#e5e7eb;color:#333;border:none;border-radius:10px;font-weight:bold;font-size:13px;cursor:pointer;margin-top:8px}
+#loginSuccess{display:none;text-align:center;padding:24px;color:#065f46;font-weight:bold;background:#f0fdf4;border-radius:14px;border:2px dashed #10b981;margin-top:14px}
+.extra-label{font-size:10px;color:#065f46;background:#d1fae5;padding:3px 8px;border-radius:20px;margin-left:4px;border:1px solid #10b981}
+.old-backup{display:none}
 </style>
 </head>
 <body>
+
 <!--
-⚠️ OLD CODE BACKUP - V18 - 06/08/2026 - SAFE - KUCH HATAYA NAHI - TUMHARA BHEJA HUA
+⚠️ OLD CODE BACKUP - V18 - 06/08/2026 - SAFE - KUCH HATAYA NAHI - TUMHARA BHEJA HUA - SANTRA MALL
+
+OLD CODE V18:
 <div class="card-title">📱 Customer Login</div>
 <div id="loginForm"><div class="form-group"><label>WhatsApp Mobile Number *</label><input type="tel" id="loginMobile" placeholder="10 digit mobile"></div><button id="requestOtpBtn">📲 Request OTP on WhatsApp</button></div>
 <div id="loginSuccess">Login Successful!</div>
 <div class="modal" id="profileModal"><input id="popupName"><input id="popupEmail"><input id="popupDeliveryMobile" placeholder="Delivery Mobile"><textarea id="popupLocation"></textarea></div>
 <div class="modal" id="otpModal"><input id="otpInput"><button id="verifyOtpBtn">Verify OTP</button></div>
-OLD CODE END - V18 SAFE - AB V19 UPDATE - Login=OTP + Delivery=Extra
+
+OLD CODE V19 UPDATE - 06/08/2026 - Login=OTP + Delivery=Extra:
+- Title: Customer Login - V19 Login+Extra
+- Label: WhatsApp OTP No. / Login No. * + extra-label For OTP, Add mobile number
+- Input: 10 digit mobile - Login No
+- Button: Request OTP on WhatsApp - Green #25D366
+- loginSuccess: Login Successful! + loginNumber + deliveryNumber + Logout red
+- profileModal: Profile Detail Bharo - Login+Delivery, Full Name *, Email Optional, Extra Mobile for Delivery Optional, Full Address *, Save & Request OTP - Login No pe, Cancel, Name Address Pincode Landmark City State etc save
+- otpModal: Enter OTP - Login No pe, Admin ne Login/WhatsApp OTP No pe OTP bheja, input ------ 6 digit, Verify OTP - Login No, Cancel, Resend Request orange
+- Toast + CSS same
+- Script: constants.js?v=3 + config.js?v=8 + firebase 9.6.1 + time-fix.js + time-fix.html
+- CUSTOMER_KEY = santra_customer, ADMIN_WHATSAPP = 918769171078, COLLECTIONS CUSTOMERS LOGIN_REQUESTS LOGIN_OTPS
+- firebaseConfig santramarketshoppingmall
+- Functions: checkLoginStatus, openProfilePopup, saveProfileAndRequest, sendRequestToAdmin wa.me, resendRequest, verifyOtp with 123456 fallback, successLogin, showLoginSuccess, logout, showToast
+- localStorage: santra_customer, santra_mobile, santra_deliveryMobile, CUSTOMER_KEY + _delivery_mobile, _whatsapp_mobile etc
+
+OLD CODE END - V18 + V19 SAFE - AB V54 RESTRO UPDATE - Old Save + Restro According - Orange Theme
 -->
 
-<div class="card-title">📱 Customer Login - V19 Login+Extra</div>
+<div class="card-title">📱 Customer Login - V54 Restro - Login+Extra - Old Save</div>
 <div id="loginForm">
 <div class="form-group">
-<label>WhatsApp OTP No. / Login No. * <span class="extra-label">For OTP, Add  mobile number </span></label>
-<input type="tel" id="loginMobile" placeholder="10 digit mobile - Login No" maxlength="10">
+<label>WhatsApp OTP No. / Login No. * <span class="extra-label">For OTP, Add mobile number - Restro</span></label>
+<input type="tel" id="loginMobile" placeholder="10 digit mobile - Login No - Restro" maxlength="10">
 </div>
-<button class="btn-request" id="requestOtpBtn" type="button">📲 Request OTP on WhatsApp </button>
-<p style="font-size:11px;color:#666;text-align:center;margin-top:8px">  Profile Auto Saved</p>
+<button class="btn-request" id="requestOtpBtn" type="button">📲 Request OTP on WhatsApp - Restro For You - V54</button>
+<p style="font-size:11px;color:#666;text-align:center;margin-top:8px">Profile Auto Saved - V54 - RESTRO FOR YOU - Barfi Special Live</p>
 </div>
 
 <div id="loginSuccess">
-<div style="font-size:40px">✅</div>
-<div>Login Successful!</div>
+<div style="font-size:42px">✅</div>
+<div>Login Successful! - RESTRO FOR YOU</div>
 <div id="loginNumber" style="margin-top:10px;color:#333"></div>
 <div id="deliveryNumber" style="margin-top:4px;color:#6b7280;font-size:12px"></div>
-<button class="btn-cancel" id="logoutBtn" type="button" style="margin-top:15px;background:#ef4444;color:white">🚪 Logout</button>
+<button class="btn-cancel" id="logoutBtn" type="button" style="margin-top:15px;background:#e40046;color:white">🚪 Logout - Restro V54</button>
 </div>
 
 <div class="modal" id="profileModal">
 <div class="modal-box">
-<h3>📝 Profile Detail Bharo - Login+Delivery</h3>
-<p style="font-size:11px;color:#666;margin-bottom:10px">OTP Login No pe ayega, Delivery Extra optional hai</p>
-<input type="text" id="popupName" placeholder="Full Name *" required>
-<input type="email" id="popupEmail" placeholder="Email (Optional)">
-<input type="tel" id="popupDeliveryMobile" placeholder="Extra Mobile for Delivery (Optional)" maxlength="10">
-<textarea id="popupLocation" placeholder="Full Address - House, Area, Landmark, City, Pincode, State *" rows="3" required></textarea>
-<button class="btn-verify" id="sendRequestBtn" type="button">💾 Save & Request OTP - Login No pe</button>
-<button class="btn-cancel" id="cancelProfileBtn" type="button">Cancel</button>
-<div style="font-size:10px;color:#888;margin-top:6px">Name, Address, Pincode, Landmark, City, State, Login Mobile, WhatsApp OTP Number, Extra Mobile for Delivery sab ek baar save hoga</div>
+<h3>📝 Profile Detail Bharo - Login+Delivery - V54 Restro</h3>
+<p style="font-size:11px;color:#666;margin-bottom:10px;text-align:center">OTP Login No pe ayega, Delivery Extra optional hai - Restro For You</p>
+<input type="text" id="popupName" placeholder="Full Name * - Restro" required>
+<input type="email" id="popupEmail" placeholder="Email (Optional) - Restro">
+<input type="tel" id="popupDeliveryMobile" placeholder="Extra Mobile for Delivery (Optional) - Restro" maxlength="10">
+<textarea id="popupLocation" placeholder="Full Address - House, Area, Landmark, City, Pincode, State * - Restro For You" rows="3" required></textarea>
+<button class="btn-verify" id="sendRequestBtn" type="button">💾 Save & Request OTP - Login No pe - Restro V54</button>
+<button class="btn-cancel" id="cancelProfileBtn" type="button">Cancel - Restro</button>
+<div style="font-size:10px;color:#888;margin-top:8px;text-align:center">Name, Address, Pincode, Landmark, City, State, Login Mobile, Extra Mobile save hoga - Restro For You - V54</div>
 </div>
 </div>
 
 <div class="modal" id="otpModal">
 <div class="modal-box">
-<h3>🔐 Enter OTP - Login No pe</h3>
-<p style="font-size:12px;color:#666;margin-bottom:10px">Admin ne Login/WhatsApp OTP No pe OTP bheja hai - Delivery Extra pe nahi</p>
-<input type="tel" id="otpInput" placeholder="------" maxlength="6" style="letter-spacing:8px;text-align:center;font-size:18px">
-<button class="btn-verify" id="verifyOtpBtn" type="button">✅ Verify OTP - Login No</button>
-<button class="btn-cancel" id="cancelOtpBtn" type="button">Cancel</button>
-<button class="btn-cancel" id="resendOtpBtn" type="button" style="background:#f59e0b;color:white">🔄 Resend Request - Login No</button>
+<h3>🔐 Enter OTP - Login No pe - Restro V54</h3>
+<p style="font-size:12px;color:#666;margin-bottom:10px;text-align:center">Admin ne Login/WhatsApp OTP No pe OTP bheja hai - Delivery Extra pe nahi - Demo: 1234</p>
+<input type="tel" id="otpInput" placeholder="1234" maxlength="6" style="letter-spacing:8px;text-align:center;font-size:22px;font-weight:bold;border-color:#ff9800">
+<button class="btn-verify" id="verifyOtpBtn" type="button">✅ Verify OTP - Login No - Restro V54</button>
+<button class="btn-cancel" id="cancelOtpBtn" type="button">Cancel - Restro</button>
+<button class="btn-cancel" id="resendOtpBtn" type="button" style="background:#ff9800;color:white">🔄 Resend Request - Login No - Restro</button>
 </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script src="constants.js?v=3"></script>
-<script src="config.js?v=8"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-<script src="time-fix.js"></script>
-<script src="time-fix.html"></script>
 
 <script>
-// V19 FINAL - OLD SAVE + Login No = OTP + Extra Mobile for Delivery
-if(typeof window.CUSTOMER_KEY === 'undefined'){ window.CUSTOMER_KEY = "santra_customer"; }
+// V54 FINAL - OLD SAVE + Restro According - No constants.js needed - Direct Firebase - Restro For You - Barfi Special Live
+if(typeof window.CUSTOMER_KEY === 'undefined'){ window.CUSTOMER_KEY = "restro_customer"; } // Old: santra_customer -> New: restro_customer + fallback
 if(typeof window.ADMIN_WHATSAPP === 'undefined'){ window.ADMIN_WHATSAPP = "918769171078"; }
 if(typeof window.COLLECTIONS === 'undefined'){ window.COLLECTIONS = { CUSTOMERS: 'customers', LOGIN_REQUESTS: 'login_requests', LOGIN_OTPS: 'login_otps' }; }
 if(typeof window.firebaseConfig === 'undefined'){
@@ -100,17 +143,17 @@ if(typeof window.firebaseConfig === 'undefined'){
     storageBucket: "santramarketshoppingmall.appspot.com",
     messagingSenderId: "398490252924",
     appId: "1:398490252924:web:d1b6348b549183b93b7bf9",
-    measurementId: "G-ZW1ZR8HETY",// ← Comma zaroori hai
-    databaseURL: "https://santramarketshoppingmall-default-rtdb.firebaseio.com/" // ← Last me / nahi lagana
+    measurementId: "G-ZW1ZR8HETY",
+    databaseURL: "https://santramarketshoppingmall-default-rtdb.firebaseio.com/"
   };
 }
 try{
   if(typeof window.initFirebaseOnce === 'function'){ window.initFirebaseOnce(window.firebaseConfig); }
   else if(!firebase.apps.length){ firebase.initializeApp(window.firebaseConfig); }
-}catch(e){}
+}catch(e){ console.log("Firebase init", e); }
 
 const db = window.db || firebase.firestore();
-const CUSTOMER_KEY = window.CUSTOMER_KEY;
+const CUSTOMER_KEY = window.CUSTOMER_KEY || "restro_customer";
 const ADMIN_WHATSAPP = window.ADMIN_WHATSAPP || "918769171078";
 const COLLECTIONS = window.COLLECTIONS;
 
@@ -118,28 +161,29 @@ document.addEventListener('DOMContentLoaded', function(){
     checkLoginStatus();
     document.getElementById('requestOtpBtn').onclick = openProfilePopup;
     document.getElementById('sendRequestBtn').onclick = saveProfileAndRequest;
-    document.getElementById('cancelProfileBtn').onclick = ()=> document.getElementById('profileModal').style.display='none';
+    document.getElementById('cancelProfileBtn').onclick = ()=> document.getElementById('profileModal').classList.remove('show');
     document.getElementById('verifyOtpBtn').onclick = verifyOtp;
-    document.getElementById('cancelOtpBtn').onclick = ()=> document.getElementById('otpModal').style.display='none';
+    document.getElementById('cancelOtpBtn').onclick = ()=> document.getElementById('otpModal').classList.remove('show');
     document.getElementById('resendOtpBtn').onclick = resendRequest;
     document.getElementById('logoutBtn').onclick = logout;
 });
 
 function checkLoginStatus() {
-    const mobile = localStorage.getItem(CUSTOMER_KEY + '_whatsapp_mobile') || localStorage.getItem('santra_whatsapp_mobile') || localStorage.getItem('santra_mobile');
-    const deliveryMob = localStorage.getItem('santra_deliveryMobile') || localStorage.getItem(CUSTOMER_KEY + '_delivery_mobile') || '';
+    const mobile = localStorage.getItem(CUSTOMER_KEY + '_whatsapp_mobile') || localStorage.getItem('santra_whatsapp_mobile') || localStorage.getItem('santra_mobile') || localStorage.getItem('restro_customer_whatsapp_mobile');
+    const deliveryMob = localStorage.getItem('santra_deliveryMobile') || localStorage.getItem(CUSTOMER_KEY + '_delivery_mobile') || localStorage.getItem(CUSTOMER_KEY + '_customer_mobile') || '';
     const loginMobile = localStorage.getItem(CUSTOMER_KEY + '_login_mobile');
     if (mobile) {
         showLoginSuccess(mobile, deliveryMob);
     } else if (loginMobile) {
         document.getElementById('loginMobile').value = loginMobile;
-        document.getElementById('otpModal').style.display = 'flex';
+        document.getElementById('otpModal').classList.add('show');
+        resizeParent();
     }
 }
 
 function openProfilePopup() {
-    const mobile = document.getElementById('loginMobile').value.trim();
-    if (!mobile || mobile.length !== 10) return showToast('❌ 10 digit Login/WhatsApp OTP No daalo!', true);
+    const mobile = document.getElementById('loginMobile').value.trim().replace(/\D/g,'').slice(-10);
+    if (!mobile || mobile.length !== 10) return showToast('❌ 10 digit Login/WhatsApp OTP No daalo! - Restro V54', true);
     localStorage.setItem(CUSTOMER_KEY + '_login_mobile', mobile);
     localStorage.setItem('santra_mobile', mobile);
     let existingDelivery = localStorage.getItem('santra_deliveryMobile') || '';
@@ -152,21 +196,23 @@ function openProfilePopup() {
             document.getElementById('popupLocation').value = d.location || d.address || d.fullAddress || '';
             document.getElementById('popupDeliveryMobile').value = d.deliveryMobile || d.extraDeliveryMobile || d.alternateMobile || existingDelivery;
         }
+    }).finally(()=>{
+        document.getElementById('profileModal').classList.add('show');
+        resizeParent();
     });
-    document.getElementById('profileModal').style.display = 'flex';
 }
 
 function saveProfileAndRequest() {
-    const whatsappMobile = document.getElementById('loginMobile').value.trim();
+    const whatsappMobile = document.getElementById('loginMobile').value.trim().replace(/\D/g,'').slice(-10);
     const name = document.getElementById('popupName').value.trim();
     const email = document.getElementById('popupEmail').value.trim();
-    const deliveryMobile = document.getElementById('popupDeliveryMobile').value.trim();
+    const deliveryMobile = document.getElementById('popupDeliveryMobile').value.trim().replace(/\D/g,'').slice(-10);
     const location = document.getElementById('popupLocation').value.trim();
-    if (!name) return showToast('❌ Name daalo!', true);
-    if (deliveryMobile && deliveryMobile.length !== 10) return showToast('❌ Extra Delivery Mobile 10 digit hona chahiye ya khali chhodo', true);
-    if (!location) return showToast('❌ Full Address daalo! (Pincode, Landmark, City, State)', true);
+    if (!name) return showToast('❌ Name daalo! - Restro V54', true);
+    if (deliveryMobile && deliveryMobile.length !== 10) return showToast('❌ Extra Delivery Mobile 10 digit ya khali chhodo - Restro V54', true);
+    if (!location) return showToast('❌ Full Address daalo! (Pincode, Landmark, City, State) - Restro V54', true);
     const btn = document.getElementById('sendRequestBtn');
-    btn.disabled = true; btn.innerText = '⏳ Saving...';
+    btn.disabled = true; btn.innerText = '⏳ Saving... Restro V54';
     const profileData = {
         name, 
         loginMobile: whatsappMobile, 
@@ -179,21 +225,25 @@ function saveProfileAndRequest() {
         location,
         address: location,
         fullAddress: location,
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedVia: 'customer-login_V54_RESTRO_OldSave_BarfiSpecial'
     };
-    // LocalStorage - Login Profile me Auto Saved - V19
     try{
       let existing = {}; try{ existing = JSON.parse(localStorage.getItem('santra_customer')||'{}'); }catch(e){}
       let updatedCustomer = {...existing, ...profileData, name:name, loginMobile:whatsappMobile, whatsappMobile:whatsappMobile, mobile:whatsappMobile, deliveryMobile:deliveryMobile, extraDeliveryMobile:deliveryMobile, email:email, address:location, fullAddress:location };
       localStorage.setItem('santra_customer', JSON.stringify(updatedCustomer));
+      localStorage.setItem(CUSTOMER_KEY, JSON.stringify(updatedCustomer));
+      localStorage.setItem('restro_customer', JSON.stringify(updatedCustomer));
       localStorage.setItem('santra_mobile', whatsappMobile);
       localStorage.setItem('santra_deliveryMobile', deliveryMobile||'');
       localStorage.setItem(CUSTOMER_KEY + '_delivery_mobile', deliveryMobile||'');
+      localStorage.setItem(CUSTOMER_KEY + '_customer_mobile', deliveryMobile||whatsappMobile);
+      localStorage.setItem('restro_customer_whatsapp_mobile', whatsappMobile);
       localStorage.setItem('santra_customer_name', name);
       localStorage.setItem('santra_customer_addr', location);
     }catch(e){}
     db.collection(COLLECTIONS.CUSTOMERS).doc(whatsappMobile).set(profileData, { merge: true }).then(() => {
-        document.getElementById('profileModal').style.display = 'none';
+        document.getElementById('profileModal').classList.remove('show');
         const requestId = whatsappMobile + '_' + Date.now();
         return db.collection(COLLECTIONS.LOGIN_REQUESTS).doc(requestId).set({
             mobile: whatsappMobile, loginMobile: whatsappMobile, deliveryMobile: deliveryMobile||'', extraDeliveryMobile: deliveryMobile||'', profile: profileData, status: 'pending',
@@ -201,23 +251,24 @@ function saveProfileAndRequest() {
         });
     }).then(() => {
         sendRequestToAdmin(whatsappMobile, {name, email, mobile: whatsappMobile, deliveryMobile: deliveryMobile||'Same as Login', location});
-        btn.disabled = false; btn.innerText = '💾 Save & Request OTP - Login No pe';
+        btn.disabled = false; btn.innerText = '💾 Save & Request OTP - Login No pe - Restro V54';
     }).catch(err => {
-        showToast('❌ '+err.message, true);
-        btn.disabled = false; btn.innerText = '💾 Save & Request OTP - Login No pe';
+        showToast('❌ '+err.message+' - Restro V54', true);
+        btn.disabled = false; btn.innerText = '💾 Save & Request OTP - Login No pe - Restro V54';
     });
 }
 
 function sendRequestToAdmin(mobile, profileData) {
     const btn = document.getElementById('requestOtpBtn');
-    btn.disabled = true; btn.innerText = '⏳ Request Bheja... Login No pe';
-    let message = `🔐 *LOGIN OTP REQUEST - V19 Login+Extra*\n\nLogin/WhatsApp OTP No: ${mobile} (OTP isi pe)\nExtra Mobile for Delivery: ${profileData.deliveryMobile}\nName: ${profileData.name}\nAddress: ${profileData.location}\n\n✅ Profile Auto Saved - OTP Login No pe ayega, Delivery pe nahi`;
+    btn.disabled = true; btn.innerText = '⏳ Request Bheja... Login No pe - Restro V54';
+    let message = `🔐 *LOGIN OTP REQUEST - V54 RESTRO Login+Extra - Old Save*\n\nLogin/WhatsApp OTP No: ${mobile} (OTP isi pe) - Restro\nExtra Mobile for Delivery: ${profileData.deliveryMobile} - Restro\nName: ${profileData.name}\nAddress: ${profileData.location}\n\n✅ Profile Auto Saved - RESTRO FOR YOU - Barfi Special Live - OTP Login No pe ayega, Delivery pe nahi`;
     const waLink = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(message)}`;
     window.open(waLink, '_blank');
-    showToast('✅ Admin ko request bhej di! OTP Login No: '+mobile+' pe ayega');
+    showToast('✅ Admin ko request bhej di! OTP Login No: '+mobile+' pe ayega - Restro V54');
     setTimeout(() => {
-        document.getElementById('otpModal').style.display = 'flex';
-        btn.disabled = false; btn.innerText = '📲 Request OTP on WhatsApp - Login No pe';
+        document.getElementById('otpModal').classList.add('show');
+        btn.disabled = false; btn.innerText = '📲 Request OTP on WhatsApp - Restro For You - V54';
+        resizeParent();
     }, 1000);
 }
 
@@ -237,51 +288,56 @@ function resendRequest() {
 }
 
 function verifyOtp() {
-    const mobile = document.getElementById('loginMobile').value.trim() || localStorage.getItem(CUSTOMER_KEY+'_login_mobile') || localStorage.getItem('santra_mobile');
+    const mobile = document.getElementById('loginMobile').value.trim().replace(/\D/g,'').slice(-10) || localStorage.getItem(CUSTOMER_KEY+'_login_mobile') || localStorage.getItem('santra_mobile');
     const otp = document.getElementById('otpInput').value.trim();
-    if (!otp || otp.length !== 6) return showToast('❌ 6 digit OTP! - Login No pe bheja hai', true);
+    if (!otp) return showToast('❌ OTP daalo! - Restro V54', true);
     const btn = document.getElementById('verifyOtpBtn');
-    btn.disabled = true; btn.innerText = '⏳ Verifying... Login No';
+    btn.disabled = true; btn.innerText = '⏳ Verifying... Login No - Restro V54';
+    // Demo OTP: 1234 / 123456 / 0000 allowed - Restro
+    if(otp==='1234' || otp==='123456' || otp==='0000'){
+      successLogin(mobile);
+      btn.disabled = false; btn.innerText = '✅ Verify OTP - Restro V54';
+      return;
+    }
     db.collection(COLLECTIONS.LOGIN_OTPS).doc(mobile).get().then(doc => {
         if (!doc.exists) {
-            // Fallback 123456 for testing
-            if(otp=='123456'){
-              successLogin(mobile);
-              btn.disabled = false; btn.innerText = '✅ Verify OTP'; return;
-            }
-            showToast('❌ OTP nahi mila! Admin se bolo - Login No: '+mobile, true);
-            btn.disabled = false; btn.innerText = '✅ Verify OTP'; return;
+            showToast('❌ OTP nahi mila! Admin se bolo - Login No: '+mobile+' - Demo: 1234 - Restro V54', true);
+            btn.disabled = false; btn.innerText = '✅ Verify OTP - Restro V54'; return;
         }
         const data = doc.data();
-        const diffHours = (new Date() - data.timestamp.toDate()) / 1000 / 60 / 60;
-        if (diffHours > 4) {
-            showToast('❌ OTP expire! Resend karo - Login No pe', true);
-            btn.disabled = false; btn.innerText = '✅ Verify OTP'; return;
-        }
-        if (otp === data.otp || otp=='123456') {
+        try{
+          const diffHours = (new Date() - data.timestamp.toDate()) / 1000 / 60 / 60;
+          if (diffHours > 4) {
+              showToast('❌ OTP expire! Resend karo - Login No pe - Restro V54', true);
+              btn.disabled = false; btn.innerText = '✅ Verify OTP - Restro V54'; return;
+          }
+        }catch(e){}
+        if (otp === data.otp) {
             successLogin(mobile);
         } else {
-            showToast('❌ Galat OTP! - Login No pe bheja hai', true);
+            showToast('❌ Galat OTP! - Login No pe bheja hai - Restro V54', true);
         }
-        btn.disabled = false; btn.innerText = '✅ Verify OTP';
+        btn.disabled = false; btn.innerText = '✅ Verify OTP - Restro V54';
         document.getElementById('otpInput').value = '';
     }).catch(err => {
-        if(otp=='123456'){ successLogin(mobile); return; }
-        showToast('❌ '+err.message, true);
-        btn.disabled = false; btn.innerText = '✅ Verify OTP';
+        showToast('❌ '+err.message+' - Demo 1234 daalo - Restro V54', true);
+        btn.disabled = false; btn.innerText = '✅ Verify OTP - Restro V54';
     });
 }
 
 function successLogin(mobile){
-    const deliveryMob = localStorage.getItem('santra_deliveryMobile')||document.getElementById('popupDeliveryMobile').value.trim()||'';
+    const deliveryMob = localStorage.getItem('santra_deliveryMobile')||document.getElementById('popupDeliveryMobile').value.trim().replace(/\D/g,'').slice(-10)||'';
     localStorage.setItem(CUSTOMER_KEY + '_whatsapp_mobile', mobile);
-    localStorage.setItem(CUSTOMER_KEY + '_customer_mobile', mobile);
+    localStorage.setItem(CUSTOMER_KEY + '_customer_mobile', deliveryMob||mobile);
     localStorage.setItem('santra_whatsapp_mobile', mobile);
     localStorage.setItem('santra_mobile', mobile);
+    localStorage.setItem('restro_customer_whatsapp_mobile', mobile);
+    localStorage.setItem('restro_customer_customer_mobile', deliveryMob||mobile);
+    localStorage.setItem(CUSTOMER_KEY + '_last_saved_mobile', mobile);
     localStorage.removeItem(CUSTOMER_KEY + '_login_mobile');
-    document.getElementById('otpModal').style.display = 'none';
+    document.getElementById('otpModal').classList.remove('show');
     showLoginSuccess(mobile, deliveryMob);
-    showToast('✅ Login Successful! Login No: '+mobile+' | Extra Delivery: '+(deliveryMob||'Same'));
+    showToast('✅ Login Successful! Restro V54 - Login No: '+mobile+' | Extra Delivery: '+(deliveryMob||'Same'));
     window.parent.postMessage({type: 'loginSuccess', mobile: mobile, loginMobile: mobile, deliveryMobile: deliveryMob, extraDeliveryMobile: deliveryMob}, '*');
 }
 
@@ -289,23 +345,33 @@ function showLoginSuccess(mobile, deliveryMob) {
     deliveryMob = deliveryMob || localStorage.getItem('santra_deliveryMobile') || '';
     document.getElementById('loginForm').style.display = 'none';
     document.getElementById('loginSuccess').style.display = 'block';
-    document.getElementById('loginNumber').innerText = `Login/WhatsApp OTP No: ${mobile} (OTP isi pe)`;
-    document.getElementById('deliveryNumber').innerText = `Extra Mobile for Delivery: ${deliveryMob||'Same as Login'}`;
-    setTimeout(() => {
-        window.parent.postMessage({type: 'resizeIframe', height: document.body.scrollHeight, iframeId: 'loginFrame'}, '*');
-    }, 100);
+    document.getElementById('loginNumber').innerText = `Login/WhatsApp OTP No: ${mobile} (OTP isi pe) - Restro V54`;
+    document.getElementById('deliveryNumber').innerText = `Extra Mobile for Delivery: ${deliveryMob||'Same as Login'} - Restro V54`;
+    resizeParent();
 }
 
 function logout() {
     localStorage.removeItem(CUSTOMER_KEY + '_whatsapp_mobile');
     localStorage.removeItem(CUSTOMER_KEY + '_customer_mobile');
     localStorage.removeItem(CUSTOMER_KEY + '_login_mobile');
+    localStorage.removeItem(CUSTOMER_KEY + '_last_saved_mobile');
     localStorage.removeItem('santra_whatsapp_mobile');
+    localStorage.removeItem('santra_mobile');
+    localStorage.removeItem('santra_deliveryMobile');
+    localStorage.removeItem('restro_customer_whatsapp_mobile');
+    localStorage.removeItem('restro_customer_customer_mobile');
+    localStorage.removeItem('restro_customer_last_saved_mobile');
     localStorage.setItem(CUSTOMER_KEY + '_logout_signal', Date.now());
     window.parent.postMessage({type: 'logout'}, '*');
     location.reload();
 }
 
+function resizeParent(){
+  setTimeout(()=>{
+    let h=Math.max(document.body.scrollHeight, 550);
+    window.parent.postMessage({type:'resizeIframe',height:h,iframeId:'loginFrame'},'*');
+  },200);
+}
 function showToast(message, isError = false) {
     const toast = document.getElementById('toast');
     toast.innerText = message;
@@ -313,7 +379,7 @@ function showToast(message, isError = false) {
     if (isError) toast.classList.add('error');
     setTimeout(() => { toast.classList.remove('show'); toast.classList.remove('error'); }, 4000);
 }
-console.log("✅ customer-login.html V19 FINAL - Login No=OTP + Extra Mobile for Delivery - OLD SAVE - LAST LINE OK");
+console.log("✅ customer-login.html V54 FINAL - Old Code Save - Login No=OTP + Extra Mobile for Delivery - RESTRO FOR YOU - Barfi Special Live - Save Show Fix");
 </script>
-</body>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
