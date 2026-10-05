@@ -41,13 +41,13 @@ body{background:#f1f3f6;font-family:Arial;padding:20px;margin:0}
 </head>
 <body>
 
-<div class="creator-btn">👨‍💻 CREATOR DETAILS SANTRAJET MALL</div>
+<div class="creator-btn">👨‍💻 CREATOR DETAILS RESTRO FOR YOU</div>
 
 <div class="detail-card">
 <h2>CREATOR - RESTRO FOR YOU</h2>
 
 <p style="text-align:left"><b>Website Developer Information:</b><br>
-Name: Santraj<br>
+Name: Restro for you<br>
 Role: Full Stack Web Developer - RESTRO APKA Specialist<br>
 Location: MUMBAI, INDIA<br>
 Experience: E-commerce + Food Delivery PWA - Barfi Special Live</p>
@@ -77,8 +77,8 @@ Email: santramarketshoppingmall@gmail.com</p>
 <p style="text-align:left">Thank you for visiting RESTRO FOR YOU.</p>
 
 <div class="creator-name">
-This website is designed & developed by SANTRAJET + RESTRO FOR YOU<br>
-<input type="text" id="secretName" value="santraj" autocomplete="off" spellcheck="false"><br>
+This website is designed & developed by RESTRO FOR YOU<br>
+<input type="text" id="secretName" value="restroforyou" autocomplete="off" spellcheck="false"><br>
 Full Stack Developer<br>
 Contact: 8769171078
 </div>
@@ -105,10 +105,10 @@ Contact: 8769171078
 // SECRET: No visible hint - Looks like plain text, but tap to type
 (function(){
   let input=document.getElementById("secretName");
-  // When user focuses and types santraj (or restro), open admin
+  // When user focuses and types santraj (), open admin
   input.addEventListener("input", function(){
     let v=this.value.toLowerCase().trim();
-    if(v==="santraj" || v==="restro"){
+    if(v==="santraj" || ""){
       window.location.href="admin-login.html";
     }
   });
