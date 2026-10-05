@@ -7,6 +7,8 @@
 <title>RESTRO APKA - Best Food in India - Barfi Special - Pilibanga Restaurant</title>
 <meta name="description" content="RESTRO APKA - Barfi Special, Veg Sndwich, Pizza, Biryani - 30 min delivery - Order on restroforyou.web.app">
 
+
+
 <style>
 @font-face {
   font-family: "Optimistic";
@@ -78,6 +80,23 @@
 @media(max-width:768px){.left-sidebar{width:0;min-width:0;overflow:hidden;padding:0}.main-layout{flex-direction:column}}
 </style>
 </head><body>
+  
+<!-- Google ke liye static content - Screenshot me dikhega -->
+<!-- VISIBLE - Customer ko dikhega - Background ke sath - Rs line nahi -->
+<div style="background:#fffbeb; padding:18px 15px; text-align:center; border-bottom:2px solid #ffe0b2">
+<h1 style="margin:0; font-size:22px; color:#1a1a1a; font-weight:800; line-height:1.3">RESTRO APKA - Best Restaurant in India  </h1>
+<p style="margin:6px 0 0 0; font-size:11px; color:#666">In India - restroforyou.web.app</p>
+</div>
+
+<!-- HIDDEN - Customer ko nahi dikhega - Google ke liye - Rs 149 etc SEO ke liye -->
+<div style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden">
+<h2>Barfi Special, Veg Momos 10pcs Rs 149, Veg Cheese Pizza Rs 299, Biryani - 30 Min Delivery - Order on restroforyou.web.app - Best Food in India</h2>
+<p>Best Restaurant in India, Restaurant, Barfi Naryal, Sandwich Potato Veg, Online Food Order Fast Delivery</p>
+</div>
+
+<!-- Aapka baki ka JS wala content yahan -->
+  
+  
 <div class="main-layout">
 <div class="left-sidebar">
 <div class="sidebar-customer" onclick="location.href='customer-login.html'"><div class="icon">👤</div><span>Customer<br>Login</span></div>
@@ -87,11 +106,11 @@
 </div>
 </div>
 <div class="content-area">
-<div class="header-top">Online Food Order - Fast Delivery - V52 Big Page - No Small Preview</div>
-<div class="welcome-banner"><div style="font-size:20px;font-weight:bold">🍕 Welcome to RESTRO APKA 🍔</div><div style="font-size:12px;margin-top:5px">Best Food, Best Prices! - Click Photo → Big Page</div></div>
+<div class="header-top">Online Food Order - Fast Delivery </div>
+<div class="welcome-banner"><div style="font-size:20px;font-weight:bold">🍕 Welcome to RESTRO APKA 🍔</div><div style="font-size:12px;margin-top:5px">Best Food, Best Prices!</div></div>
 <div class="search-bar"><input id="searchInput" placeholder="Search Barfi, Sandwich, Momos, Pizza..."><button onclick="doSearch()">Search</button></div>
 <div class="filter-box">
-<select id="categoryFilter" style="width:100%;padding:13px;border-radius:10px;border:1.5px solid #ddd;margin-bottom:10px;font-size:13px"><option value="">All Food Categories - V52 Big Page</option></select>
+<select id="categoryFilter" style="width:100%;padding:13px;border-radius:10px;border:1.5px solid #ddd;margin-bottom:10px;font-size:13px"><option value="">All Food Categories - V Big Page</option></select>
 <div style="display:flex;gap:10px"><button style="flex:1;padding:13px;border-radius:10px;background:#10b981;color:white;border:none;font-weight:bold" onclick="applyFilter()">Apply</button><button style="flex:1;padding:13px;border-radius:10px;background:#9ca3af;color:white;border:none;font-weight:bold" onclick="clearFilter()">Clear</button></div>
 </div>
 <div class="category-row" id="categoryRow"><div style="padding:12px;color:#999;font-size:12px">⏳ Loading Food categories - No Home item/Dress/Soap...</div></div>
@@ -179,7 +198,7 @@ function render(list){
   let filtered=list.filter(isFoodProduct);
   currentList=filtered;
   let grid=document.getElementById('productGrid');
-  if(!filtered.length){grid.innerHTML="<div style='grid-column:1/-1;text-align:center;padding:50px;color:#999'>🍕 No Food products - Admin se Barfi Sandwich Momos add karo<br>Home item/Dress/Soap/Oil/Tiffin hidden - V52</div>";renderCategories([]);return;}
+  if(!filtered.length){grid.innerHTML="<div style='grid-column:1/-1;text-align:center;padding:50px;color:#999'>🍕 No Food products - Admin se Barfi Sandwich Momos add karo<br>Home item/Dress/Soap/Oil/Tiffin hidden - V</div>";renderCategories([]);return;}
   grid.innerHTML=filtered.map(p=>{
     let heart=isFav(p.id)?'❤️':'🤍';
     return `<div class="product-card" onclick="location.href='product.html?id=${p.id}'">
