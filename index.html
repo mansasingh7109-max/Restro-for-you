@@ -321,4 +321,23 @@ setTimeout(changeFastDelivery, 3000); // 3 sec baad fir se
 setInterval(changeFastDelivery, 2000); // Har 2 sec me check
 </script>
 
+<!-- HEAD me sabse upar, config.js ke baad add karo - 1 LINE -->
+<script src="santra-restro-one-line-connector.js"></script>
+
+<script>
+// OLD CODE - Mix ho raha tha - Restro me Frocks, Santra me Barfi
+// db.collection('products').get()
+
+// NEW - 1 LINE FIX - Auto Restro/Santra detect
+let productCollection = getProductCollection(); // Restro me 'restro_products', Santra me 'products'
+db.collection(productCollection).where('visible','==',true).onSnapshot(snap=>{
+  snap.forEach(doc=>{
+    let p = doc.data();
+    if(!isValidProductForSite(p)) return; // Frocks Restro me nahi, Barfi Santra me filter
+    // Yahan product dikhao - Roti papad sabji ₹100, Barfi naryal ₹250 etc sahi ayega
+  });
+});
+</script>
+
+
 </body></html>
