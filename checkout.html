@@ -24,7 +24,7 @@
 </style>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Complete Your Order - RESTRO APKA</title>
+<title>Complete Your Order - RESTRO APKA - V55 Image Follow Fixed</title>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
@@ -36,19 +36,18 @@ body{margin:0;font-family:Roboto,sans-serif;background:#fff8e1}
 .container{max-width:600px;margin:0 auto;padding:12px}
 .card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.1);border:1px solid #ffe0b2}
 .order-id{background:#fff3e0;padding:10px;border-radius:8px;font-size:13px;border:1px solid #ffcc80}
-.item{display:flex;gap:10px;padding:12px 0;border-bottom:1px dashed #ddd}
-.item img{width:85px;height:85px;border-radius:8px;object-fit:cover}
+.item{display:flex;gap:12px;padding:12px 0;border-bottom:1px dashed #ddd;align-items:center}
+.item img{width:85px;height:85px;border-radius:12px;object-fit:cover;border:1.5px solid #ffe0b2;background:#fff8e1}
 .item-details{flex:1;font-size:13px;line-height:1.6;word-break:break-word}
 .grand-total{text-align:right;font-weight:800;font-size:18px;border-top:1px solid #eee;margin-top:10px;padding-top:10px;color:#e91e63}
 .grand-sub{font-weight:400;font-size:12px;color:#666}
 .form-group{margin-bottom:14px}.form-group label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
 .form-group input,.form-group select{width:100%;padding:13px;border:1.5px solid #ddd;border-radius:10px;font-size:14px}
 .btn-send{width:100%;background:#4caf50;color:#fff;border:none;padding:14px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer}
-.link{color:#ff5722;font-size:12px;word-break:break-all}
 </style>
 </head>
 <body>
-<div class="header">🛒 Complete Your Order - RESTRO APKA</div>
+<div class="header">🛒 Complete Your Order - RESTRO APKA - V55 Image Fix</div>
 <div class="container">
 <div class="card">
 <h3 style="font-size:16px;margin-bottom:8px">Order Summary - Sold By: RESTRO APKA</h3>
@@ -77,22 +76,32 @@ var orderId="RESTRO"+Date.now();
 var BASE_URL="https://restro-apka.web.app";
 var CART_KEY = "restroCart_v2";
 var CUSTOMER_KEY = "restro_customer";
-var WHATSAPP_NUMBER = "918769171078"; // apna number dalo
+var WHATSAPP_NUMBER = "918769171078";
 
 function getCart(){ 
   try{ 
-    let r=localStorage.getItem(CART_KEY)||localStorage.getItem("restroCart_v2")||"{}"; 
+    let r=localStorage.getItem(CART_KEY)||localStorage.getItem("restro_cart")||localStorage.getItem("restroCart_v2")||"{}"; 
     let d=JSON.parse(r); 
-    if(Array.isArray(d)){let t={};d.forEach((it,i)=>{t[it.id||i]=it;});return t;} 
+    if(Array.isArray(d)){
+      let t={};
+      d.forEach((it,i)=>{t[it.id||i]=it;});
+      return t;
+    } 
     if(d.cart) return d.cart; 
     return d; 
   }catch(e){return {};} 
 }
 
+// ✅ V55 FIX - data:image wali photo ko bhi allow karo - Pehle sirf http check tha - Isiliye image gayab thi
 function getCleanImage(it){ 
-  if(it.image && it.image.startsWith('http')) return it.image;
-  if(it.thumbnail && it.thumbnail.startsWith('http')) return it.thumbnail;
-  return 'https://via.placeholder.com/85?text=Food'; 
+  if(!it) return 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=200';
+  // http, https, data:image sab allow
+  if(it.image && (it.image.startsWith('http') || it.image.startsWith('data:image') || it.image.startsWith('data:'))) return it.image;
+  if(it.imageUrl && (it.imageUrl.startsWith('http') || it.imageUrl.startsWith('data:image') || it.imageUrl.startsWith('data:'))) return it.imageUrl;
+  if(it.thumbnail && (it.thumbnail.startsWith('http') || it.thumbnail.startsWith('data:'))) return it.thumbnail;
+  if(it.img && (it.img.startsWith('http') || it.img.startsWith('data:'))) return it.img;
+  if(it.url && (it.url.startsWith('http') || it.url.startsWith('data:'))) return it.url;
+  return 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=200';
 }
 
 function getCleanProductId(it){ return (it.id||'').toString().trim(); }
@@ -108,6 +117,7 @@ function load(){
   render(); 
 }
 
+// ✅ V55 FIX - Image + Price + Qty + Total follow from cart.html
 function render(){ 
   let cart=getCart(); 
   let cont=document.getElementById("orderItems"); 
@@ -116,9 +126,22 @@ function render(){
   let sub=0; 
   cont.innerHTML=keys.map((k,i)=>{ 
     let it=cart[k]; if(!it) return ''; 
-    let qty=parseInt(it.qty)||1; let price=parseFloat(it.price)||0; let tot=qty*price; sub+=tot; 
-    let name=it.name||'Food'; let img=getCleanImage(it); 
-    return `<div class="item"><img src="${img}"><div class="item-details"><b>${i+1}. ${name}</b><br>Qty: ${qty} x ₹${price} = ₹${tot}<br>Category: ${it.category||'Food'} | 30 Min Delivery<br></div></div>`; 
+    let qty=parseInt(it.qty)||1; 
+    let price=parseFloat(it.price)||0; 
+    let tot=qty*price; 
+    sub+=tot; 
+    let name=it.name||'Food'; 
+    let img=getCleanImage(it); 
+    // ✅ Image + Qty + Price follow
+    return `<div class="item">
+      <img src="${img}" alt="${name}" onerror="this.src='https://via.placeholder.com/85?text=Food'">
+      <div class="item-details">
+        <b>${i+1}. ${name}</b><br>
+        Qty: ${qty} x ₹${price} = ₹${tot}<br>
+        Category: ${it.category||'Food'} | 30 Min Delivery<br>
+        <small style="color:#4caf50">✔ Image Follow - Cart se</small>
+      </div>
+    </div>`; 
   }).join(""); 
   let del=0; let grand=sub+del; 
   document.getElementById("subTotal").innerText=sub; 
@@ -166,10 +189,11 @@ function sendOrder(){
    let it=cart[k]; if(!it) return;
    let qty=parseInt(it.qty)||1; let price=parseFloat(it.price)||0; let tot=qty*price; subtotal+=tot;
    let nameP=(it.name||'Food');
-   productLines+=`${i+1}. ${nameP}\nQty: ${qty} x ₹${price} = ₹${tot}\nCategory: ${it.category||'Food'}\n\n`;
+   // WhatsApp me image link nahi jaati, par naam + qty + price + total
+   productLines+=`${i+1}. ${nameP} - Qty: ${qty} x ₹${price} = ₹${tot} - Cat: ${it.category||'Food'}\n`;
  });
  let delivery=0; let grand=subtotal+delivery;
- let text=`*New Order - RESTRO APKA*%0AOrder ID: ${orderId}%0ADate: ${dateStr}%0A%0A${encodeURIComponent(productLines)}━━━━━━━━━━━━━━━━━━%0ASubtotal: ₹${subtotal}%0ADelivery: FREE (30 Min)%0A*GRAND TOTAL: ₹${grand}*%0A━━━━━━━━━━━━━━━━━━%0A%0A*Customer Details:*%0AName: ${name}%0AMobile: ${login}%0A${extra?`Extra: ${extra}%0A`:''}Email: ${email||'-'}%0AAddress: ${encodeURIComponent(fullAddress)}%0APayment: ${payment}`;
+ let text=`*New Order - RESTRO APKA*%0AOrder ID: ${orderId}%0ADate: ${dateStr}%0A%0A${encodeURIComponent(productLines)}%0A━━━━━━━━━━━━━━━━━━%0ASubtotal: ₹${subtotal}%0ADelivery: FREE (30 Min)%0A*GRAND TOTAL: ₹${grand}*%0A━━━━━━━━━━━━━━━━━━%0A%0A*Customer Details:*%0AName: ${name}%0AMobile: ${login}%0A${extra?`Extra: ${extra}%0A`:''}Email: ${email||'-'}%0AAddress: ${encodeURIComponent(fullAddress)}%0APayment: ${payment}`;
  try{
    let cust={name:name, loginMobile:login, mobile:login, extraMobileNumberForDelivery:extra, deliveryMobile:extra, email:email, address:fullAddress, fullAddress:fullAddress, house:house, area:area, landmark:landmark, pincode:pincode, city:city, state:state};
    localStorage.setItem(CUSTOMER_KEY, JSON.stringify(cust));
@@ -177,7 +201,7 @@ function sendOrder(){
  }catch(e){}
  let arr=[];
  try{
-   arr=Object.values(cart).map(it=>{ return {...it, image:getCleanImage(it)}; });
+   arr=Object.values(cart).map(it=>{ return {...it, image:getCleanImage(it), imageUrl:getCleanImage(it)}; });
    localStorage.setItem('lastOrderCartBackup', JSON.stringify(arr));
    localStorage.setItem('lastOrderId', orderId);
  }catch(e){}
@@ -185,7 +209,7 @@ function sendOrder(){
  // WhatsApp open
  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`,'_blank');
 
- // Firebase save (optional)
+ // Firebase save
  try{
    let db = window.db || (firebase.firestore ? firebase.firestore() : null);
    let rdb = window.rtdb || (firebase.database ? firebase.database() : null);
