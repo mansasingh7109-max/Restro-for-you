@@ -24,7 +24,7 @@
 </style>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Complete Your Order - RESTRO APKA - V55 Image Follow Fixed</title>
+<title>Complete Your Order - RESTRO APKA  </title>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
@@ -47,13 +47,13 @@ body{margin:0;font-family:Roboto,sans-serif;background:#fff8e1}
 </style>
 </head>
 <body>
-<div class="header">🛒 Complete Your Order - RESTRO APKA - V55 Image Fix</div>
+<div class="header">🛒 Complete Your Order - RESTRO APKA</div>
 <div class="container">
 <div class="card">
 <h3 style="font-size:16px;margin-bottom:8px">Order Summary - Sold By: RESTRO APKA</h3>
 <div class="order-id">Order ID: <b id="orderId">RESTRO000000</b> | Sold By: <b>RESTRO APKA</b> | 30 Min Delivery</div>
 <div id="orderItems"></div>
-<div class="grand-total">Grand Total: ₹<span id="grandTotal">0</span><div class="grand-sub">Amount: ₹<span id="subTotal">0</span> + Delivery: <span id="deliveryCharge">FREE</span></div></div>
+<div class="grand-total">Grand Total: ₹<span id="grandTotal">0</span><div class="grand-sub">Amount: ₹<span id="subTotal">0</span> + Delivery: <span id="deliveryCharge">80</span></div></div>
 </div>
 <div class="card">
 <div style="font-weight:700;margin-bottom:12px">📍 Delivery Address</div>
@@ -146,7 +146,7 @@ function render(){
   let del=0; let grand=sub+del; 
   document.getElementById("subTotal").innerText=sub; 
   document.getElementById("grandTotal").innerText=grand; 
-  document.getElementById("deliveryCharge").innerText="FREE"; 
+  document.getElementById("deliveryCharge").innerText="80"; 
   window._tot={sub,del,grand}; 
 }
 
@@ -193,7 +193,7 @@ function sendOrder(){
    productLines+=`${i+1}. ${nameP} - Qty: ${qty} x ₹${price} = ₹${tot} - Cat: ${it.category||'Food'}\n`;
  });
  let delivery=0; let grand=subtotal+delivery;
- let text=`*New Order - RESTRO APKA*%0AOrder ID: ${orderId}%0ADate: ${dateStr}%0A%0A${encodeURIComponent(productLines)}%0A━━━━━━━━━━━━━━━━━━%0ASubtotal: ₹${subtotal}%0ADelivery: FREE (30 Min)%0A*GRAND TOTAL: ₹${grand}*%0A━━━━━━━━━━━━━━━━━━%0A%0A*Customer Details:*%0AName: ${name}%0AMobile: ${login}%0A${extra?`Extra: ${extra}%0A`:''}Email: ${email||'-'}%0AAddress: ${encodeURIComponent(fullAddress)}%0APayment: ${payment}`;
+ let text=`*New Order - RESTRO APKA*%0AOrder ID: ${orderId}%0ADate: ${dateStr}%0A%0A${encodeURIComponent(productLines)}%0A━━━━━━━━━━━━━━━━━━%0ASubtotal: ₹${subtotal}%0ADelivery: FREE 80(30 Min)%0A*GRAND TOTAL: ₹${grand}*%0A━━━━━━━━━━━━━━━━━━%0A%0A*Customer Details:*%0AName: ${name}%0AMobile: ${login}%0A${extra?`Extra: ${extra}%0A`:''}Email: ${email||'-'}%0AAddress: ${encodeURIComponent(fullAddress)}%0APayment: ${payment}`;
  try{
    let cust={name:name, loginMobile:login, mobile:login, extraMobileNumberForDelivery:extra, deliveryMobile:extra, email:email, address:fullAddress, fullAddress:fullAddress, house:house, area:area, landmark:landmark, pincode:pincode, city:city, state:state};
    localStorage.setItem(CUSTOMER_KEY, JSON.stringify(cust));

@@ -23,15 +23,15 @@
 </style>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="To-4Mxorze9cvYdtyf77BfPcJQcr_a2KihwooDC0Fxo" />
-<title>RESTRO APKA - Best Food in India - Barfi Special - Pilibanga Restaurant - V53 Fixed</title>
+<title>RESTRO APKA - Best Food in India - Barfi Special - India Restaurant - Fixed</title>
 <meta name="description" content="RESTRO APKA - Barfi Special, Veg Sandwich, Pizza, Biryani - 30 min delivery - Order on restroforyou.web.app">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <style>
-*{box-sizing:border-box;font-family:Arial}body{background:#FFF176;margin:0;padding-bottom:90px}
+*{box-sizing:border-box;font-family:Arial}body{background:#f3eafc;margin:0;padding-bottom:90px}
 .main-layout{display:flex;min-height:100vh}
-.left-sidebar{width:78px;min-width:78px;background:linear-gradient(180deg,#4DB6AC,#BA68C8);display:flex;flex-direction:column;align-items:center;padding:10px 6px;gap:14px;position:sticky;top:0;height:20vh;z-index:200}
+.left-sidebar{width:78px;min-width:78px;background:linear-gradient(180deg,#4DB6AC,#ffc520);display:flex;flex-direction:column;align-items:center;padding:10px 6px;gap:14px;position:sticky;top:0;height:70vh;z-index:200}
 .sidebar-customer{background:white;border-radius:16px;width:62px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.18)}
 .sidebar-customer .icon{width:38px;height:38px;background:#fff3e0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
 .sidebar-customer span{font-size:9px;font-weight:bold;color:#ff6a00;margin-top:5px;text-align:center;line-height:1.1}
@@ -67,6 +67,9 @@
 .nav-item{text-align:center;text-decoration:none;color:#666;flex:1;padding:5px;font-size:12px;position:relative}
 @media(max-width:768px){.left-sidebar{width:0;min-width:0;overflow:hidden;padding:0}.main-layout{flex-direction:column}}
 </style>
+
+
+
 </head><body>
 
 <div style="background:#4A;padding:18px 15px;text-align:center;border-bottom:2px solid #0">
@@ -91,7 +94,7 @@
 <div class="content-area">
 
 <div class="header-top" style="color:#1B5E20 !important;background:#FFF176 !important;text-align:center !important;padding:10px !important;font-weight:800 !important;">Online Food Order -On Whatsapp~ <span style="color:#1B5E20 !important;font-weight:900 !important;">8769171078</span></div>
-<div class="welcome-banner"><div style="background:#FFF176 !important;color:#F48F !important;font-size:20px;font-weight:bold">🍕 Welcome to RESTRO APKA 🍔</div><div style="background:#FFF176 !important;color:#F48F !important;font-size:12px;margin-top:5px">Best Food, Best Prices!</div></div>
+<div class="welcome-banner"><div style="background:#f3eafc !important;color:#FF5252 !important;font-size:20px;font-weight:bold">🍕 Welcome to RESTRO APKA 🍔</div><div style="background:#FFF176 !important;color:#F48F !important;font-size:12px;margin-top:5px">Best Food, Best Prices!</div></div>
 <div class="search-bar"><input id="searchInput" placeholder="Search Barfi, Sandwich, Momos, Pizza..."><button onclick="doSearch()">Search</button></div>
 <div class="filter-box">
 <select id="categoryFilter" style="width:100%;padding:13px;border-radius:10px;border:1.5px solid #ddd;margin-bottom:10px;font-size:13px"><option value="">All Food Categories -  Big Page</option></select>
@@ -120,8 +123,8 @@ const CART_KEY="restroCart_v2";
 const MYCHOICE_KEY="restroMyChoice_v2";
 
 // ✅ V53 - FOOD ONLY STRICT
-const FOOD_ALLOWED=['barfi special','barfi','sandwich','momos','momo','pasta','pizza','biryani','thali','burger','drinks','drink','brownie','cake','veg momos','white sauce pasta','veg cheese pizza','chicken biryani full','paneer thali','veg burger combo','cold coffee','kaju barfi','veg grilled sandwich','barfi naryal','sandwich potato veg','roti papad','roti sabji','roti','pudi','choti pudi'];
-const BLOCKED_ALL_NON_FOOD=['soap','home item','dress western','dress','western','home','colgate','paste','gallery','mustard','desi oil','oil','food vegetarian tiffin service','tiffin service','vegetarian tiffin','tiffin','frock','saree','sari','kurti','kurta','lehenga','gown','jeans','shirt','fashion','footwear','shoe','bag','handbag','jewellery','jewelry','salwar','suit','anarkali','jacket','hoodie','leggings','palazzo','dupatta','blouse','skirt'];
+const FOOD_ALLOWED=['barfi special','barfi','sandwich','momos','momo','pasta','pizza','biryani','thali','burger','drinks','drink','brownie','cake','veg momos','white sauce pasta','veg cheese pizza','chicken biryani full','paneer thali','veg burger combo','cold coffee','kaju barfi','veg grilled sandwich','barfi naryal','Food vegetarian tiffin service','sandwich potato veg','roti papad','roti sabji','roti','pudi','choti pudi'];
+const BLOCKED_ALL_NON_FOOD=['soap','home item','dress western','dress','western','home','colgate','paste','gallery','mustard','desi oil','oil','frock','saree','sari','kurti','kurta','lehenga','gown','jeans','shirt','fashion','footwear','shoe','bag','handbag','jewellery','jewelry','salwar','suit','anarkali','jacket','hoodie','leggings','palazzo','dupatta','blouse','skirt'];
 
 function isFoodProduct(p){
   if(!p) return false;

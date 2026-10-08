@@ -23,7 +23,7 @@
 }
 </style>
 <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>🛒 My Cart - RESTRO APKA - V42 Old Cart Updated Firebase + Clear</title>
+<title>🛒 My Cart - RESTRO APKA  Old Cart Updated Firebase + Clear</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -64,13 +64,13 @@ body{background:var(--bg);padding-bottom:160px}
 </style>
 </head>
 <body>
-<div class="header"><button class="back-btn" onclick="location.href='index.html'">←</button><h1>🛒 My Cart - RESTRO APKA - V42 Firebase + Clear Fix</h1><span id="clock" style="margin-left:auto;background:black;color:#0f0;padding:4px 6px;border-radius:5px;font-size:9px">IST</span></div>
-<div class="today-strip" id="todayBar">RESTRO APKA - Online Food Order - 30 Min Delivery - V42</div>
+<div class="header"><button class="back-btn" onclick="location.href='index.html'">←</button><h1>🛒 My Cart - RESTRO APKA </h1><span id="clock" style="margin-left:auto;background:black;color:#0f0;padding:4px 6px;border-radius:5px;font-size:9px">IST</span></div>
+<div class="today-strip" id="todayBar">RESTRO APKA - Online Food Order - 30 Min Delivery </div>
 <div class="tabs"><button class="tab active" id="cartTab" onclick="switchTab('cart')">🛒 Cart (<span id="cartCount">0</span>)</button><button class="tab" id="choiceTab" onclick="switchTab('choice')">❤️ My Choice (<span id="choiceCount">0</span>)</button></div>
 <div id="cartView">
 <div class="top-select-bar" id="cartTopBar" style="display:none"><label style="font-size:12px;display:flex;align-items:center;gap:5px"><input type="checkbox" id="selectAllCart" onchange="toggleAllCart(this.checked)"> Select All</label><button onclick="moveSelectedToChoice()" style="background:#f59e0b;color:white;margin-left:auto;border:none;padding:8px 10px;border-radius:6px;font-weight:600">❤️ Fav</button><button onclick="removeSelectedCart()" style="background:#fee2e2;color:#ef4444;border:none;padding:8px 10px;border-radius:6px;font-weight:600">Remove</button></div>
 <div id="cartList"></div>
-<div id="cartSummary" class="summary hide"><h3>Grand Total: ₹<span id="cartTotal">0</span></h3><div style="font-size:11px;color:#666">Date: <span id="todayDateBar"></span></div><button onclick="sendOrderToAll()" class="btn-send-all">📦 Send Order - WhatsApp - Firebase Save - Restro For You</button><button onclick="generateAndSharePDF()" class="btn-pdf">📄 Download Invoice PDF - Restro</button><h3 style="margin-top:12px">Price Details</h3><div class="summary-row"><span>Price (<span id="itemCount">0</span> items)</span><span id="subTotal">₹0</span></div><div class="summary-row"><span>Delivery</span><span id="deliveryCharge">FREE</span></div><div class="summary-row total-row"><span>Total</span><span id="grandTotal">₹0</span></div></div>
+<div id="cartSummary" class="summary hide"><h3>Grand Total: ₹<span id="cartTotal">0</span></h3><div style="font-size:11px;color:#666">Date: <span id="todayDateBar"></span></div><button onclick="sendOrderToAll()" class="btn-send-all">📦 Send Order - WhatsApp   Restro For You</button><button onclick="generateAndSharePDF()" class="btn-pdf">📄 Download Invoice PDF - Restro</button><h3 style="margin-top:12px">Price Details</h3><div class="summary-row"><span>Price (<span id="itemCount">0</span> items)</span><span id="subTotal">₹0</span></div><div class="summary-row"><span>Delivery</span><span id="deliveryCharge">FREE</span></div><div class="summary-row total-row"><span>Total</span><span id="grandTotal">₹0</span></div></div>
 <a href="checkout.html" id="checkoutBtn" class="checkout-btn">➡ PROCEED TO CHECKOUT - Restro For You</a>
 </div>
 <div id="choiceView" class="hide"><div class="top-select-bar" id="choiceTopBar" style="display:none"><label style="font-size:12px;display:flex;align-items:center;gap:5px"><input type="checkbox" id="selectAllChoice" onchange="toggleAllChoice(this.checked)"> Select All</label><button onclick="moveSelectedToCart()" style="background:#10b981;color:white;margin-left:auto;border:none;padding:8px 10px;border-radius:6px;font-weight:600">→ Cart</button><button onclick="removeSelectedChoice()" style="background:#fee2e2;color:#ef4444;border:none;padding:8px 10px;border-radius:6px;font-weight:600">Remove</button></div><div id="myChoiceList"></div></div>
@@ -83,7 +83,7 @@ if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db=firebase.firestore();
 
 let cart={};let myChoice={};
-function initTime(){ let d=new Date(); document.getElementById('todayBar').innerText=`Aaj: ${d.toLocaleDateString('en-IN')} ${d.toLocaleTimeString('en-IN')} - RESTRO APKA - 30 Min Delivery - V42 Firebase`; document.getElementById('todayDateBar').innerText=d.toLocaleDateString('en-IN'); }
+function initTime(){ let d=new Date(); document.getElementById('todayBar').innerText=`Aaj: ${d.toLocaleDateString('en-IN')} ${d.toLocaleTimeString('en-IN')} - RESTRO APKA - 30 Min Delivery `; document.getElementById('todayDateBar').innerText=d.toLocaleDateString('en-IN'); }
 initTime();
 
 window.switchTab=function(tab){
@@ -130,7 +130,7 @@ function renderCart(){
   </div>`;
  }).join("");
  let sub=Object.values(cart).reduce((a,i)=>a+(parseFloat(i.price)||0)*(parseInt(i.qty)||1),0);
- let delivery=sub>=500?0:30;
+ let delivery=sub>=500?0:80;
  document.getElementById("subTotal").innerText="₹"+sub;
  document.getElementById("grandTotal").innerText="₹"+(sub+delivery);
  document.getElementById("cartTotal").innerText=sub+delivery;
