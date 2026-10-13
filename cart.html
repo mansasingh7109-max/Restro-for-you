@@ -236,9 +236,13 @@ async function sendOrderToAllFinal(finalAddress, name, mobile, extraMobile, emai
   let orderData={ id:orderId,orderId:orderId, customerName:name,name:name, customerMobile:mobile,mobile:mobile,loginMobile:mobile, deliveryMobile:extraMobile, email:email, address:finalAddress,fullAddress:finalAddress, city:city,pincode:pincode, items:arr,cart:arr, subtotal:total,deliveryCharge:delivery,total:grand,grandTotal:grand, paymentMethod:'Cash on Delivery',status:'Pending',type:'RESTRO',source:'RESTRO FOR YOU', date:new Date().toISOString(),dateTimeHamesha:`${dateStr}, ${timeStr}`, createdAt: db ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString() };
   try{ if(db){ await db.collection('orders').doc(orderId).set(orderData); await db.collection('restro_orders').doc(orderId).set(orderData); } }catch(e){}
   localStorage.setItem('lastOrderId',orderId); localStorage.setItem('lastOrderCartBackup', JSON.stringify(arr));
-  let msg=`*RESTRO FOR YOU - NEW ORDER*%0AOrder ID: ${orderId}%0ADate: ${dateStr} ${timeStr}%0AName: ${name}%0AMobile: ${mobile}%0AExtra: ${extraMobile}%0AEmail: ${email}%0AAddress: ${finalAddress}%0A%0A*Items:*%0A`;
-  arr.forEach(i=>{msg+=`• ${i.name} x ${i.qty} = ₹${i.price*i.qty}%0A`;});
-  msg+=`%0ASubtotal: ₹${total}%0ADelivery: ${delivery===0?'FREE':'₹'+delivery}%0A*Grand Total: ₹${grand}*`;
+  // OLD SAVE: let msg=`*RESTRO FOR YOU - NEW ORDER*%0AOrder ID: ${orderId}%0ADate: ${dateStr} ${timeStr}%0AName: ${name}%0AMobile: ${mobile}%0AExtra: ${extraMobile}%0AEmail: ${email}%0AAddress: ${finalAddress}%0A%0A*Items:*%0A`;
+let msg=`Restro For You%0Ahttps://restroforyou.web.app%0A%0A*RESTRO FOR YOU - NEW ORDER*%0AOrder ID: ${orderId}%0ADate: ${dateStr} ${timeStr}%0AName: ${name}%0AMobile: ${mobile}%0AExtra: ${extraMobile}%0AEmail: ${email}%0AAddress: ${finalAddress}%0A%0A*Items:*%0A`;
+  // OLD SAVE: arr.forEach(i=>{msg+=`• ${i.name} x ${i.qty} = ₹${i.price*i.qty}%0A`;});
+arr.forEach(i=>{var _pid=(i.id||i.code||"");msg+=`• ${i.name} x ${i.qty} = ₹${i.price*i.qty}%0A`;if(_pid){msg+=`Code:${_pid}%0A`;msg+=`View:https://restroforyou.web.app/product?id=${_pid}%0A`;}});
+  // OLD SAVE: msg+=`%0ASubtotal: ₹${total}%0ADelivery: ${delivery===0?'FREE':'₹'+delivery}%0A*Grand Total: ₹${grand}*`;
+msg+=`%0ASubtotal: ₹${total}%0ADelivery: ${delivery===0?'FREE':'₹'+delivery}%0A*Grand Total: ₹${grand}*%0A`;msg+=`Verify:https://restroforyou.web.app/share-otp-verify?mobile=${mobile}&orderId=${orderId}%0A`;msg+=`Orders:https://restroforyou.web.app/orders?mobile=${mobile}%0A`;
+  
   window.open(`https://wa.me/918769171078?text=${msg}`,"_blank");
   setTimeout(()=>{ localStorage.setItem(window.CART_KEY,"[]"); localStorage.setItem("restro_cart","[]"); localStorage.setItem("restroCart_v2","[]"); localStorage.setItem("santraMallCart_v2","[]"); localStorage.setItem("santra_cart","[]"); cart={}; saveCart(); renderCart(); alert('✅ Order Sent - ID: '+orderId); window.location.href='orders.html?orderId='+orderId+'&mobile='+mobile; },1200);
 }
