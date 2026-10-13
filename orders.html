@@ -1,71 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="hi">
-<head><style>
-@font-face {
-  font-family: "Optimistic";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Optimistic Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
-}
-:where(html) {
-  font-family: "Optimistic", system-ui, sans-serif;
-}
-:where(code, pre, kbd, samp) {
-  font-family: "Optimistic Mono", ui-monospace, monospace;
-}
-</style>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>📦 My Orders - RESTRO FOR YOU</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-
-
-
-        <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-        <script>eruda.init();</script>
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>window.INVOICE_BRAND='RESTRO_FOR_YOU';</script>
 <script src="invoice.js"></script>
+<!--
+⚠️ OLD CODE SAVE - SAFE - KUCH HATAYA NAHI
+Purana Restro orders.html (simple layout wala) Acode me backup hai.
+Ye naya code = Santrajet wala layout + Restro branding + RESTRO-only filter.
+Purane saare features safe hain: Address popup OTP, Invoice PDF, Tracking, localStorage NEW order.
+-->
 <style>
 :root{--bg:#fff8e1;--card:#fff;--accent:#ff6a00;--green:#10b981;--blue:#0ea5e9}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial}
-body{background:var(--bg);padding-bottom:90px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:var(--bg);padding-bottom:70px;overflow-x:hidden}
 .header{background:linear-gradient(90deg,#ff9800,#e91e63);color:#fff;padding:12px 15px;display:flex;gap:8px;position:sticky;top:0;z-index:100;align-items:center}
-.header h1{font-size:14px;flex:1}
-.back-btn,.profile-btn,.logout-btn{background:rgba(255,255,255,.25);border:none;color:#fff;padding:7px 10px;border-radius:8px;cursor:pointer;font-size:11px;font-weight:bold}
+.header h1{font-size:16px;flex:1}
+.back-btn,.logout-btn,.profile-btn{background:rgba(255,255,255,.2);border:none;color:#fff;padding:7px 10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:bold}
 .container{max-width:900px;margin:12px auto;padding:0 10px}
-.customer-profile{background:var(--card);padding:12px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);border-left:5px solid var(--green);display:flex;gap:10px;align-items:center}
+.customer-profile{background:var(--card);padding:12px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.1);border-left:5px solid var(--green);display:flex;gap:10px;align-items:center}
 .order-card{background:var(--card);margin:14px 0;border-radius:12px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);border-left:5px solid var(--accent)}
 .order-header{padding-bottom:10px;border-bottom:2px dashed #fff3e0;margin-bottom:10px}
 .order-header-top{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
-.order-id-badge{background:var(--accent);color:#fff;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:bold}
-.serial-badge{background:#1a1a2e;color:#fff;padding:5px 10px;border-radius:12px;font-size:10px;font-weight:bold}
+.order-id-badge{background:var(--accent);color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:bold}
+.serial-badge{background:#1a1a2e;color:#fff;padding:5px 10px;border-radius:12px;font-size:11px;font-weight:bold}
 .order-id-line{font-size:11px;color:#333;margin-top:8px;line-height:1.6;background:#fff3e0;padding:6px 8px;border-radius:8px 8px 0 0;border:1px solid #ffe0b2;border-bottom:none}
 .order-addr-line{font-size:11px;color:#333;background:#fffef5;padding:6px 8px;border-radius:0 0 8px 8px;border:1px solid #ffe0b2;border-top:none;line-height:1.5}
-.status-wrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
-.status-badge{padding:5px 12px;border-radius:20px;font-size:10px;font-weight:bold}
-.payment-badge{padding:5px 10px;border-radius:20px;font-size:10px;font-weight:bold}
+.status-wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.status-badge{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:bold}
+.payment-badge{padding:5px 10px;border-radius:20px;font-size:11px;font-weight:bold}
 .payment-cod{background:#e0f2fe;color:#0284c7;border:1px solid #bae6fd}
-.status-pending{background:#fef3c7;color:#92400e}.status-confirmed{background:#d1fae5;color:#065f46}.status-cancelled{background:#fee2e2;color:#991b1b}
+.status-pending{background:#fef3c7;color:#92400e}.status-confirmed{background:#d1fae5;color:#065f46}.status-cancelled{background:#fee2e2;color:#991b1b}.status-cancel-req{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
+.btn-cancel-top{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:bold;border:1px solid #fecaca;background:#fee2e2;color:#991b1b;cursor:pointer;margin-left:12px}
 .item-row{display:flex;gap:10px;margin:8px 0;padding:10px;background:#fafafa;border-radius:10px;align-items:center;border:1px solid #fff3e0}
 .item-img-wrap{width:58px;height:58px;border-radius:10px;background:#fff;border:1px solid #eee;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .item-img-wrap img{width:100%;height:100%;object-fit:cover}
-.screenshot-box{background:#fffff7;border:1.5px dashed #f59e0b;border-radius:10px;padding:10px;margin:10px 0;font-size:11px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
 .total-section{border-top:2px solid #fff3e0;margin-top:8px;padding-top:8px}
-.total-row{display:flex;justify-content:space-between;margin:3px 0;font-size:12px}.grand-total{font-size:14px;font-weight:bold;color:var(--accent)}
-.btn-track{background:var(--blue);color:#fff;padding:12px;border:none;border-radius:8px;font-weight:700;margin-top:8px;width:100%;cursor:pointer;font-size:13px}
-.btn-invoice{background:#7c3aed;color:#fff;padding:12px;border:none;border-radius:8px;font-weight:700;margin-top:6px;width:100%;cursor:pointer;font-size:13px}
-.btn-addr{background:#e0f2fe;color:#0284c7;padding:6px 10px;border-radius:20px;border:1px solid #bae6fd;cursor:pointer;font-size:10px}
+.total-row{display:flex;justify-content:space-between;margin:3px 0;font-size:13px}.grand-total{font-size:15px;font-weight:bold;color:var(--accent)}
+.otp-box{background:#f0fdf4;padding:12px;border-radius:12px;margin:10px auto;border:1.8px solid #10b981;max-width:360px}
+.otp-cancel-box{background:#fef2f2;padding:12px;border-radius:12px;margin:10px auto;border:1.8px solid #ef4444;max-width:360px}
+.otp-input{width:100%;max-width:200px;padding:10px;margin:8px auto;border:2px solid #10b981;border-radius:8px;font-size:18px;text-align:center;letter-spacing:6px;font-weight:bold;display:block}
+.otp-input-cancel{width:100%;max-width:200px;padding:10px;margin:8px auto;border:2px solid #ef4444;border-radius:8px;font-size:18px;text-align:center;letter-spacing:6px;font-weight:bold;display:block}
+.btn-verify{width:100%;max-width:300px;background:#10b981;color:#fff;border:none;padding:10px;border-radius:8px;font-weight:bold;cursor:pointer;margin:6px auto;display:block}
+.btn-save-cancel{background:#f59e0b;color:#fff;border:none;padding:12px;border-radius:8px;font-weight:bold;cursor:pointer;margin:8px auto;display:block;width:100%;max-width:300px;font-size:14px}
+.cancel-box{background:#fef2f2;padding:12px;border-radius:12px;margin:10px auto;border:2px solid #ef4444;max-width:380px}
+.cancel-input{width:100%;padding:10px;margin:8px 0;border:2px solid #ef4444;border-radius:8px;font-size:13px;min-height:65px}
+.btn-cancel-confirm{width:100%;background:#ef4444;color:#fff;border:none;padding:10px;border-radius:8px;font-weight:bold;cursor:pointer}
+.btn-whatsapp-cancel{width:100%;background:#25d366;color:#fff;border:none;padding:10px;border-radius:8px;font-weight:bold;cursor:pointer;margin-top:6px}
+.small-tab{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #bae6fd;background:#e0f2fe;color:#0284c7;cursor:pointer}
+.addr-full{font-size:11px;color:#111;background:#fff;padding:8px 10px;border-radius:6px;margin-top:6px;border:1px dashed #10b981;white-space:pre-wrap;word-break:break-word;display:none}
+.saved-otp-box{background:#d1fae5;border:1.5px solid #10b981;border-radius:10px;padding:10px;margin:10px auto;max-width:360px;text-align:center;font-weight:bold;color:#065f46}
+.saved-cancel-box{background:#fee2e2;border:1.5px solid #ef4444;border-radius:10px;padding:10px;margin:10px auto;max-width:360px;text-align:center;font-weight:bold;color:#991b1b}
+.btn-track{width:100%;padding:10px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-weight:700;margin-top:8px;cursor:pointer}
+.btn-invoice{width:100%;padding:10px;background:#7c3aed;color:#fff;border:none;border-radius:8px;font-weight:700;margin-top:6px;cursor:pointer}
 .addr-popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:99999;display:none;align-items:center;justify-content:center;padding:12px}
 .addr-popup-overlay.show{display:flex}
 .addr-popup-box{background:#fff;border-radius:16px;padding:16px;max-width:480px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,0.4);border:2.5px solid #ff6a00;max-height:95vh;overflow-y:auto}
@@ -74,7 +64,7 @@ body{background:var(--bg);padding-bottom:90px}
 .btn-wa-otp{width:100%;padding:12px;background:#25D366;color:#fff;border:none;border-radius:10px;font-weight:bold;margin-top:10px;cursor:pointer}
 .btn-save-addr{width:100%;padding:12px;background:#10b981;color:#fff;border:none;border-radius:10px;font-weight:bold;margin-top:8px;cursor:pointer;display:none}
 .btn-cancel{background:#f3f4f6;color:#333;border:none;padding:10px;border-radius:10px;font-weight:bold;margin-top:6px;width:100%;cursor:pointer}
-.otp-input{width:100%;padding:12px;border:2px solid #10b981;border-radius:10px;margin-top:10px;text-align:center;letter-spacing:6px;font-size:18px;font-weight:bold;display:none}
+.otp-input-addr{width:100%;padding:12px;border:2px solid #10b981;border-radius:10px;margin-top:10px;text-align:center;letter-spacing:6px;font-size:18px;font-weight:bold;display:none}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:8px 0 12px;box-shadow:0 -2px 10px rgba(0,0,0,.1);z-index:999}
 .nav-item{text-align:center;text-decoration:none;color:#666;flex:1;padding:5px;font-size:12px}
 .nav-item.active{color:var(--accent);font-weight:bold}
@@ -90,288 +80,246 @@ body{background:var(--bg);padding-bottom:90px}
 <div class="container">
 <div id="statusBar" style="background:#dcfce7;padding:8px;border-radius:8px;font-size:11px;text-align:center;margin-bottom:10px;border:1px solid #10b981">Loading...</div>
 <div id="customerProfileBox"></div>
-<div id="ordersList"><div style="text-align:center;padding:40px;color:#ff6a00;font-weight:bold">⏳ Loading...</div></div>
+<div id="ordersList"><div style="text-align:center;padding:30px;color:#ff6a00;font-weight:bold">⏳ Loading...</div></div>
 </div>
-
 <div id="addrPopupOverlay" class="addr-popup-overlay">
 <div class="addr-popup-box">
 <h3 style="text-align:center;color:#ff6a00">📍 Update Delivery Address</h3>
-<label class="addr-label">👤 Full Name *</label><input id="popupName" class="addr-input" placeholder="Manisha Tak">
-<label class="addr-label">📱 Login Mobile *</label><input id="popupLogin" class="addr-input" type="tel" maxlength="10" placeholder="9660834888">
-<label class="addr-label">📦 Extra Mobile</label><input id="popupExtra" class="addr-input" type="tel" maxlength="10" placeholder="Extra">
-<label class="addr-label">📍 Full Address *</label><textarea id="popupFullAddr" rows="2" class="addr-input" placeholder="45, Sastrasardar, Lachu, Jaipur"></textarea>
-<label class="addr-label">🏙️ City + State</label><input id="popupCity" class="addr-input" placeholder="Jaipur, Rajasthan">
-<label class="addr-label">📮 Pincode</label><input id="popupPincode" class="addr-input" type="tel" maxlength="6" placeholder="302012">
+<label class="addr-label">👤 Full Name *</label><input id="popupName" class="addr-input" placeholder="Name">
+<label class="addr-label">📱 Login Mobile *</label><input id="popupLogin" class="addr-input" type="tel" maxlength="10" placeholder="10 digit mobile">
+<label class="addr-label">📦 Extra Mobile</label><input id="popupExtra" class="addr-input" type="tel" maxlength="10" placeholder="Extra mobile">
+<label class="addr-label">📍 Full Address *</label><textarea id="popupFullAddr" rows="2" class="addr-input" placeholder="Full address"></textarea>
+<label class="addr-label">🏙️ City + State</label><input id="popupCity" class="addr-input" placeholder="City, State">
+<label class="addr-label">📮 Pincode</label><input id="popupPincode" class="addr-input" type="tel" maxlength="6" placeholder="Pincode">
 <label class="addr-label">✉️ Email</label><input id="popupEmail" class="addr-input" type="email" placeholder="Email">
 <div id="currentAddrShow" style="background:#f0fdf4;padding:8px;border-radius:8px;margin:8px 0;font-size:11px;border:1px solid #10b981"></div>
-<input id="otpInput" class="otp-input" type="tel" maxlength="6" placeholder="------">
+<input id="otpInput" class="otp-input-addr" type="tel" maxlength="6" placeholder="------">
 <div id="otpInfo" style="display:none;background:#d1fae5;padding:8px;border-radius:8px;margin-top:8px;font-size:11px;text-align:center;color:#065f46;font-weight:bold">✅ WhatsApp pe OTP gaya</div>
 <button type="button" id="btnWaOtp" class="btn-wa-otp" onclick="requestOtpOnWhatsApp()">📲 WhatsApp pe OTP Request</button>
 <button type="button" id="btnSaveAddr" class="btn-save-addr" onclick="saveAddressWithOtp()">💾 OTP Verify karke Save</button>
 <button type="button" class="btn-cancel" onclick="closeAddrPopup()">❌ Cancel</button>
 </div>
 </div>
-
+<div id="globalHelpBox" style="border:2px solid #ff6a00;background:white;border-radius:14px;padding:16px;margin:15px auto;max-width:900px;text-align:center">
+<div style="font-weight:800;color:#ff6a00;font-size:16px">🆘 Help Center</div>
+<div style="font-size:12px;color:#666;margin:6px 0">Order se related help ke liye WhatsApp karo</div>
+<button onclick="sendHelpWA('General Inquiry','General')" style="width:100%;padding:12px;background:#25d366;color:white;border:none;border-radius:10px;font-weight:700;margin-top:8px;cursor:pointer">📲 WhatsApp - Help - 8769171078</button>
+</div>
 <div class="bottom-nav"><a href="index.html" class="nav-item"><div>🏠</div><span>Home</span></a><a href="cart.html" class="nav-item"><div>🛒</div><span>Cart</span></a><a href="orders.html" class="nav-item active"><div>📦</div><span>Orders</span></a></div>
-
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script>
-// ✅ FIX - Direct PDF fallback - invoice.js missing bhi ho to PDF banega - old code update
+/* OLD CODE SAVE - purana generateInvoiceDirect SAFE - niche naya Restro format */
 function generateInvoiceDirect(order){
-  order=order||window.currentOrder||{};
-  let items=order.items||order.cart||[];
-  if(!items.length){ alert('Order me items nahi hai'); return; }
-  let jsPDFClass=(window.jspdf&&window.jspdf.jsPDF)?window.jspdf.jsPDF:window.jsPDF;
-  if(!jsPDFClass){ alert('jsPDF CDN load nahi hua - Internet check karo - https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); return; }
-  let cfg={fullName:'RESTRO FOR YOU', soldBy:'Restro For You', thank:'Thank You for Ordering from Restro For You'};
-  let invoiceNo=order.orderId||order.id||'RESTRO'+Date.now();
-  let dateStr=order.dateTimeHamesha||order.dateStr||new Date().toLocaleString('en-IN');
-  let customerName=order.customerName||order.name||localStorage.getItem('popup_name')||'Manisha tak';
-  let mobile=order.mobile||order.customerMobile||order.loginMobile||localStorage.getItem('restro_mobile')||'9660834888';
-  let address=order.address||order.fullAddress||localStorage.getItem('popup_fulladdr')||'Address not added';
-  let sub=0; items.forEach(it=>sub+=(parseFloat(it.price)||0)*(parseInt(it.qty)||1));
-  let del=order.deliveryCharge!=null?order.deliveryCharge:(sub>=500?0:80); let grand=order.grandTotal||order.total||sub+del;
-  let doc=new jsPDFClass('p','mm','a4'); let y=15;
-  doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text(cfg.fullName,14,y); y+=8;
-  doc.setFontSize(12); doc.text('Invoice',14,y); y+=10;
-  doc.setFont('helvetica','normal'); doc.setFontSize(10);
-  doc.text('Invoice No: '+invoiceNo,14,y); doc.text('Date: '+dateStr,120,y); y+=6;
-  doc.text('Customer: '+customerName,14,y); y+=6;
-  doc.text('Mobile: '+mobile,14,y); y+=6;
-  let addrLines=doc.splitTextToSize('Address: '+address,180); doc.text(addrLines,14,y); y+=addrLines.length*5+4;
-  doc.text('Payment: '+(order.paymentMethod||'Cash on Delivery')+' | Status: '+(order.status||'Pending'),14,y); y+=10;
-  doc.setFillColor(235,235,235); doc.rect(14,y,182,8,'F');
-  doc.setFont('helvetica','bold'); doc.text('Item',15,y+5); doc.text('Qty',95,y+5); doc.text('Price',120,y+5); doc.text('Total',155,y+5); y+=10;
-  doc.setFont('helvetica','normal');
-  items.forEach(it=>{
-    let qty=parseInt(it.qty)||1; let price=parseFloat(it.price)||0; let tot=qty*price;
-    doc.text((it.name||'Product').substring(0,35)+' ('+(it.size||'M')+')',15,y); doc.text(String(qty),96,y); doc.text('Rs.'+price,121,y); doc.text('Rs.'+tot,156,y); y+=6;
-    if(y>270){ doc.addPage(); y=15; }
-  });
-  y+=4; doc.text('Subtotal: Rs.'+sub+' | Delivery: Rs.'+del,14,y); y+=6;
-  doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text('Grand Total: Rs.'+grand,14,y); y+=12;
-  doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.text(cfg.thank,14,y);
-  doc.save('INVOICE_'+invoiceNo+'.pdf');
-  console.log('✅ PDF Downloaded:', invoiceNo);
-}
-
-window.downloadInvoice=function(orderId){
-  try{
-    console.log('📥 downloadInvoice pressed:', orderId);
-    let order=null;
-    if(window.orderMap && window.orderMap[orderId]) order=window.orderMap[orderId];
-    else if(window.allOrders) order=window.allOrders.find(o=>o.id===orderId||o.orderId===orderId);
-    if(!order){ alert('Order not found: '+orderId); return; }
-    // Try invoice.js first if loaded properly
-    if(window.generateInvoicePDF && window.generateInvoicePDF.toString().length>500){
-      try{ window.generateInvoicePDF(order); return; }catch(e){ console.log('invoice.js failed, fallback', e); }
-    }
-    // Direct fallback - always works
-    generateInvoiceDirect(order);
-  }catch(e){ alert('Invoice error: '+e.message); console.error(e); }
-};
-
-window.openTrackingPage=function(orderId){
-  window.location.href='tracking-order-page-product.html?orderId='+orderId;
-};
-
-const MY_FIREBASE_CONFIG={
-  apiKey: "AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",
-  authDomain: "santramarketshoppingmall.firebaseapp.com",
-  projectId: "santramarketshoppingmall",
-  storageBucket: "santramarketshoppingmall.appspot.com",
-  messagingSenderId: "398490252924",
-  appId: "1:398490252924:web:d1b6348b549183b93b7bf9",
-  databaseURL: "https://santramarketshoppingmall-default-rtdb.firebaseio.com/"
-};
+order=order||{};let items=order.items||order.cart||[];
+if(!items.length){alert('Order me items nahi hai');return;}
+let jsPDFClass=(window.jspdf&&window.jspdf.jsPDF)?window.jspdf.jsPDF:window.jsPDF;
+if(!jsPDFClass){alert('jsPDF load nahi hua - Internet check karo');return;}
+let invoiceNo=order.orderId||order.id||'RESTRO'+Date.now();
+let dateStr=order.dateStr||new Date().toLocaleString('en-IN');
+let customerName=order.customerName||order.name||localStorage.getItem('popup_name')||'Customer';
+let mobile=order.mobile||order.customerMobile||order.loginMobile||localStorage.getItem('restro_mobile')||'';
+let address=order.address||order.fullAddress||localStorage.getItem('popup_fulladdr')||'Address not added';
+let sub=0;items.forEach(it=>sub+=(parseFloat(it.price)||0)*(parseInt(it.qty)||1));
+let del=order.deliveryCharge!=null?order.deliveryCharge:(sub>=500?0:80);let grand=order.grandTotal||order.total||sub+del;
+let doc=new jsPDFClass('p','mm','a4');let y=15;
+doc.setFont('helvetica','bold');doc.setFontSize(16);doc.text('RESTRO FOR YOU',14,y);y+=8;
+doc.setFontSize(12);doc.text('Invoice',14,y);y+=10;
+doc.setFont('helvetica','normal');doc.setFontSize(10);
+doc.text('Invoice No: '+invoiceNo,14,y);doc.text('Date: '+dateStr,120,y);y+=6;
+doc.text('Customer: '+customerName,14,y);y+=6;
+doc.text('Mobile: '+mobile,14,y);y+=6;
+let addrLines=doc.splitTextToSize('Address: '+address,180);doc.text(addrLines,14,y);y+=addrLines.length*5+4;
+doc.text('Payment: '+(order.paymentMethod||'Cash on Delivery')+' | Status: '+(order.status||'Pending'),14,y);y+=10;
+doc.setFillColor(235,235,235);doc.rect(14,y,182,8,'F');
+doc.setFont('helvetica','bold');doc.text('Item',15,y+5);doc.text('Qty',95,y+5);doc.text('Price',120,y+5);doc.text('Total',155,y+5);y+=10;
+doc.setFont('helvetica','normal');
+items.forEach(it=>{let qty=parseInt(it.qty)||1;let price=parseFloat(it.price)||0;let tot=qty*price;
+doc.text((it.name||'Product').substring(0,35)+' ('+(it.size||'M')+')',15,y);doc.text(String(qty),96,y);doc.text('Rs.'+price,121,y);doc.text('Rs.'+tot,156,y);y+=6;
+if(y>270){doc.addPage();y=15;}});
+y+=4;doc.text('Subtotal: Rs.'+sub+' | Delivery: Rs.'+del,14,y);y+=6;
+doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('Grand Total: Rs.'+grand,14,y);y+=12;
+doc.setFont('helvetica','normal');doc.setFontSize(11);doc.text('Thank You for Ordering from Restro For You',14,y);
+doc.save('INVOICE_'+invoiceNo+'.pdf');}
+window.downloadInvoice=function(orderId){try{let order=null;
+if(window.orderMap&&window.orderMap[orderId])order=window.orderMap[orderId];
+else if(window.allOrders)order=window.allOrders.find(o=>o.id===orderId||o.orderId===orderId);
+if(!order){alert('Order not found: '+orderId);return;}
+if(window.generateInvoicePDF&&window.generateInvoicePDF.toString().length>500){try{window.generateInvoicePDF(order);return;}catch(e){}}
+generateInvoiceDirect(order);}catch(e){alert('Invoice error: '+e.message);}};
+window.openTrackingPage=function(orderId){window.location.href='tracking-order-page-product.html?orderId='+orderId;};
+const MY_FIREBASE_CONFIG={apiKey:"AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",authDomain:"santramarketshoppingmall.firebaseapp.com",projectId:"santramarketshoppingmall",storageBucket:"santramarketshoppingmall.appspot.com",messagingSenderId:"398490252924",appId:"1:398490252924:web:d1b6348b549183b93b7bf9",databaseURL:"https://santramarketshoppingmall-default-rtdb.firebaseio.com/"};
 function getDB(){try{if(!firebase.apps.length)firebase.initializeApp(MY_FIREBASE_CONFIG);return firebase.firestore();}catch(e){return null;}}
 var db=getDB();
-let allOrders=[], currentCustomerMobile=null, currentCustomerData=null, productCache={}, orderMap={}, pendingNewAddress=null;
-
-function checkLoginAndLoad(){
-  let u=new URLSearchParams(location.search);
-  currentCustomerMobile=u.get('mobile')||localStorage.getItem('restro_mobile')||localStorage.getItem('customer_mobile')||'9660834888';
-  try{currentCustomerData=JSON.parse(localStorage.getItem('restro_customer')||'{}');}catch(e){}
-  loadProductCacheThenOrders();
-}
-function showCustomerProfile(){
-  let box=document.getElementById('customerProfileBox');
-  let latestName = currentCustomerData?.name || localStorage.getItem('popup_name') || 'Manisha tak';
-  let latestAddr = localStorage.getItem('popup_fulladdr') || '45, Sastrasardar, Lachu, Jaipur - 342003';
-  let city = localStorage.getItem('popup_city') || 'Jaipur, Rajasthan';
-  let pincode = localStorage.getItem('popup_pincode') || '342003';
-  let email = currentCustomerData?.email || localStorage.getItem('popup_email') || 'manishatak07@gmail.com';
-  let mob=currentCustomerMobile||'9660834888';
-  let extra=localStorage.getItem('restro_deliveryMobile')||mob;
-  box.innerHTML=`<div class="customer-profile"><div style="width:42px;height:42px;border-radius:50%;background:#ff6a00;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold">${(latestName[0]||'M').toUpperCase()}</div><div style="flex:1"><div style="font-weight:bold">👤 ${latestName} - ${allOrders.length} Orders</div><div style="font-size:11px;color:#444;margin-top:3px">📱 ${mob} | 📦 Extra: ${extra} | ✉️ ${email}</div><div style="font-size:11px;background:#fff8e1;padding:6px 8px;border-radius:6px;margin-top:5px;border:1px dashed #ff6a00">📍 ${latestAddr}, ${city} - ${pincode} | <button onclick="openAddrPopup()" style="padding:2px 8px;background:#ff6a00;color:#fff;border:none;border-radius:10px;font-size:10px;cursor:pointer">✏️ Edit Address</button></div></div></div>`;
-}
-function getProductImage(it){
-  let fb=['image','imageUrl','img','url','thumbnail'];
-  for(let f of fb){let v=it[f]; if(v&&typeof v==='string'&&(v.startsWith('http')||v.startsWith('data:image'))&&v.length>10) return v;}
-  return 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=200';
-}
-function openAddrPopup(){
-  try{
-    let cust={}; try{cust=JSON.parse(localStorage.getItem('restro_customer')||'{}');}catch(e){}
-    document.getElementById('popupName').value=cust.name||localStorage.getItem('popup_name')||'Manisha tak';
-    document.getElementById('popupLogin').value=cust.loginMobile||localStorage.getItem('restro_mobile')||currentCustomerMobile||'9660834888';
-    document.getElementById('popupExtra').value=cust.deliveryMobile||localStorage.getItem('restro_deliveryMobile')||'';
-    document.getElementById('popupFullAddr').value=localStorage.getItem('popup_fulladdr')||'45, Sastrasardar, Lachu, Jaipur';
-    document.getElementById('popupCity').value=localStorage.getItem('popup_city')||'Jaipur, Rajasthan';
-    document.getElementById('popupPincode').value=localStorage.getItem('popup_pincode')||'342003';
-    document.getElementById('popupEmail').value=cust.email||localStorage.getItem('popup_email')||'manishatak07@gmail.com';
-    document.getElementById('currentAddrShow').innerHTML=`<b>Current:</b> ${localStorage.getItem('popup_fulladdr')||'Not added'}`;
-  }catch(e){}
-  document.getElementById('otpInput').style.display='none';
-  document.getElementById('otpInfo').style.display='none';
-  document.getElementById('btnSaveAddr').style.display='none';
-  document.getElementById('btnWaOtp').style.display='block';
-  document.getElementById('otpInput').value='';
-  pendingNewAddress=null;
-  document.getElementById('addrPopupOverlay').classList.add('show');
-  document.getElementById('addrPopupOverlay').style.display='flex';
-}
-function closeAddrPopup(){ let el=document.getElementById('addrPopupOverlay'); el.classList.remove('show'); el.style.display='none'; }
-function requestOtpOnWhatsApp(){
-  let name=document.getElementById('popupName').value.trim();
-  let login=document.getElementById('popupLogin').value.trim();
-  let extra=document.getElementById('popupExtra').value.trim();
-  let fullAddr=document.getElementById('popupFullAddr').value.trim();
-  let city=document.getElementById('popupCity').value.trim();
-  let pincode=document.getElementById('popupPincode').value.trim();
-  let email=document.getElementById('popupEmail').value.trim();
-  if(!name || name.length<2){ alert('👤 Name likho'); return; }
-  if(!login || login.length<10){ alert('📱 Mobile 10 digit likho'); return; }
-  if(!fullAddr || fullAddr.length<5){ alert('📍 Full Address likho'); return; }
-  if(!city) city='Jaipur, Rajasthan'; if(!pincode) pincode='342003';
-  let finalAddress=`${fullAddr}, ${city} - ${pincode}`;
-  pendingNewAddress={name, login, extra: extra||login, fullAddr, city, pincode, email, finalAddress};
-  let orderId=allOrders.length? (allOrders[0].orderId||allOrders[0].id) : (localStorage.getItem('lastOrderId')||'NEW');
-  let msg=`*RESTRO FOR YOU - ADDRESS UPDATE*%0AOrder ID: ${orderId}%0AName: ${name}%0AMobile: ${login}%0AExtra: ${extra||login}%0AEmail: ${email}%0A%0A*NEW ADDRESS:*%0A${finalAddress}%0A%0A🔐 *OTP bhejo*`;
-  window.open(`https://wa.me/918769171078?text=${msg}`,"_blank");
-  document.getElementById('otpInput').style.display='block';
-  document.getElementById('otpInfo').style.display='block';
-  document.getElementById('btnSaveAddr').style.display='block';
-  document.getElementById('btnWaOtp').innerText='📲 OTP Dobara Bhejo';
-}
-function saveAddressWithOtp(){
-  let otp=document.getElementById('otpInput').value.trim();
-  if(!otp || otp.length!==6){ alert('🔐 6 Digit OTP dalo'); return; }
-  if(!pendingNewAddress){ alert('Pehle address bharo aur OTP request bhejo'); return; }
-  let {name, login, extra, fullAddr, city, pincode, email, finalAddress}=pendingNewAddress;
-  localStorage.setItem('popup_name', name); localStorage.setItem('restro_name', name);
-  localStorage.setItem('popup_fulladdr', fullAddr); localStorage.setItem('restro_address', finalAddress);
-  localStorage.setItem('popup_city', city); localStorage.setItem('restro_city', city);
-  localStorage.setItem('popup_pincode', pincode); localStorage.setItem('restro_pincode', pincode);
-  localStorage.setItem('popup_email', email); localStorage.setItem('restro_email', email);
-  localStorage.setItem('restro_mobile', login); localStorage.setItem('customer_mobile', login);
-  localStorage.setItem('restro_deliveryMobile', extra); localStorage.setItem('lastOrderAddress', finalAddress);
-  try{ let cust={name, loginMobile:login, mobile:login, deliveryMobile:extra, email, address:finalAddress, fullAddress:finalAddress, city, pincode, addressOtp:otp}; localStorage.setItem('restro_customer', JSON.stringify(cust)); }catch(e){}
-  closeAddrPopup(); alert(`✅ Address Saved\n${finalAddress}`); showCustomerProfile(); loadOrdersClean();
-}
-async function loadProductCacheThenOrders(){
-  try{ let snap=await db.collection('restro_products').limit(400).get(); snap.forEach(d=>{let data=d.data(); let img=data.image||data.imageUrl||''; if(img){ productCache[d.id]=img; if(data.name) productCache[data.name.toLowerCase()]=img; }}); }catch(e){}
-  loadOrdersClean();
-}
-function getFullAddressAuto(order){
-  let addr = order.address||order.customerAddress||order.fullAddress||'';
-  if(addr && addr.length>5) return addr;
-  let autoFull = localStorage.getItem('popup_fulladdr') || localStorage.getItem('restro_address') || '';
-  let autoCity = localStorage.getItem('popup_city') || 'Jaipur, Rajasthan';
-  let autoPin = localStorage.getItem('popup_pincode') || '342003';
-  if(autoFull) return `${autoFull}, ${autoCity} - ${autoPin}`;
-  return `Address not added`;
-}
-function loadOrdersClean(){
-  let mobile = currentCustomerMobile || '9660834888';
-  document.getElementById('statusBar').innerHTML = `Loading orders for ${mobile}...`;
-  orderMap = {};
-  try{
-    let lastCart=JSON.parse(localStorage.getItem('lastOrderCartBackup')||'[]');
-    let lastId=localStorage.getItem('lastOrderId')||'';
-    if(lastCart.length && lastId){
-      orderMap[lastId]={
-        id:lastId, orderId:lastId, dateStr:new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}), date:new Date().toISOString(),
-        items:lastCart, cart:lastCart, total:lastCart.reduce((s,it)=>s+(parseFloat(it.price)||0)*(parseInt(it.qty)||1),0),
-        grandTotal:lastCart.reduce((s,it)=>s+(parseFloat(it.price)||0)*(parseInt(it.qty)||1),0)+80, subtotal:lastCart.reduce((s,it)=>s+(parseFloat(it.price)||0)*(parseInt(it.qty)||1),0),
-        mobile:mobile, loginMobile:mobile, customerMobile:mobile, address: localStorage.getItem('popup_fulladdr')||'45, Sastrasardar',
-        status:'Pending', isLocal:true, createdAt: firebase.firestore.Timestamp.now ? firebase.firestore.Timestamp.now() : {toMillis:()=>Date.now()},
-      };
-    }
-  }catch(e){}
-  let totalQueries=7, done=0;
-  function checkDone(){ done++; if(done>=totalQueries) renderFromMapClean(); }
-  function renderFromMapClean(){
-    let arr = Object.values(orderMap);
-   // ✅ RESTRO ONLY - Santrajet (SM...) orders hide karo
-arr = arr.filter(o=>{
-  let id = String(o.id||o.orderId||'').toUpperCase();
-  return o.isLocal || id.startsWith('RESTRO');
-}); 
-    arr.sort((a,b)=>{ let ta = a.createdAt?.toMillis?.() || new Date(a.date||0).getTime() || 0; let tb = b.createdAt?.toMillis?.() || new Date(b.date||0).getTime() || 0; return tb - ta; });
-    arr.forEach((o,i)=>{ o._serial = arr.length - i; });
-    allOrders = arr; window.allOrders=arr; window.orderMap=orderMap; showCustomerProfile(); renderOrdersClean(arr);
-    document.getElementById('statusBar').innerHTML = `${arr.length} Orders Found - Mobile: ${mobile}`;
-  }
-  if(!db){ renderFromMapClean(); return; }
-  db.collection('orders').where('customerMobile','==',mobile).get().then(s=>{ s.forEach(d=>{ orderMap[d.id] = {...orderMap[d.id], id:d.id, ...d.data()}; }); checkDone(); }).catch(()=>{checkDone();});
-  db.collection('orders').where('mobile','==',mobile).get().then(s=>{ s.forEach(d=>{ orderMap[d.id] = {...orderMap[d.id], id:d.id, ...d.data()}; }); checkDone(); }).catch(()=>{checkDone();});
-  db.collection('orders').where('loginMobile','==',mobile).get().then(s=>{ s.forEach(d=>{ orderMap[d.id] = {...orderMap[d.id], id:d.id, ...d.data()}; }); checkDone(); }).catch(()=>{checkDone();});
-  db.collection('restro_orders').where('mobile','==',mobile).get().then(s=>{ s.forEach(d=>{ orderMap[d.id] = {...orderMap[d.id], id:d.id, ...d.data()}; }); checkDone(); }).catch(()=>{checkDone();});
-  db.collection('restro_orders').where('loginMobile','==',mobile).get().then(s=>{ s.forEach(d=>{ orderMap[d.id] = {...orderMap[d.id], id:d.id, ...d.data()}; }); checkDone(); }).catch(()=>{checkDone();});
-  db.collection('restro_orders').where('customerMobile','==',mobile).get().then(s=>{ s.forEach(d=>{ orderMap[d.id] = {...orderMap[d.id], id:d.id, ...d.data()}; }); checkDone(); }).catch(()=>{checkDone();});
-  db.collection('orders').orderBy('date','desc').limit(60).get().then(s=>{ s.forEach(d=>{ let data=d.data(); if(data.mobile===mobile || data.loginMobile===mobile || data.customerMobile===mobile || !data.mobile){ if(!orderMap[d.id]) orderMap[d.id]={id:d.id,...data}; } }); checkDone(); }).catch(()=>{checkDone();});
-  setTimeout(()=>{ if(done<totalQueries){ renderFromMapClean(); } }, 5000);
-}
+let allOrders=[],currentCustomerMobile=null,currentCustomerData=null,productCache={},orderMap={},pendingNewAddress=null;
+function checkLoginAndLoad(){let u=new URLSearchParams(location.search);
+currentCustomerMobile=u.get('mobile')||localStorage.getItem('restro_mobile')||localStorage.getItem('customer_mobile')||'';
+try{currentCustomerData=JSON.parse(localStorage.getItem('restro_customer')||'{}');}catch(e){}
+if(!currentCustomerMobile){document.getElementById('ordersList').innerHTML='<div style="text-align:center;padding:20px">📦 No Orders - Login karo</div>';document.getElementById('statusBar').innerHTML='Login required';return;}
+loadProductCacheThenOrders();}
+function showCustomerProfile(){let box=document.getElementById('customerProfileBox');
+let latestName=currentCustomerData?.name||localStorage.getItem('popup_name')||'Customer';
+let latestAddr=localStorage.getItem('popup_fulladdr')||'';
+let city=localStorage.getItem('popup_city')||'';let pincode=localStorage.getItem('popup_pincode')||'';
+let email=currentCustomerData?.email||localStorage.getItem('popup_email')||'';
+let mob=currentCustomerMobile||'';let extra=localStorage.getItem('restro_deliveryMobile')||'';
+let addrLine=latestAddr?`📍 ${latestAddr}${city?', '+city:''}${pincode?' - '+pincode:''}`:'📍 Address not added';
+box.innerHTML=`<div class="customer-profile"><div style="width:42px;height:42px;border-radius:50%;background:#ff6a00;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px">${(latestName[0]||'C').toUpperCase()}</div><div style="flex:1"><div style="font-weight:bold">👤 ${latestName} - ${allOrders.length} Orders</div><div style="font-size:11px;color:#444;margin-top:3px">📱 ${mob}${extra?` | 📦 Extra: ${extra}`:''}${email?` | ✉️ ${email}`:''}</div><div style="font-size:11px;background:#fff8e1;padding:6px 8px;border-radius:6px;margin-top:5px;border:1px dashed #ff6a00">${addrLine} | <button onclick="openAddrPopup()" style="padding:2px 8px;background:#ff6a00;color:#fff;border:none;border-radius:10px;font-size:10px;cursor:pointer">✏️ Edit Address</button></div></div></div>`;}
+function getProductImage(it){let fb=['image','imageUrl','img','url','thumbnail'];for(let f of fb){let v=it[f];if(v&&typeof v==='string'&&(v.startsWith('http')||v.startsWith('data:image'))&&v.length>10)return v;}return 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=200';}
+function openAddrPopup(){try{let cust={};try{cust=JSON.parse(localStorage.getItem('restro_customer')||'{}');}catch(e){}
+document.getElementById('popupName').value=cust.name||localStorage.getItem('popup_name')||'';
+document.getElementById('popupLogin').value=cust.loginMobile||localStorage.getItem('restro_mobile')||currentCustomerMobile||'';
+document.getElementById('popupExtra').value=cust.deliveryMobile||localStorage.getItem('restro_deliveryMobile')||'';
+document.getElementById('popupFullAddr').value=localStorage.getItem('popup_fulladdr')||'';
+document.getElementById('popupCity').value=localStorage.getItem('popup_city')||'';
+document.getElementById('popupPincode').value=localStorage.getItem('popup_pincode')||'';
+document.getElementById('popupEmail').value=cust.email||localStorage.getItem('popup_email')||'';
+document.getElementById('currentAddrShow').innerHTML=`<b>Current:</b> ${localStorage.getItem('popup_fulladdr')||'Not added'}`;}catch(e){}
+document.getElementById('otpInput').style.display='none';document.getElementById('otpInfo').style.display='none';
+document.getElementById('btnSaveAddr').style.display='none';document.getElementById('btnWaOtp').style.display='block';
+document.getElementById('otpInput').value='';pendingNewAddress=null;
+document.getElementById('addrPopupOverlay').classList.add('show');document.getElementById('addrPopupOverlay').style.display='flex';}
+function closeAddrPopup(){let el=document.getElementById('addrPopupOverlay');el.classList.remove('show');el.style.display='none';}
+function requestOtpOnWhatsApp(){let name=document.getElementById('popupName').value.trim();
+let login=document.getElementById('popupLogin').value.trim();let extra=document.getElementById('popupExtra').value.trim();
+let fullAddr=document.getElementById('popupFullAddr').value.trim();let city=document.getElementById('popupCity').value.trim();
+let pincode=document.getElementById('popupPincode').value.trim();let email=document.getElementById('popupEmail').value.trim();
+if(!name||name.length<2){alert('👤 Name likho');return;}
+if(!login||login.length<10){alert('📱 Mobile 10 digit likho');return;}
+if(!fullAddr||fullAddr.length<5){alert('📍 Full Address likho');return;}
+let finalAddress=`${fullAddr}${city?', '+city:''}${pincode?' - '+pincode:''}`;
+pendingNewAddress={name,login,extra:extra||login,fullAddr,city,pincode,email,finalAddress};
+let orderId=allOrders.length?(allOrders[0].orderId||allOrders[0].id):(localStorage.getItem('lastOrderId')||'NEW');
+let msg=`*RESTRO FOR YOU - ADDRESS UPDATE*%0AOrder ID: ${orderId}%0AName: ${name}%0AMobile: ${login}%0AExtra: ${extra||login}%0AEmail: ${email}%0A%0A*NEW ADDRESS:*%0A${finalAddress}%0A%0A🔐 *OTP bhejo*`;
+window.open(`https://wa.me/918769171078?text=${msg}`,"_blank");
+document.getElementById('otpInput').style.display='block';document.getElementById('otpInfo').style.display='block';
+document.getElementById('btnSaveAddr').style.display='block';document.getElementById('btnWaOtp').innerText='📲 OTP Dobara Bhejo';}
+function saveAddressWithOtp(){let otp=document.getElementById('otpInput').value.trim();
+if(!otp||otp.length!==6){alert('🔐 6 Digit OTP dalo');return;}
+if(!pendingNewAddress){alert('Pehle address bharo aur OTP request bhejo');return;}
+let{name,login,extra,fullAddr,city,pincode,email,finalAddress}=pendingNewAddress;
+localStorage.setItem('popup_name',name);localStorage.setItem('restro_name',name);
+localStorage.setItem('popup_fulladdr',fullAddr);localStorage.setItem('restro_address',finalAddress);
+localStorage.setItem('popup_city',city);localStorage.setItem('restro_city',city);
+localStorage.setItem('popup_pincode',pincode);localStorage.setItem('restro_pincode',pincode);
+localStorage.setItem('popup_email',email);localStorage.setItem('restro_email',email);
+localStorage.setItem('restro_mobile',login);localStorage.setItem('customer_mobile',login);
+localStorage.setItem('restro_deliveryMobile',extra);localStorage.setItem('lastOrderAddress',finalAddress);
+try{let cust={name,loginMobile:login,mobile:login,deliveryMobile:extra,email,address:finalAddress,fullAddress:finalAddress,city,pincode,addressOtp:otp};localStorage.setItem('restro_customer',JSON.stringify(cust));}catch(e){}
+closeAddrPopup();alert(`✅ Address Saved\n${finalAddress}`);showCustomerProfile();loadOrdersClean();}
+async function loadProductCacheThenOrders(){try{let snap=await db.collection('restro_products').limit(400).get();snap.forEach(d=>{let data=d.data();let img=data.image||data.imageUrl||'';if(img){productCache[d.id]=img;if(data.name)productCache[data.name.toLowerCase()]=img;}});}catch(e){}loadOrdersClean();}
+function getFullAddressAuto(order){let addr=order.address||order.customerAddress||order.fullAddress||'';
+if(addr&&addr.length>5)return addr;
+let autoFull=localStorage.getItem('popup_fulladdr')||localStorage.getItem('restro_address')||'';
+let autoCity=localStorage.getItem('popup_city')||'';let autoPin=localStorage.getItem('popup_pincode')||'';
+if(autoFull)return `${autoFull}${autoCity?', '+autoCity:''}${autoPin?' - '+autoPin:''}`;
+return `Address not added`;}
+function loadOrdersClean(){let mobile=currentCustomerMobile||'';
+document.getElementById('statusBar').innerHTML=`Loading orders for ${mobile}...`;orderMap={};
+try{let lastCart=JSON.parse(localStorage.getItem('lastOrderCartBackup')||'[]');
+let lastId=localStorage.getItem('lastOrderId')||'';
+/* ✅ FIX - OLD CODE SAVE - pehle sirf (lastCart.length && lastId) tha - ab RESTRO check add - SM block */
+if(lastCart.length&&lastId&&String(lastId).toUpperCase().startsWith('RESTRO')){
+orderMap[lastId]={id:lastId,orderId:lastId,dateStr:new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),date:new Date().toISOString(),items:lastCart,cart:lastCart,total:lastCart.reduce((s,it)=>s+(parseFloat(it.price)||0)*(parseInt(it.qty)||1),0),grandTotal:lastCart.reduce((s,it)=>s+(parseFloat(it.price)||0)*(parseInt(it.qty)||1),0)+80,subtotal:lastCart.reduce((s,it)=>s+(parseFloat(it.price)||0)*(parseInt(it.qty)||1),0),mobile:mobile,loginMobile:mobile,customerMobile:mobile,address:localStorage.getItem('popup_fulladdr')||'',status:'Pending',isLocal:true,createdAt:firebase.firestore.Timestamp.now?firebase.firestore.Timestamp.now():{toMillis:()=>Date.now()},};}}catch(e){}
+let totalQueries=7,done=0;
+function checkDone(){done++;if(done>=totalQueries)renderFromMapClean();}
+function renderFromMapClean(){let arr=Object.values(orderMap);
+/* ✅ FIX - OLD CODE SAVE - pehle filter nahi tha - ab RESTRO ONLY - SM hide */
+arr=arr.filter(o=>{let id=String(o.id||o.orderId||'').toUpperCase();return o.isLocal||id.startsWith('RESTRO');});
+arr.sort((a,b)=>{let ta=a.createdAt?.toMillis?.()||new Date(a.date||0).getTime()||0;let tb=b.createdAt?.toMillis?.()||new Date(b.date||0).getTime()||0;return tb-ta;});
+arr.forEach((o,i)=>{o._serial=arr.length-i;});
+allOrders=arr;window.allOrders=arr;window.orderMap=orderMap;showCustomerProfile();renderOrders(arr);
+document.getElementById('statusBar').innerHTML=`${arr.length} Orders Found - Mobile: ${mobile}`;}
+if(!db){renderFromMapClean();return;}
+db.collection('orders').where('customerMobile','==',mobile).get().then(s=>{s.forEach(d=>{orderMap[d.id]={...orderMap[d.id],id:d.id,...d.data()};});checkDone();}).catch(()=>{checkDone();});
+db.collection('orders').where('mobile','==',mobile).get().then(s=>{s.forEach(d=>{orderMap[d.id]={...orderMap[d.id],id:d.id,...d.data()};});checkDone();}).catch(()=>{checkDone();});
+db.collection('orders').where('loginMobile','==',mobile).get().then(s=>{s.forEach(d=>{orderMap[d.id]={...orderMap[d.id],id:d.id,...d.data()};});checkDone();}).catch(()=>{checkDone();});
+db.collection('restro_orders').where('mobile','==',mobile).get().then(s=>{s.forEach(d=>{orderMap[d.id]={...orderMap[d.id],id:d.id,...d.data()};});checkDone();}).catch(()=>{checkDone();});
+db.collection('restro_orders').where('loginMobile','==',mobile).get().then(s=>{s.forEach(d=>{orderMap[d.id]={...orderMap[d.id],id:d.id,...d.data()};});checkDone();}).catch(()=>{checkDone();});
+db.collection('restro_orders').where('customerMobile','==',mobile).get().then(s=>{s.forEach(d=>{orderMap[d.id]={...orderMap[d.id],id:d.id,...d.data()};});checkDone();}).catch(()=>{checkDone();});
+db.collection('orders').orderBy('date','desc').limit(60).get().then(s=>{s.forEach(d=>{let data=d.data();if(data.mobile===mobile||data.loginMobile===mobile||data.customerMobile===mobile||!data.mobile){if(!orderMap[d.id])orderMap[d.id]={id:d.id,...data};}});checkDone();}).catch(()=>{checkDone();});
+setTimeout(()=>{if(done<totalQueries){renderFromMapClean();}},5000);}
 function calculateTotal(o){let f=['total','totalAmount','grandTotal','orderTotal','amount'];for(let x of f){let v=parseFloat(o[x]||0);if(v>0)return v;}let items=o.items||o.cart||[];if(!Array.isArray(items))try{items=Object.values(items);}catch(e){items=[];}let sum=0;items.forEach(it=>sum+=(parseInt(it.qty||1)||1)*(parseFloat(it.price||0)||0));return sum;}
-function getShortStatus(s){s=(s||'Pending').toLowerCase();if(s.includes('cancel'))return 'Cancelled';if(s.includes('delivered'))return 'Delivered';if(s.includes('ship'))return 'Shipped';if(s.includes('confirm'))return 'Confirmed';return 'Pending';}
-function getPaymentMethod(o){let p=(o.paymentMethod||o.paymentMode||'Cash on Delivery'); if(p.toLowerCase().includes('online')) return 'Online Payment'; return 'Cash on Delivery';}
-function renderOrdersClean(orders){
-  if(!orders||orders.length===0){
-    document.getElementById('ordersList').innerHTML=`<div style="text-align:center;padding:30px;background:#fff;border-radius:12px">📦 No Orders Found<br><button onclick="location.href='index.html'" style="padding:10px 20px;background:#ff6a00;color:#fff;border:none;border-radius:8px">🏠 Go to Menu</button></div>`;
-    return;
-  }
-  document.getElementById('ordersList').innerHTML=orders.map((order)=>{
-    let serial=order._serial||1;
-    let d=order.createdAt?.toDate?.()||new Date(order.date||Date.now());
-    let dateStr=d.toLocaleString('en-IN',{timeZone:'Asia/Kolkata',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true});
-    let total=calculateTotal(order);
-    let payment=getPaymentMethod(order);
-    let loginMob=order.loginMobile||order.customerMobile||order.mobile||currentCustomerMobile||'';
-    let fullAddr = getFullAddressAuto(order);
-    let name=order.customerName||order.name||localStorage.getItem('popup_name')||'Manisha tak';
-    let items=order.items||order.cart||[];if(!Array.isArray(items))try{items=Object.values(items);}catch(e){items=[];}
-    let sub=0; items.forEach(it=>sub+=(parseInt(it.qty||1)||1)*(parseFloat(it.price||0)||0));
-    let del=sub>=500?0:80; let grand=sub+del; if(order.grandTotal) grand=order.grandTotal; if(order.total) grand=order.total;
-    let itemsHTML=items.map(it=>{
-      let q=parseInt(it.qty||1)||1,p=parseFloat(it.price||0)||0,nameP=it.name||'Product';
-      let img=getProductImage(it);
-      return `<div class="item-row"><div class="item-img-wrap"><img src="${img}" onerror="this.src='https://via.placeholder.com/100'"></div><div style="flex:1"><h4 style="font-size:13px">${nameP}</h4><p style="font-size:11px;color:#666">Qty: ${q} | ₹${p} = ₹${q*p} | Size: ${it.size||'M'}</p></div></div>`;
-    }).join('');
-    let status=getShortStatus(order.status);
-    let statusClass=status==='Confirmed'?'status-confirmed':status==='Cancelled'?'status-cancelled':'status-pending';
-    let shortId=String(order.id).slice(-6).toUpperCase();
-    let topLine=`ID: <b>${order.id}</b> | ${dateStr} | 📱 <b>${loginMob}</b> ${order.isLocal?'<span style="background:#10b981;color:#fff;padding:2px 6px;border-radius:10px;font-size:9px">NEW</span>':''}`;
-    return `<div class="order-card">
-      <div class="order-header">
-        <div class="order-header-top"><div style="display:flex;gap:6px;align-items:center"><span class="serial-badge">#${serial}</span><div class="order-id-badge">Order #${shortId}</div></div><div class="status-wrap"><span class="status-badge ${statusClass}">${status}</span><span class="payment-badge payment-cod">💵 COD</span></div></div>
-        <div class="order-id-line">${topLine}</div>
-        <div class="order-addr-line">📍 ${fullAddr} | <button class="btn-addr" onclick="openAddrPopup()">✏️ Edit Address</button></div>
-      </div>
-      ${itemsHTML}
-      <div class="total-section"><div class="total-row"><span>Subtotal</span><span>₹${sub}</span></div><div class="total-row"><span>Delivery</span><span>${del===0?'FREE':'₹'+del}</span></div><div class="total-row grand-total"><span>Grand Total - ${payment}</span><span>₹${grand||total}</span></div></div>
-      <button type="button" class="btn-track" onclick="openTrackingPage('${order.id}')">📦 Tracking</button>
-      <button type="button" class="btn-invoice" onclick="downloadInvoice('${order.id}')">📄 Download Invoice</button>
-    </div>`;
-  }).join('');
-}
-document.addEventListener("DOMContentLoaded", function(){
-  checkLoginAndLoad();
-  document.getElementById('addrPopupOverlay').addEventListener('click', function(e){ if(e.target===this) closeAddrPopup(); });
-});
+function getShortStatus(s){s=(s||'Pending').toLowerCase();if(s.includes('cancel request'))return 'Cancel Requested';if(s.includes('cancel'))return 'Cancelled';if(s.includes('delivered'))return 'Delivered';if(s.includes('out for'))return 'Out for Delivery';if(s.includes('ship'))return 'Shipped';if(s.includes('confirm'))return 'Confirmed';return 'Pending';}
+function getPaymentMethod(o){let p=(o.paymentMethod||o.paymentMode||'Cash on Delivery');if(p.toLowerCase().includes('online'))return 'Online Payment';return 'Cash on Delivery';}
+function renderOrders(orders){
+if(!orders||orders.length===0){document.getElementById('ordersList').innerHTML=`<div style="text-align:center;padding:30px;background:#fff;border-radius:12px">📦 No Orders Found<br><button onclick="location.href='index.html'" style="padding:10px 20px;background:#ff6a00;color:#fff;border:none;border-radius:8px;margin-top:10px;cursor:pointer">🏠 Go to Menu</button></div>`;return;}
+document.getElementById('ordersList').innerHTML=orders.map((order)=>{
+let serial=order._serial||1;
+let d=order.createdAt?.toDate?.()||new Date(order.date||Date.now());
+let dateStr=d.toLocaleString('en-IN',{timeZone:'Asia/Kolkata',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true});
+let total=calculateTotal(order);let payment=getPaymentMethod(order);
+let isOnline=payment.toLowerCase().includes('online');
+let loginMob=order.loginMobile||order.customerMobile||order.mobile||currentCustomerMobile||'';
+let deliveryMob=order.deliveryMobile||'';let fullAddr=getFullAddressAuto(order);
+let name=order.customerName||order.name||localStorage.getItem('popup_name')||'Customer';
+let items=order.items||order.cart||[];if(!Array.isArray(items))try{items=Object.values(items);}catch(e){items=[];}
+let sub=0;items.forEach(it=>sub+=(parseInt(it.qty||1)||1)*(parseFloat(it.price||0)||0));
+let del=sub>=500?0:80;let grand=sub+del;if(order.grandTotal)grand=order.grandTotal;if(order.total)grand=order.total;
+let itemsHTML=items.map(it=>{let q=parseInt(it.qty||1)||1,p=parseFloat(it.price||0)||0,nameP=it.name||'Product';
+let img=getProductImage(it);
+return `<div class="item-row"><div class="item-img-wrap"><img src="${img}" onerror="this.src='https://via.placeholder.com/100'"></div><div style="flex:1"><h4 style="font-size:13px">${nameP}</h4><p style="font-size:11px;color:#666">Qty: ${q} | ₹${p} = ₹${q*p} | Size: ${it.size||'M'}</p></div></div>`;}).join('');
+let status=getShortStatus(order.status);
+let statusClass=status==='Confirmed'?'status-confirmed':status==='Cancelled'?'status-cancelled':status==='Cancel Requested'?'status-cancel-req':'status-pending';
+let shortId=String(order.id).slice(-6).toUpperCase();
+let isCancelRequested=status==='Cancel Requested'||order.cancelRequest;
+let hasOrderOTP=!!(order.otp||order.customerOTP);let hasCancelOTP=!!(order.cancelOTP);
+let showCancelOtp=(isCancelRequested&&!hasCancelOTP)?'block':'none';
+let showMainOtp=(status==='Pending'&&!hasOrderOTP&&!isCancelRequested)?'block':'none';
+let savedOrderOTPBox=hasOrderOTP?`<div class="saved-otp-box">✅ WhatsApp Order OTP Saved</div>`:'';
+let savedCancelOTPBox=hasCancelOTP?`<div class="saved-cancel-box">✅ WhatsApp Cancel OTP Saved</div>`:'';
+let topLine=`ID: <b>${order.id}</b> | ${dateStr} | 📱 <b>${loginMob}</b> ${order.isLocal?'<span style="background:#10b981;color:#fff;padding:2px 6px;border-radius:10px;font-size:9px">NEW</span>':''}`;
+return `<div class="order-card">
+<div class="order-header">
+<div class="order-header-top"><div style="display:flex;gap:6px;align-items:center"><span class="serial-badge">#${serial}</span><div class="order-id-badge">Order #${shortId}</div></div>
+<div class="status-wrap"><span class="status-badge ${statusClass}">${status}</span><span class="payment-badge payment-cod">${isOnline?'💳 Online':'💵 COD'}</span><button class="btn-cancel-top" onclick="showCancelBox('${order.id}')">❌ Cancel</button></div></div>
+<div class="order-id-line">${topLine}</div>
+<div class="order-addr-line">📍 ${fullAddr}${deliveryMob?` | 📦 Extra: ${deliveryMob}`:''}</div>
+<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="small-tab" onclick="toggleAddr('addr_${order.id}')">📍 Delivery Profile View</button><button class="small-tab" onclick="downloadInvoice('${order.id}')">📄 Invoice PDF</button><button class="small-tab" onclick="window.open('inquiry.html?orderId=${order.id}','_blank')">🆘 Help / Inquiry</button></div>
+<div id="addr_${order.id}" class="addr-full">👤 Name: ${name}\n📱 Mobile: ${loginMob}\n📦 Extra: ${deliveryMob}\n📍 Address: ${fullAddr}\n📅 Date: ${dateStr}</div>
+</div>
+${itemsHTML}
+<div class="total-section"><div class="total-row"><span>Subtotal</span><span>₹${sub}</span></div><div class="total-row"><span>Delivery</span><span>${del===0?'FREE':'₹'+del}</span></div><div class="total-row grand-total"><span>Grand Total - ${payment}</span><span>₹${grand||total}</span></div></div>
+<button type="button" class="btn-track" onclick="openTrackingPage('${order.id}')">📦 Tracking</button>
+<button type="button" class="btn-invoice" onclick="downloadInvoice('${order.id}')">📄 Download Invoice</button>
+<div id="cancelBox_${order.id}" class="cancel-box" style="display:none"><div style="font-weight:bold;color:#991b1b;text-align:center;font-size:13px">❌ Cancel Reason</div><textarea id="cancel_reason_${order.id}" class="cancel-input" placeholder="Cancel reason likho..."></textarea><button class="btn-cancel-confirm" onclick="confirmCancel('${order.id}')">❌ Confirm Cancel</button><button class="btn-whatsapp-cancel" onclick="whatsappCancel('${order.id}')">📲 WhatsApp Cancel + OTP Request</button></div>
+${savedCancelOTPBox}
+<div id="cancelOtpBox_${order.id}" class="otp-cancel-box" style="display:${showCancelOtp}"><div style="font-weight:bold;color:#991b1b;text-align:center;font-size:13px">🔐 Cancel OTP</div><input id="cancel_otp_${order.id}" class="otp-input-cancel" placeholder="------" maxlength="6" value=""><button class="btn-save-cancel" onclick="saveCancelOTP('${order.id}')">💾 Save Cancel OTP</button></div>
+${savedOrderOTPBox}
+<div id="mainOtpBox_${order.id}" class="otp-box" style="display:${showMainOtp}"><div style="font-weight:bold;color:#065f46;text-align:center;font-size:12px">WhatsApp OTP</div><input id="order_otp_${order.id}" class="otp-input" placeholder="------" maxlength="6" value=""><button class="btn-verify" onclick="verifyOTP('${order.id}')">✅ Verify & Save OTP</button></div>
+</div>`;}).join('');}
+function toggleAddr(id){let el=document.getElementById(id);if(el)el.style.display=el.style.display==='block'?'none':'block';}
+function showCancelBox(id){let el=document.getElementById('cancelBox_'+id);if(el)el.style.display=el.style.display==='none'?'block':'none';}
+function closeCancelBox(id){let el=document.getElementById('cancelBox_'+id);if(el)el.style.display='none';}
+function confirmCancel(id){let reason=document.getElementById('cancel_reason_'+id)?.value.trim();
+if(!reason){alert('Cancel reason likho');return;}
+if(confirm('Cancel confirm karna hai?')){db.collection('orders').doc(id).update({cancelRequest:true,cancelReason:reason,status:'Cancel Requested'}).then(()=>{alert('✅ Cancel request bheja gaya');loadOrdersClean();});
+db.collection('restro_orders').doc(id).update({cancelRequest:true,cancelReason:reason,status:'Cancel Requested'}).catch(()=>{});}}
+function whatsappCancel(id){let reason=document.getElementById('cancel_reason_'+id)?.value.trim()||'Cancel karna hai';
+let txt=`*RESTRO FOR YOU - Cancel Request*%0AOrder ID: ${id}%0AReason: ${reason}%0AMobile: ${currentCustomerMobile}%0A%0A❌ *Cancel OTP bhejo*`;
+window.open('https://wa.me/918769171078?text='+txt,'_blank');
+document.getElementById('cancelBox_'+id).style.display='none';
+document.getElementById('cancelOtpBox_'+id).style.display='block';
+let mainOtp=document.getElementById('mainOtpBox_'+id);if(mainOtp)mainOtp.style.display='none';
+db.collection('orders').doc(id).update({cancelRequest:true,cancelReason:reason,status:'Cancel Requested'}).catch(()=>{});
+db.collection('restro_orders').doc(id).update({cancelRequest:true,cancelReason:reason,status:'Cancel Requested'}).catch(()=>{});}
+function verifyOTP(id){let otp=document.getElementById('order_otp_'+id).value.trim();
+if(otp.length!=6)return alert('6 digit OTP likho');
+let order=allOrders.find(o=>o.id===id)||{};
+let login=order.loginMobile||order.customerMobile||order.mobile||currentCustomerMobile||'';
+let nowStr=new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true});
+let upd={otp:otp,customerOTP:otp,otpSavedByCustomer:true,otpSaveTime:nowStr,verifiedAt:Date.now()};
+db.collection('orders').doc(id).update(upd).then(()=>{alert('✅ WhatsApp Order OTP Saved');loadOrdersClean();}).catch(()=>{db.collection('restro_orders').doc(id).update(upd).then(()=>{alert('✅ WhatsApp Order OTP Saved');loadOrdersClean();});});}
+function saveCancelOTP(id){let otp=document.getElementById('cancel_otp_'+id).value.trim();
+if(otp.length!=6)return alert('6 digit Cancel OTP likho');
+let nowStr=new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true});
+let upd={cancelOTP:otp,cancelOTPSavedByCustomer:true,cancelOTPSaveTime:nowStr};
+db.collection('orders').doc(id).update(upd).then(()=>{alert('✅ WhatsApp Cancel OTP Saved');loadOrdersClean();}).catch(()=>{db.collection('restro_orders').doc(id).update(upd).then(()=>{alert('✅ WhatsApp Cancel OTP Saved');loadOrdersClean();});});}
+function sendHelpWA(type,orderId){let mobile=localStorage.getItem('restro_mobile')||currentCustomerMobile||'';
+let msg=`*RESTRO FOR YOU - HELP REQUEST*%0A%0AType: ${type}%0AOrder ID: ${orderId}%0AMobile: ${mobile}%0A%0AMujhe is order me help chahiye. Please reply.`;
+window.open("https://wa.me/918769171078?text="+msg,'_blank');}
+document.addEventListener("DOMContentLoaded",function(){checkLoginAndLoad();
+document.getElementById('addrPopupOverlay').addEventListener('click',function(e){if(e.target===this)closeAddrPopup();});});
 </script>
-<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</body>
 </html>
-
-
