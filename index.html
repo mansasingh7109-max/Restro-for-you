@@ -115,7 +115,7 @@
 </div>
 
 <script>
-const CAT_EMOJI={"sandwich":"🥪","barfi special":"🍬","roti sabji special":"🍞","drink special":"🥤","sweet":"🍰","momos":"🥟","pasta":"🍝","pizza":"🍕","biryani":"🍛","thali":"🍱","burger":"🍔","snacks":"🍿","upma special":"🥘","pulav special":"🍚"};
+const CAT_EMOJI={"sandwich":"🥪","barfi special":"🍬","roti sabji special":"🍞","drink special":"🥤","sweet":"🍰","cake":"🍮","biscuits":"🍝","pizza":"🍕","sheghar special":"🍛","thali":"🍱","juice":"🍷","snacks":"🍿","upma special":"🥘","pulav special":"🍚"};
 function catFace(c){
   let im=(c.image||c.imageUrl||"").trim();
   if(im) return '<img src="'+im+'" style="width:56px;height:56px;object-fit:cover;border-radius:12px" onerror="this.outerHTML=catEmoji(c)">';
@@ -159,12 +159,12 @@ function isFoodProduct(p){
 let allProducts=[
 {id:'barfi_002',name:'Barfi naryal',price:250,category:'Barfi special',image:'https://images.unsplash.com/photo-1584847801423-852691e41bc7?w=400'},
 {id:'sandwich_001',name:'Sandwich potato veg.',price:150,category:'Sandwich',image:'https://images.unsplash.com/photo-1521390188846-e2a3a97453a0?w=400'},
-{id:'momos_001',name:'Veg Momos 10pcs',price:149,category:'Momos',image:'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400'},
+{id:'momos_001',name:'Veg pkode 10pcs',price:149,category:'pkode',image:'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400'},
 {id:'pasta_001',name:'Pasta',price:199,category:'Pasta',image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400'},
 {id:'pizza_001',name:'Veg Cheese Pizza',price:299,category:'Pizza',image:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400'},
 {id:'biryani_001',name:'upma',price:349,category:'Biryani',image:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400'},
 {id:'thali_001',name:'Paneer Thali',price:249,category:'Thali',image:'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400'},
-{id:'burger_001',name:'Gajar juice',price:149,category:'Burger',image:'https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=400'},
+{id:'burger_001',name:'Gajar juice',price:149,category:'juice',image:'https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=400'},
 {id:'barfi_001',name:'Kaju Barfi Special',price:300,category:'Barfi special',image:'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400'},
 {id:"4", name:"sabudana khichdi", price:349, category:"Biryani", image:"https://i.ibb.co/PZJQg240/Sago-Upma7.jpg"},
 {id:'biryani_001',name:'upma ',price:349,category:'Biryani',image:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400'},
