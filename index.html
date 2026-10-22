@@ -202,9 +202,14 @@ function renderCategories(list){
   let row=document.getElementById('categoryRow');
   if(!row) return;
   row.innerHTML=cats.map(cat=>{
-    let icon=cat.toLowerCase().includes('barfi')?'🍬':cat.toLowerCase().includes('sandwich')?'🥪':cat.toLowerCase().includes('momos')?'🥟':cat.toLowerCase().includes('pasta')?'🍝':cat.toLowerCase().includes('pizza')?'🍕':cat.toLowerCase().includes('biryani')?'🍛':cat.toLowerCase().includes('thali')?'🍱':cat.toLowerCase().includes('burger')?'🍔':cat.toLowerCase().includes('roti')?'🍞':'🥤';
+        let key=cat.toLowerCase();
+    let icon=key.includes('barfi')?'🍬':key.includes('sandwich')?'🥪':key.includes('momos')?'🥟':key.includes('pasta')?'🍝':key.includes('pizza')?'🍕':key.includes('biryani')?'🍛':key.includes('thali')?'🍱':key.includes('burger')?'🍔':key.includes('roti')?'🍞':'🥤';
+    let cimg=CAT_IMG[key]||'';
+    let face=cimg?`<img src="${cimg}" style="width:44px;height:44px;object-fit:cover;border-radius:50%" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div style="font-size:30px;display:none">${icon}</div>`:`<div style="font-size:30px">${icon}</div>`;
     let active=document.getElementById('categoryFilter').value===cat;
-    return `<div class="category-card ${active?'active':''}" onclick="filterBy('${cat}')"><div style="font-size:30px">${icon}</div><div>${cat}</div></div>`;
+    return `<div class="category-card ${active?'active':''}" onclick="filterBy('${cat}')">${face}<div>${cat}</div></div>`;
+
+    
   }).join('') || '<div style="padding:12px;color:#999">No Food categories - V53 Fixed</div>';
   let select=document.getElementById('categoryFilter');
   if(!select) return;
@@ -270,6 +275,9 @@ async function loadFromFirebase(){
     render(allProducts);
   }catch(e){console.log('load error',e); render(allProducts);}
 }
+let CAT_IMG={};
+try{db.collection('restro_categories').onSnapshot(snap=>{snap.forEach(d=>{let c=d.data();let im=c.image||c.imageUrl||'';if(c.name&&im)CAT_IMG[c.name.toLowerCase()]=im;});if(currentList&&currentList.length)renderCategories(currentList);});}catch(e){console.log('cat img',e);}
+  
 render(allProducts);
 loadFromFirebase();
 updateCounts();
