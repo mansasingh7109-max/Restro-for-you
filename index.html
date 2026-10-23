@@ -24,7 +24,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="To-4Mxorze9cvYdtyf77BfPcJQcr_a2KihwooDC0Fxo" />
 <title>RESTRO APKA resro for you- Best Food in India - India Restaurant </title>
-<meta name="description" content="RESTRO APKA - Food Special, Veg Sandwich, Pizza, Biryani - 30 min delivery - Order on restroforyou.web.app">
+<meta name="description" content="RESTRO APKA - Food Special, Veg Sandwich, Pizza, pulav - 30 min delivery - Order on restroforyou.web.app">
 
         <script src="//cdn.jsdelivr.net/npm/eruda"></script>
         <script>eruda.init();</script>
@@ -83,7 +83,7 @@
 </div>
 
 <div style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden">
-<h2>Food Special, Veg Momos 10pcs Rs 149, Veg Cheese Pizza Rs 299, Biryani - 30 Min Delivery - Order on restroforyou.web.app - Best Food in India</h2>
+<h2>Food Special, pakoda 10pcs Rs 149, Veg Cheese Pizza Rs 299, pulav - 30 Min Delivery - Order on restroforyou.web.app - Best Food in India</h2>
 <p>Best Restaurant in India, Restaurant, Barfi Naryal, Sandwich Potato Veg, Online Food Order Fast Delivery</p>
 </div>
 
@@ -99,7 +99,7 @@
 
 <div class="header-top" style="color:#1B5E20 !important;background:#FFF176 !important;text-align:center !important;padding:10px !important;font-weight:800 !important;">Online Food Order -On Whatsapp~ <span style="color:#1B5E20 !important;font-weight:900 !important;">8769171078</span></div>
 <div class="welcome-banner"><div style="background:#f3eafc !important;color:#FF5252 !important;font-size:20px;font-weight:bold">🍕 Welcome to RESTRO APKA 🍔</div><div style="background:#FFF176 !important;color:#F48F !important;font-size:12px;margin-top:5px">Best Food, Best Prices!</div></div>
-<div class="search-bar"><input id="searchInput" placeholder="Search Barfi, Sandwich, Momos, Pizza..."><button onclick="doSearch()">Search</button></div>
+<div class="search-bar"><input id="searchInput" placeholder="Search Barfi, Sandwich, pakoda, Pizza..."><button onclick="doSearch()">Search</button></div>
 <div class="filter-box">
 <select id="categoryFilter" style="width:100%;padding:13px;border-radius:10px;border:1.5px solid #ddd;margin-bottom:10px;font-size:13px"><option value="">All Food Categories -  Big Page</option></select>
 <div style="display:flex;gap:10px"><button style="flex:1;padding:13px;border-radius:10px;background:#10b981;color:white;border:none;font-weight:bold" onclick="applyFilter()">Apply</button><button style="flex:1;padding:13px;border-radius:10px;background:#9ca3af;color:white;border:none;font-weight:bold" onclick="clearFilter()">Clear</button></div>
@@ -119,7 +119,7 @@
 </div>
 
 <script>
-const CAT_EMOJI={"sandwich":"🥪","barfi special":"🍬","roti sabji special":"🍞","drink special":"🥤","sweet":"🍰","momos":"🥟","pasta":"🍝","pizza":"🍕","biryani":"🍛","thali":"🍱","burger":"🍔","snacks":"🍿","upma special":"🥘","pulav special":"🍚"};
+const CAT_EMOJI={"sandwich":"🥪","barfi special":"🍬","roti sabji special":"🍞","drink special":"🥤","sweet":"🍰","pakoda":"🥟","pasta":"🍝","pizza":"🍕","pulav":"🍛","thali":"🍱","juice":"🥤","snacks":"🍿","upma special":"🥘","pulav special":"🍚"};
 function catFace(c){
   let im=(c.image||c.imageUrl||"").trim();
   if(im) return '<img src="'+im+'" style="width:56px;height:56px;object-fit:cover;border-radius:12px" onerror="this.outerHTML=catEmoji(c)">';
@@ -140,7 +140,7 @@ const CART_KEY="restroCart_v2";
 const MYCHOICE_KEY="restroMyChoice_v2";
 
 // ✅ V53 - FOOD ONLY STRICT
-const FOOD_ALLOWED=['barfi special','barfi','sandwich','momos','momo','pasta','pizza','biryani','roti begun brinjal veg','thali','burger','drinks','drink','brownie','cake','veg momos',' pasta','veg cheese pizza','suji upma','upma','paneer thali','sabudana khichdi','veg burger combo','cold coffee','kaju barfi','veg grilled sandwich','barfi naryal','Food vegetarian tiffin service','sandwich potato veg','roti papad','roti sabji','roti','pudi','choti pudi'];
+const FOOD_ALLOWED=['barfi special','barfi','sandwich','pakoda','snacks','pasta','pizza','pulav','roti begun brinjal veg','thali','juice','drinks','drink','brownie','cake','veg pakoda',' pasta','veg cheese pizza','suji upma','upma','paneer thali','sabudana khichdi','juice','cold coffee','kaju barfi','veg grilled sandwich','barfi naryal','Food vegetarian tiffin service','sandwich potato veg','roti papad','roti sabji','roti','pudi','choti pudi'];
 const BLOCKED_ALL_NON_FOOD=['soap','home item','dress western','dress','western','home','colgate','paste','gallery','mustard','desi oil','oil','frock','saree','sari','kurti','kurta','lehenga','gown','jeans','shirt','fashion','footwear','shoe','bag','handbag','jewellery','jewelry','salwar','suit','anarkali','jacket','hoodie','leggings','palazzo','dupatta','blouse','skirt'];
 
 function isFoodProduct(p){
@@ -163,19 +163,19 @@ function isFoodProduct(p){
 let allProducts=[
 {id:'barfi_002',name:'Barfi naryal',price:250,category:'Barfi special',image:'https://images.unsplash.com/photo-1584847801423-852691e41bc7?w=400'},
 {id:'sandwich_001',name:'Sandwich potato veg.',price:150,category:'Sandwich',image:'https://images.unsplash.com/photo-1521390188846-e2a3a97453a0?w=400'},
-{id:'momos_001',name:'Veg Momos 10pcs',price:149,category:'Momos',image:'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400'},
+{id:'momos_001',name:'Veg pakoda 10pcs',price:149,category:'pakoda',image:'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400'},
 {id:'pasta_001',name:'Pasta',price:199,category:'Pasta',image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400'},
 {id:'pizza_001',name:'Veg Cheese Pizza',price:299,category:'Pizza',image:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400'},
- {id:"4", name:"sabudana khichdi", price:349, category:"Biryani", image:"https://i.ibb.co/PZJQg240/Sago-Upma7.jpg"},
+ {id:"4", name:"sabudana khichdi", price:349, category:"Sheghar", image:"https://i.ibb.co/PZJQg240/Sago-Upma7.jpg"},
   
-{id:'biryani_001',name:'upma ',price:349,category:'Biryani',image:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400'},
-{id:'biryani_001',name:'suji upma ',price:349,category:'Biryani',image:'https://i.ibb.co/nJ7F5sq/rava-upma-1.jpg'},
-{id:'biryani_001',name:'roti begun brinjal veg ',price:349,category:'Biryani',image:'https://i.ibb.co/LzLcCBk5/images-1.jpg'},
+{id:'biryani_001',name:'upma ',price:349,category:'pulav',image:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400'},
+{id:'biryani_001',name:'suji upma ',price:349,category:'pulav',image:'https://i.ibb.co/nJ7F5sq/rava-upma-1.jpg'},
+{id:'biryani_001',name:'roti begun brinjal veg ',price:349,category:'Roti sabji special',image:'https://i.ibb.co/LzLcCBk5/images-1.jpg'},
   
 
   
 {id:'thali_001',name:'Paneer Thali',price:249,category:'Thali',image:'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400'},
-{id:'burger_001',name:'Veg Burger Combo',price:149,category:'Burger',image:'https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=400'},
+{id:'burger_001',name:'juice',price:149,category:'juice',image:'🥤'},
 {id:'barfi_001',name:'Kaju Barfi Special',price:300,category:'Barfi special',image:'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400'}
 ];
 
@@ -203,7 +203,7 @@ function render(list){
   let filtered=list.filter(isFoodProduct);
   currentList=filtered;
   let grid=document.getElementById('productGrid');
-  if(!filtered.length){grid.innerHTML="<div style='grid-column:1/-1;text-align:center;padding:50px;color:#999'>🍕 No Food products - Admin se Barfi Sandwich Momos add karo<br>Home item/Dress/Soap/Oil/Tiffin hidden - V53 Fixed<br><br>Admin me 'Sabko Show Karo' dabao</div>";renderCategories([]);return;}
+  if(!filtered.length){grid.innerHTML="<div style='grid-column:1/-1;text-align:center;padding:50px;color:#999'>🍕 No Food products - Admin se Barfi Sandwich pakoda add karo<br>Home item/Dress/Soap/Oil/Tiffin hidden - V53 Fixed<br><br>Admin me 'Sabko Show Karo' dabao</div>";renderCategories([]);return;}
   grid.innerHTML=filtered.map(p=>{
     let heart=isFav(p.id)?'❤️':'🤍';
     return `<div class="product-card" onclick="location.href='product.html?id=${p.id}'">
@@ -222,7 +222,7 @@ function renderCategories(list){
 
     
         let key=cat.toLowerCase();
-    let icon=key.includes('barfi')?'🍬':key.includes('sandwich')?'🥪':key.includes('momos')?'🥟':key.includes('pasta')?'🍝':key.includes('pizza')?'🍕':key.includes('biryani')?'🍛':key.includes('thali')?'🍱':key.includes('burger')?'🍔':key.includes('roti')?'🍞':'🥤';
+    let icon=key.includes('barfi')?'🍬':key.includes('sandwich')?'🥪':key.includes('pakoda')?'🥟':key.includes('pasta')?'🍝':key.includes('pizza')?'🍕':key.includes('pulav')?'🍛':key.includes('thali')?'🍱':key.includes('juice')?'🥤':key.includes('roti')?'🍞':'🥤';
     let cimg=CAT_IMG[key]||'';
     let face=cimg?`<img src="${cimg}" style="width:44px;height:44px;object-fit:cover;border-radius:50%" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div style="font-size:30px;display:none">${icon}</div>`:`<div style="font-size:30px">${icon}</div>`;
     let active=document.getElementById('categoryFilter').value===cat;
