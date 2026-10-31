@@ -221,7 +221,7 @@ let lastId=localStorage.getItem('lastOrderId')||'';
 /* ✅ FIX - OLD CODE SAVE - pehle sirf (lastCart.length && lastId) tha - ab RESTRO check add - SM block */
 if(lastCart.length&&lastId&&String(lastId).toUpperCase().startsWith('RESTRO')){
 orderMap[lastId]={id:lastId,orderId:lastId,dateStr:new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),date:new Date().toISOString(),items:lastCart,cart:lastCart,total:lastCart.reduce((s,it)=>s+(parseFloat(it.price)||0)*(parseInt(it.qty)||1),0),grandTotal:lastCart.reduce((s,it)=>s+(parseFloat(it.price)||0)*(parseInt(it.qty)||1),0)+80,subtotal:lastCart.reduce((s,it)=>s+(parseFloat(it.price)||0)*(parseInt(it.qty)||1),0),mobile:mobile,loginMobile:mobile,customerMobile:mobile,address:localStorage.getItem('popup_fulladdr')||'',status:'Pending',isLocal:true,createdAt:firebase.firestore.Timestamp.now?firebase.firestore.Timestamp.now():{toMillis:()=>Date.now()},};}}catch(e){}
-let totalQueries=6,done=0;
+let totalQueries=7,done=0;
 function checkDone(){done++;if(done>=totalQueries)renderFromMapClean();}
 function renderFromMapClean(){let arr=Object.values(orderMap);
 /* ✅ FIX - OLD CODE SAVE - pehle filter nahi tha - ab RESTRO ONLY - SM hide */
@@ -321,5 +321,8 @@ window.open("https://wa.me/918769171078?text="+msg,'_blank');}
 document.addEventListener("DOMContentLoaded",function(){checkLoginAndLoad();
 document.getElementById('addrPopupOverlay').addEventListener('click',function(e){if(e.target===this)closeAddrPopup();});});
 </script>
+
+<script src="fastorderprocess.js"></script>
+  
 </body>
 </html>
