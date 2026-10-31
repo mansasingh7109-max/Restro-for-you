@@ -51,7 +51,17 @@
 <div style="text-align:center"><a href="creator.html" class="btn">CREATOR →</a> <a href="help.html" class="btn" style="background:#666;margin-left:8px">← Help</a></div>
 </div>
 <script>
-const firebaseConfig={apiKey:"AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",authDomain:"santramarketshoppingmall.firebaseapp.com",projectId:"santramarketshoppingmall",storageBucket:"santramarketshoppingmall.appspot.com",messagingSenderId:"398490252924",appId:"1:398490252924:web:d1b6348b549183b93b7bf9",measurementId:"G-ZW1ZR8HETY",databaseURL:"https://santramarketshoppingmall-default-rtdb.firebaseio.com/"};
+const firebaseConfig={
+  apiKey: "AIzaSyApXIGoX071cYEvGbfhBF69DB9Kv5YlSMA",
+  authDomain: "santramarketshoppingmall.firebaseapp.com",
+  databaseURL: "https://santramarketshoppingmall-default-rtdb.firebaseio.com",
+  projectId: "santramarketshoppingmall",
+  storageBucket: "santramarketshoppingmall.firebasestorage.app",
+  messagingSenderId: "398490252924",
+  appId: "1:398490252924:web:232bf04b7c11d0c13b7bf9",
+  measurementId: "G-8FWPMJVYZ6"
+
+};
 if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db=firebase.firestore();
 db.collection("settings").doc("company").get().then((doc)=>{if(doc.exists){const d=doc.data();if(d.companyName) document.getElementById("companyName").innerText=d.companyName;if(d.address) document.getElementById("address").innerText=d.address;if(d.email) document.getElementById("email").innerText=d.email;if(d.phone) document.getElementById("phone").innerText=d.phone;if(d.businessType) document.getElementById("businessType").innerText=d.businessType;}}).catch((e)=>{console.log(e);});
